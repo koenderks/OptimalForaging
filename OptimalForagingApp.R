@@ -1,3 +1,7 @@
+############################
+# Load neccesary packages ##
+############################
+
 if(!"shiny" %in% installed.packages()) 
 { 
     install.packages("shiny") 
@@ -22,11 +26,23 @@ if(!"shinythemes" %in% installed.packages())
 }
 library(shinythemes)
 
-# Define UI for application that draws a histogram
+if(!"gridExtra" %in% installed.packages()) 
+{ 
+    install.packages("gridExtra") 
+}
+library(gridExtra)
+
+#######
+# UI ##
+#######
+
 ui <- navbarPage(title = "Optimal Foraging modeling",
                  theme = shinytheme("united"),
                  
-                 # Task panel
+                 ###########
+                 ## Tab 1 ##
+                 ###########
+                 
                  tabPanel(title = "Task",
                           
                           strong(id = "text", 
@@ -87,7 +103,10 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                           )
                  ),
                  
-                 # tab 2
+                 ##########
+                 # Tab 2 ##
+                 ##########
+                 
                  tabPanel("Upload file",
                           
                           strong(id = "text", 
@@ -141,7 +160,10 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                               )
                           )),
                  
-                 # tab 3
+                 ##########
+                 # Tab 3 ##
+                 ##########
+                 
                  tabPanel(title = "Theory", 
                           
                           strong(id = "text", 
@@ -187,7 +209,7 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                    that are monotonically depleted during foraging. The animal seeks
                    to maximize the gain per unit time of foraging defined as the
                    average resource intake, R, over all patches:"),
-                          h2(withMathJax("$$R=\\frac{g(t_W)}{t_W + t_B}$$")),
+                          h4(withMathJax("$$R=\\frac{g(t_W)}{t_W + t_B}$$")),
                           p("where tW is the time spent foraging within each resource patch, tB
                     is the average time spent traveling between patches, and g(tW) is
                     the cumulative gain within a patch.
@@ -196,14 +218,41 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                     patch. This is subject to patch quality, reflected by g(tW), and travel
                     time tB between patches. The organism is predicted to spend the
                     optimal amount of time in a patch (t*) such that R is maximized:"),
-                          h2(withMathJax("$$R^* = g'(t^*)$$"))
-                          #img(src = "Optimal_Foraging_Theory.jpg", height = 400, width = 400,style="display: block; margin-left: auto; margin-right: auto;")
+                          h4(withMathJax("$$R^* = g'(t^*)$$")),
+                          p("To maximize this resource intake, the optimal foraging policy is to
+                            leave a patch at time t*, when the instantaneous rate (or marginal
+                            value) of resource gain, g(t*), is equal to the long-term average
+                            resource intake over the entire environment (patches and time
+                            between), R*. In other words, the organism will switch to betweenpatch
+                            search when the within-patch rate (which usually starts high
+                            in a new, undepleted patch) drops to R*. The foundational assumption of the
+                            model is that recall is achieved by probing retrieval structures in
+                            memory with a specific cue set, that is, the memory probe. With I
+                            representing a possible target item for recovery in the search space,
+                            the probability of retrieving I is computed as the product of the
+                            individual retrieval strengths for I across a probe set of M cues,
+                            with S(Q, I) representing the semantic similarity between cue Q
+                            and item I. This is incorporated into an overall probability of
+                            retrieval for item I via the ratio rule:"),
+                          h4(withMathJax("$$P(I_i|Q_1,Q_2,...,Q_M) = \\frac{\\prod_{j=1}^M S(Q_j,I_i)^{B_j}}{\\sum_{k=1}^N \\prod_{j=1}^M S(Q_j,I_k)^{B_j}}$$")),
+                          p("where N represents the total number of items available in the
+                            category for retrieval and B represents the saliency (or attention
+                            weight) assigned to a given cue."),
+                          img(src = "Optimal_Foraging_Theory.jpg", height = 400, width = 400,style="display: block; margin-left: auto; margin-right: auto;")
                  )
 )
 
+###########
+# Server ##
+###########
+
 server <- function(input, output) {
     
-    # define functions
+    #####################
+    # define functions ##
+    #####################
+    
+    # Tab 1
     
     .isValidInput <- function(results,word,indexes,data){
         
@@ -241,7 +290,7 @@ server <- function(input, output) {
                 ylab("BEAGLE similariry") +
                 xlab("Word index") +
                 ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith")+
-                xlim(c(0,15)) +
+                xlim(c(0,20)) +
                 ylim(c(0,0.7))
             
         } else {
@@ -253,7 +302,7 @@ server <- function(input, output) {
                     ylab("BEAGLE similariry") +
                     xlab("Word index") +
                     ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
-                    xlim(c(0,15)) +
+                    xlim(c(0,20)) +
                     ylim(c(0,0.7))  
                 
             } else if(results[nrow(results),2]=="TRUE"){
@@ -263,7 +312,7 @@ server <- function(input, output) {
                     ylab("BEAGLE ") +
                     xlab("Word index") +
                     ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
-                    xlim(c(0,15)) +
+                    xlim(c(0,20)) +
                     ylim(c(0,0.7))
                 
             }
@@ -278,20 +327,44 @@ server <- function(input, output) {
             geom_line(size = 2, col = "turquoise3", linetype = 1) +
             xlab("Time (0.3 s)") +
             ylab("Time spent on item") +
-            geom_hline(yintercept = mean(time), col = "indianred2",linetype = 3,size = 1.5)
+            geom_hline(yintercept = mean(time), col = "indianred2",linetype = 2,size = 1.5)
         
     }
+    
+    # Tab 2 ##
+    
+    ########################
+    # Load neccesary data ##
+    ########################
     
     data <- read.csv("animal_clusters.csv",sep = ";",stringsAsFactors = FALSE)
     load("onlinedata.Rdata")
     
+    ########################
+    # Create placeholders ##
+    ########################
+    
+    # Tab 1 ##
+    
     df <- data.frame()
+    ancos <- ancos
+    tab <- NULL
+    sim <- NULL
+    simitem <- NULL
+    
+    # Tab 2 ##
+    
+    ##########################################################
+    # Create empty plots to display if nothing happened yet ##
+    ##########################################################
+    
+    # Tab 1 ##
     
     output$simitem <- renderPlot({ggplot(df) + 
             ylab("BEAGLE similariry") +
             xlab("Word index") +
             ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
-            xlim(c(0,15)) +
+            xlim(c(0,20)) +
             ylim(c(0,0.7))
     },width = 400,height = 400)
     output$similarity <- renderPlot({
@@ -312,15 +385,29 @@ server <- function(input, output) {
             ylab("Time spent on item")
     })
     
-    ancos <- ancos
+    # Tab 2 ##
+    
+    #################
+    # Create timer ##
+    #################
     
     output$timer <- renderText("Time left: 60 secs")
     
-    # tab 1
+    ################
+    # Run program ##
+    ################
+    
+    # Tab 1 ## 
+    
+    # TODO: fit optimal foraging model on data from participant.
     
     observeEvent(input$start,once = FALSE, {
         
         clicked <- 0
+        # create for plot
+        tab <<- NULL
+        sim <<- NULL
+        simitem <<- NULL
         
         stoptime <- Sys.time() + 60
         
@@ -350,9 +437,9 @@ server <- function(input, output) {
         
         iter <- 0
         
-        index_vector <- rep(0,20)
+        index_vector <- rep(0,25)
         
-        color_vector <- rep("turquoise3",15)
+        color_vector <- rep("turquoise3",20)
         
         observeEvent(input$submit, {
             
@@ -377,7 +464,7 @@ server <- function(input, output) {
                 patches <<- validinput[["patches"]]
                 categories <<- validinput[["categories"]]
                 
-                RT <- as.numeric(round(difftime(Sys.time(),current, units='auto')))
+                RT <- as.numeric(round(difftime(Sys.time(),current, units='secs')))
                 current <<- Sys.time()
                 
                 tmp_response <- data.frame(word = word, RT = RT)
@@ -400,6 +487,8 @@ server <- function(input, output) {
                         similarity5 <- ancos[word,results[nrow(results)-5,1]]
                         
                         similarity <- c(similarity5,similarity4,similarity3,similarity2,similarity1)
+                        # save for plot
+                        sim <<- similarity
                         
                         output$similarity <- renderPlot({
                             ggplot(data.frame(similarity),aes(seq_along(similarity),similarity))+
@@ -427,11 +516,14 @@ server <- function(input, output) {
                 } 
                 
                 output$simitem <- renderPlot({.updateBarPlot(index_vector, iter, results,color_vector, valid)},width = 400,height = 400)
+                simitem <<- .updateBarPlot(index_vector, iter, results,color_vector, valid)
                 
             } 
             
+            
             output$responses <- renderTable(responses_output)
-            print1 <<- responses_output
+            
+            tab <<- responses_output
             
         })
         
@@ -443,7 +535,7 @@ server <- function(input, output) {
             
             if(clicked == 0 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
                 
-                time <<- c(time, time[length(time)] + 0.30)
+                time <<- c(time, time[length(time)] + 0.60)
                 
             } else if(clicked == 1 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
                 
@@ -455,10 +547,15 @@ server <- function(input, output) {
             
             output$RT <- renderPlot({.RTplot2(time)})
             
+            time_plot <<- time
+            
         })
         
+        # save for plot
+        time_plot <<- time_plot
+        tab <<- tab
         
-    }) # end tab 1
+    })
     
     output$download_task <- downloadHandler(
         
@@ -469,12 +566,35 @@ server <- function(input, output) {
         
         content = function(file) 
         {
-            pdf(file)
+            pdf(file,paper = "a4")
             
+            if(!is.null(tab)){
+                grid.table(tab)
+            }
+            
+            grid.arrange(
+                
+                simitem, # time plot
+                
+                ggplot(data.frame(sim),aes(seq_along(sim),sim))+
+                    geom_bar(stat="identity", fill = "magenta3") +
+                    ylab("BEAGLE simlilarity") +
+                    xlab("Item's position preceding most recent item") +
+                    ggtitle("Similarity with previous 5 words") +
+                    ylim(c(0,0.7)), 
+                
+                ggplot(data.frame(time_plot), aes(seq_along(time_plot),time_plot)) +
+                    ggtitle("Reaction time") + 
+                    geom_line(size = 2, col = "turquoise3", linetype = 1) +
+                    xlab("Time (0.3 s)") +
+                    ylab("Time spent on item") +
+                    geom_hline(yintercept = mean(time_plot), col = "indianred2",linetype = 3,size = 1.5)
+                
+            ) # end grid arrange
             dev.off()
         })
     
-    # tab 2
+    # Tab 2 ##
     
     output$test <- renderTable({
         
