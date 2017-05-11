@@ -29,6 +29,14 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                  # Task panel
                  tabPanel(title = "Task",
                           
+                          strong(id = "text", 
+                                 span("Created by "),
+                                 a("Koen Derks", href = "https://www.linkedin.com/in/koen-derks-283273124/"),
+                                 HTML("&bull;"),
+                                 span("Code"),
+                                 a("on GitHub", href = "https://github.com/koenderks/OptimalForaging")
+                          ),
+                          
                           tags$head(tags$style(
                               HTML('
                                    #sidebar {
@@ -36,9 +44,12 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                                    }
 
                                     #submit {
-                                    background-color: #1E3888
+                                    background-color: #9C3848
                                     }
                                     #start {
+                                    background-color: #9C3848
+                                    }
+                                    #download_task {
                                     background-color: #9C3848
                                    }
                                    
@@ -56,12 +67,11 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                                            h3("Introduction"),
                                            h4(p("The purpose of this task is to name as much animals as possible within the time limit of 60 seconds.")),
                                            br(),
-                                           p("Press start the timer to begin."),
                                            actionButton("start", "Start the timer",icon = icon("clock-o")),
                                            br(),
-                                           textOutput(outputId = "timer"),
+                                           h3(textOutput(outputId = "timer")),
                                            br(),
-                                           textInput(inputId = "word",label = "Name an animal and press enter (or submit) to submit:",placeholder = "Name an animal:"),
+                                           textInput(inputId = "word",label = "Name an animal and press enter (or submit):",placeholder = "Name an animal:"),
                                            actionButton(inputId = "submit", label = "Submit", icon = icon("check"))
                               ),
                               mainPanel(
@@ -69,16 +79,40 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                                   fluidRow(
                                       splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses'),plotOutput("simitem"), plotOutput("similarity"))
                                   ),
-                                  plotOutput(outputId = 'proximity'),
                                   plotOutput(outputId = 'RT'),
+                                  textOutput(outputId = 'model'),
                                   
-                                  downloadButton('download_task', 'Download output')
+                                  downloadButton('download_task', 'Download results')
                               )
                           )
                  ),
                  
                  # tab 2
                  tabPanel("Upload file",
+                          
+                          strong(id = "text", 
+                                 span("Created by "),
+                                 a("Koen Derks", href = "https://www.linkedin.com/in/koen-derks-283273124/"),
+                                 HTML("&bull;"),
+                                 span("Code"),
+                                 a("on GitHub", href = "https://github.com/koenderks/OptimalForaging")
+                          ),
+                          
+                          tags$head(tags$style(
+                              HTML('
+                                   #sidebar {
+                                   background-color: #FABC3C;
+                                   }
+
+                                   #download_analysis {
+                                   background-color: #9C3848
+                                   }
+                                   
+                                   body, label, input, button, select { 
+                                   font-family: "Arial";
+                                   }')
+                          )),
+                          
                           headerPanel("The file upload"),
                           sidebarLayout(
                               sidebarPanel(id = "sidebar",
@@ -108,7 +142,16 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                           )),
                  
                  # tab 3
-                 tabPanel("Theory",
+                 tabPanel(title = "Theory", 
+                          
+                          strong(id = "text", 
+                                 span("Created by "),
+                                 a("Koen Derks", href = "https://www.linkedin.com/in/koen-derks-283273124/"),
+                                 HTML("&bull;"),
+                                 span("Code"),
+                                 a("on GitHub", href = "https://github.com/koenderks/OptimalForaging")
+                          ),
+                          
                           headerPanel("The theory"),
                           br(),
                           h3("The relation with the animal kingdom"),
@@ -193,11 +236,11 @@ server <- function(input, output) {
         
         if(iter == 1){
             
-            ggplot(data.frame(index_vector),aes(seq_along(index_vector),index_vector))+
+            ggplot(data.frame(rev(index_vector)),aes(seq_along(index_vector),index_vector))+
                 geom_bar(stat="identity", fill = color_vector) +
                 ylab("BEAGLE similariry") +
                 xlab("Word index") +
-                ggtitle("Similarity with previous word") +
+                ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith")+
                 xlim(c(0,15)) +
                 ylim(c(0,0.7))
             
@@ -205,26 +248,37 @@ server <- function(input, output) {
             
             if(results[nrow(results),2]=="FALSE"){
                 
-                ggplot(data.frame(index_vector),aes(seq_along(index_vector),index_vector))+
+                ggplot(data.frame(rev(index_vector)),aes(seq_along(index_vector),index_vector))+
                     geom_bar(stat="identity", fill = color_vector) +
                     ylab("BEAGLE similariry") +
                     xlab("Word index") +
-                    ggtitle("Similarity with previous word") +
+                    ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
                     xlim(c(0,15)) +
                     ylim(c(0,0.7))  
                 
             } else if(results[nrow(results),2]=="TRUE"){
                 
-                ggplot(data.frame(index_vector),aes(seq_along(index_vector),index_vector))+
+                ggplot(data.frame(rev(index_vector)),aes(seq_along(index_vector),index_vector))+
                     geom_bar(stat="identity", fill = color_vector) +
                     ylab("BEAGLE ") +
                     xlab("Word index") +
-                    ggtitle("Similarity with previous word") +
+                    ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
                     xlim(c(0,15)) +
-                    ylim(c(0,0.7)) 
+                    ylim(c(0,0.7))
                 
             }
         }
+        
+    }
+    
+    .RTplot2 <- function(time){
+        
+        ggplot(data.frame(time), aes(seq_along(time),time)) +
+            ggtitle("Reaction time") + 
+            geom_line(size = 2, col = "turquoise3", linetype = 1) +
+            xlab("Time (0.3 s)") +
+            ylab("Time spent on item") +
+            geom_hline(yintercept = mean(time), col = "indianred2",linetype = 3,size = 1.5)
         
     }
     
@@ -236,7 +290,7 @@ server <- function(input, output) {
     output$simitem <- renderPlot({ggplot(df) + 
             ylab("BEAGLE similariry") +
             xlab("Word index") +
-            ggtitle("Similarity with previous word") +
+            ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
             xlim(c(0,15)) +
             ylim(c(0,0.7))
     },width = 400,height = 400)
@@ -249,6 +303,14 @@ server <- function(input, output) {
             ylim(c(0,0.7)) +
             xlim(c(0,5))
     },width = 400,height = 400)
+    output$RT <- renderPlot({
+        ggplot(data.frame()) +
+            xlim(c(0,200)) +
+            ylim(c(0,5)) +
+            ggtitle("Reaction time") +
+            xlab("Time (0.3 s)") +
+            ylab("Time spent on item")
+    })
     
     ancos <- ancos
     
@@ -258,10 +320,12 @@ server <- function(input, output) {
     
     observeEvent(input$start,once = FALSE, {
         
+        clicked <- 0
+        
         stoptime <- Sys.time() + 60
         
         output$timer <- renderText({
-            invalidateLater(1000)
+            invalidateLater(10)
             if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs')))<0){
                 paste("Time left:", 
                       0, 'secs')
@@ -291,6 +355,8 @@ server <- function(input, output) {
         color_vector <- rep("turquoise3",15)
         
         observeEvent(input$submit, {
+            
+            clicked <<- 1
             
             if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
                 
@@ -365,10 +431,48 @@ server <- function(input, output) {
             } 
             
             output$responses <- renderTable(responses_output)
+            print1 <<- responses_output
             
         })
         
+        time <- 0
+        
+        observe({
+            
+            invalidateLater(millis = 0.1)
+            
+            if(clicked == 0 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
+                
+                time <<- c(time, time[length(time)] + 0.30)
+                
+            } else if(clicked == 1 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
+                
+                time <<- c(time, time[length(time)] - time[length(time)])
+                
+            }
+            
+            clicked <<- 0
+            
+            output$RT <- renderPlot({.RTplot2(time)})
+            
+        })
+        
+        
     }) # end tab 1
+    
+    output$download_task <- downloadHandler(
+        
+        filename = function()
+        {
+            paste("OptimalForagingTask", class = ".pdf", sep = "")
+        },
+        
+        content = function(file) 
+        {
+            pdf(file)
+            
+            dev.off()
+        })
     
     # tab 2
     
