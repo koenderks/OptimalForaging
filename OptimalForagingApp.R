@@ -8,6 +8,12 @@ if(!"shiny" %in% installed.packages())
 }
 library(shiny)
 
+if(!"shinyjs" %in% installed.packages()) 
+{ 
+    install.packages("shinyjs") 
+}
+library(shinyjs)
+
 if(!"ggplot2" %in% installed.packages()) 
 { 
     install.packages("ggplot2") 
@@ -123,8 +129,16 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                                    background-color: #FABC3C;
                                    }
 
+                                    #show {
+                                    background-color: #9C3848;
+                                    }
+
                                    #download_analysis {
                                    background-color: #9C3848
+                                   }
+
+                                   #link {
+                                   color: #000000
                                    }
                                    
                                    body, label, input, button, select { 
@@ -135,6 +149,19 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                           headerPanel("The file upload"),
                           sidebarLayout(
                               sidebarPanel(id = "sidebar",
+                                           useShinyjs(),
+                                           actionButton(inputId = "show",label = "Show data requirements", icon = icon("list-ol")),
+                                           h4(id = "line0","The file should contain (variable names in brackets [ ]):"),
+                                           p(id = "line1","Column 1 [sid]: ID of participant"),
+                                           p(id = "line2","Column 2 [entry]: Response of participant"),
+                                           p(id = "line3","Column 3 [irt]: Reaction time of participant"),
+                                           p(id = "line4","Column 4 [fpatchnum]: Patch number of word"),
+                                           p(id = "line5","Column 5 [fpatchitem]: Number of the word in the patch"),
+                                           p(id = "line6","Column 6 [fitemsfromend]: From items from end"),
+                                           p(id = "line7","Column 7 [flastitem]: Number removed from last item"),
+                                           p(id = "line8","Column 8 [meanirt]: Mean reaction time of participant"),
+                                           p(id = "line9","Column 9 [catitem]: Category of the word"),
+                                           
                                            radioButtons(inputId = "type", label = "File Type:",
                                                         choices = c(".csv" = "csv",
                                                                     ".txt" = "txt",
@@ -146,17 +173,20 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                                                                     "tab" = "\t"),
                                                         selected = ","),
                                            checkboxInput(inputId = "header",label = "Header",value = TRUE),
-                                           fileInput(inputId = "file",label = "Choose file",multiple = FALSE)
+                                           fileInput(inputId = "file",label = "Choose file",multiple = FALSE),
+                                           
+                                           a(id = "link","Example dataset", href = "https://www.dropbox.com/s/37is6uf3jrhx2g0/testdata.csv?dl=0",col = "black")
                               ),
                               mainPanel(
                                   titlePanel("The results"),
-                                  
-                                  tableOutput(outputId = "test"),
-                                  plotOutput(outputId = 'plot1'),
-                                  plotOutput(outputId = 'plot2'),
-                                  plotOutput(outputId = 'plot3'),
+
+                                  fluidRow(                                
+                                      splitLayout(cellWidths = c("50%", "50%"), plotOutput("itemplot"), plotOutput("simplot"))
+                                  ),
+                                  plotOutput(outputId = 'RTplot'),
                                   
                                   downloadButton('download_analysis', 'Download output')
+                                 
                               )
                           )),
                  
@@ -354,6 +384,11 @@ server <- function(input, output) {
     
     # Tab 2 ##
     
+    blank <- data.frame()
+    itemplot <- NULL
+    simplot <- NULL
+    RTplot <- NULL
+    
     ##########################################################
     # Create empty plots to display if nothing happened yet ##
     ##########################################################
@@ -382,10 +417,35 @@ server <- function(input, output) {
             ylim(c(0,5)) +
             ggtitle("Reaction time") +
             xlab("Time (0.3 s)") +
-            ylab("Time spent on item")
+            ylab("Time spent on word (s)")
     })
     
     # Tab 2 ##
+    
+    output$itemplot <- renderPlot({ggplot(blank) + 
+            ylab("BEAGLE similariry") +
+            xlab("Item's position preceding most recent item") +
+            ggtitle("Mean similarity with previous word") +
+            ylim(c(0,0.5)) +
+            xlim(c(0,5))
+    },width = 400,height = 400)
+    output$simplot <- renderPlot({
+        ggplot(blank,aes(seq_along(blank),blank))+
+            geom_bar(stat="identity", fill = "magenta3") +
+            ylab("Residual proximity") +
+            xlab("Order of entry relative to patch switch") +
+            ggtitle("Mean residual proximity for words") +
+            ylim(c(0,0.7)) +
+            xlim(c(0,5))
+    },width = 400,height = 400)
+    output$RTplot <- renderPlot({
+        ggplot(blank,aes(seq_along(blank), blank)) + 
+            geom_point(col = "turquoise3") +
+            ylab("Number of words produced") +
+            xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
+            xlim(c(0,40)) +
+            ylim(c(0,10))
+    })
     
     #################
     # Create timer ##
@@ -591,26 +651,273 @@ server <- function(input, output) {
                     geom_hline(yintercept = mean(time_plot), col = "indianred2",linetype = 3,size = 1.5)
                 
             ) # end grid arrange
+            
             dev.off()
         })
     
     # Tab 2 ##
     
-    output$test <- renderTable({
+    observe({
+        toggle("line0",anim = TRUE,condition = input$show)
+        toggle("line1",anim = TRUE,condition = input$show)
+        toggle("line2",anim = TRUE,condition = input$show)
+        toggle("line3",anim = TRUE,condition = input$show)
+        toggle("line4",anim = TRUE,condition = input$show)
+        toggle("line5",anim = TRUE,condition = input$show)
+        toggle("line6",anim = TRUE,condition = input$show)
+        toggle("line7",anim = TRUE,condition = input$show)
+        toggle("line8",anim = TRUE,condition = input$show)
+        toggle("line9",anim = TRUE,condition = input$show)
+    })
+    
+    observe({
+        
+        progress <- shiny::Progress$new()
+        
+        on.exit(progress$close())
+        
+        progress$set(message = "Running analysis", value = 0)
+        
+        progress$inc(0.10, detail = 'Uploading data')
         
         file <- input$file
         
         if(is.null(file)){
             return(NULL)
         } else if (input$type == "csv"){
-            read.csv(file$datapath,header = input$header,sep = input$separator)
+            dat <- read.csv(file$datapath,header = input$header,sep = input$separator)
         } else if (input$type == "txt"){
-            read.table(file$datapath, header = input$header, sep = input$separator)
+            dat <- read.table(file$datapath, header = input$header, sep = input$separator)
         } else if (input$type == "xlsx"){
-            read.xlsx(file$datapath, header = input$header, sep = input$separator,sheetIndex = 1)
+            dat <- read.xlsx(file$datapath, header = input$header, sep = input$separator,sheetIndex = 1)
         }
         
+        progress$inc(0.10, detail = 'Starting analysis')
+        
+        # run analysis ##
+        dccc <- dat
+        dccc <- data.frame(dccc["sid"], dccc["entry"])
+        names(dccc) <- c("sid", "entry")
+        simback1 <- rep(NA, nrow(dccc))
+        simback2 <- rep(NA, nrow(dccc))
+        simback3 <- rep(NA, nrow(dccc))
+        simback4 <- rep(NA, nrow(dccc))
+        simback5 <- rep(NA, nrow(dccc))
+        
+        for(i in 2:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-1] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-1]){
+                    simback1[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-1])]
+                }
+            }
+        }
+        
+        for(i in 3:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-2] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-2]){
+                    simback2[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-2])]
+                }
+            }
+        }
+        
+        for(i in 4:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-3] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-3]){
+                    simback3[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-3])]
+                }
+            }
+        }
+        
+        for(i in 5:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-4] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-4]){
+                    simback4[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-4])]
+                }
+            }
+        }
+        
+        for(i in 6:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-5] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-5]){
+                    simback5[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-5])]
+                }
+            }
+        }
+        
+        progress$inc(0.10, detail = 'Computing similarity')
+        
+        dddd <- data.frame(dccc, simback1, simback2, simback3, simback4, simback5)
+        
+        sb1 <- with(dddd, tapply(simback1, sid, mean, na.rm=T))
+        sb2 <- with(dddd, tapply(simback2, sid, mean, na.rm=T))
+        sb3 <- with(dddd, tapply(simback3, sid, mean, na.rm=T))
+        sb4 <- with(dddd, tapply(simback4, sid, mean, na.rm=T))
+        sb5 <- with(dddd, tapply(simback5, sid, mean, na.rm=T))
+        
+        x <- rep(1:5, each=141)
+        
+        a_table <- data.frame(x, sim = c(sb1, sb2, sb3, sb4, sb5))
+        
+        ms <- c(mean(sb1, na.rm=T),
+                mean(sb2, na.rm=T),
+                mean(sb3, na.rm=T),
+                mean(sb4, na.rm=T),
+                mean(sb5, na.rm=T)
+        )
+        sdd <- c(sd(sb1, na.rm=T),
+                 sd(sb2, na.rm=T),
+                 sd(sb3, na.rm=T),
+                 sd(sb4, na.rm=T),
+                 sd(sb5, na.rm=T)
+        )
+        see <- sdd / sqrt(141)
+        
+        progress$inc(0.10, detail = 'Producing plot')
+        
+        output$itemplot <- renderPlot({
+            ggplot(data.frame(ms[5:1]), aes(seq_along(ms[5:1]),ms[5:1])) + 
+                geom_bar(stat = "identity", fill = "indianred2") +
+                ylab("BEAGLE similarity") +
+                xlab("Item's position preceding most recent item") +
+                ggtitle("Mean similarity with previous word") +
+                ylim(c(0,0.5)) + 
+                geom_errorbar(aes(ymin = ms[5:1]-see[5:1], ymax = ms[5:1]+see[5:1],width = .3))
+        })
+        itemplot <<-  ggplot(data.frame(ms[5:1]), aes(seq_along(ms[5:1]),ms[5:1])) + 
+            geom_bar(stat = "identity", fill = "indianred2") +
+            ylab("BEAGLE similarity") +
+            xlab("Item's position preceding most recent item") +
+            ggtitle("Mean similarity with previous word") +
+            ylim(c(0,0.5)) + 
+            geom_errorbar(aes(ymin = ms[5:1]-see[5:1], ymax = ms[5:1]+see[5:1],width = .3))
+        
+        progress$inc(0.10, detail = 'Computing proximity')
+        
+        db <- dat
+        rowsim <- rep(0, nrow(db))
+        lastid <- 0
+        for(i in 1:nrow(db)){
+            if (lastid != toString(db$sid[i])){
+                lastid <- db$sid[i]
+                subcos <- ancos
+            }
+            subsub <- subcos[toString(db$entry[i]),]
+            subsub <- subsub[subsub < 1]
+            rowsim[i] <- mean(subsub)
+            if( toString(db$entry[i] %in% colnames(subcos))){
+                x <- 1:ncol(subcos)
+                y <- x[toString(db$entry[i]) == colnames(subcos)]
+                subcos <- subcos[,-y]
+            }	
+        }
+        
+        dtest <- data.frame(entrydata, rowsim)
+        db <- dtest
+        
+        hits <- matrix(999, nrow(db), ncol = 8)
+        
+        for( i in 1:(nrow(db))){
+            if(db$fpatchnum[i] > 0){
+                if (db$fpatchitem[i] < 5) hits[i,4+db$fpatchitem[i]] <- db$rowsim[i]
+                if (db$fitemsfromend[i] < 5 && db$fpatchitem[i] != 1) hits[i,5-db$fitemsfromend[i]] <- db$rowsim[i]
+            }
+        }
+        
+        progress$inc(0.20, detail = 'Computing residuals')
+        
+        msss <- c(
+            mean(hits[hits[,1] < 999, 1], na.rm = T),
+            mean(hits[hits[,2] < 999, 2], na.rm = T),
+            mean(hits[hits[,3] < 999, 3], na.rm = T),
+            mean(hits[hits[,4] < 999, 4], na.rm = T),
+            mean(hits[hits[,5] < 999,5], na.rm = T),
+            mean(hits[hits[,6] < 999, 6], na.rm = T),
+            mean(hits[hits[,7] < 999, 7], na.rm = T),
+            mean(hits[hits[,8] < 999, 8], na.rm = T))
+        
+        msse <- c(
+            sd(hits[hits[,1] < 999,1], na.rm = T) / sqrt(length(hits[hits[,1] < 999,1])-sum(as.numeric(is.na(hits[,1])))),
+            sd(hits[hits[,2] < 999,2], na.rm = T) / sqrt(length(hits[hits[,2] < 999,2])-sum(as.numeric(is.na(hits[,2])))),
+            sd(hits[hits[,3] < 999,3], na.rm = T) / sqrt(length(hits[hits[,3] < 999,3])-sum(as.numeric(is.na(hits[,3])))),
+            sd(hits[hits[,4] < 999,4], na.rm = T) / sqrt(length(hits[hits[,4] < 999,4])-sum(as.numeric(is.na(hits[,4])))),
+            sd(hits[hits[,5] < 999,5], na.rm = T) / sqrt(length(hits[hits[,5] < 999,5])-sum(as.numeric(is.na(hits[,5])))),
+            sd(hits[hits[,6] < 999,6], na.rm = T) / sqrt(length(hits[hits[,6] < 999,6])-sum(as.numeric(is.na(hits[,6])))),
+            sd(hits[hits[,7] < 999,7], na.rm = T) / sqrt(length(hits[hits[,7] < 999,7])-sum(as.numeric(is.na(hits[,7])))),
+            sd(hits[hits[,8] < 999,8], na.rm = T) / sqrt(length(hits[hits[,8] < 999,8])-sum(as.numeric(is.na(hits[,8])))))
+        
+        progress$inc(0.10, detail = 'Creating plot')
+        
+        output$simplot <- renderPlot({
+            ggplot(data.frame(msss[c(3,4,5,6,7)]),aes(seq_along(msss[c(3,4,5,6,7)]),msss[c(3,4,5,6,7)])) +
+                geom_bar(stat = "identity", fill = "turquoise3") +
+                xlab("Order of entry relative to patch switch") +
+                ylab("Residual Proximity") +
+                ggtitle("Mean residual proximity for words") +
+                geom_errorbar(ymin = msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)], ymax = msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)],width = .3)
+        })
+        simplot <<- ggplot(data.frame(msss[c(3,4,5,6,7)]),aes(seq_along(msss[c(3,4,5,6,7)]),msss[c(3,4,5,6,7)])) +
+            geom_bar(stat = "identity", fill = "turquoise3") +
+            xlab("Order of entry relative to patch switch") +
+            ylab("Residual Proximity") +
+            ggtitle("Mean residual proximity for words") +
+            geom_errorbar(ymin = msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)], ymax = msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)],width = .3)
+        
+        progress$inc(0.10, detail = 'Analyzing reaction times')
+        
+        dccc <- dat
+        subs <- unique(dccc$sid)
+        meanswi.irt <- rep(0, length(subs))
+        meanoverall.irt <- rep(0, length(subs))
+        prods <- rep(0, length(subs))
+        
+        progress$inc(0.10, detail = 'Finishing analysis')
+        
+        for (i in 1:length(subs)){
+            datsub <- subset(dccc, sid == subs[i])
+            datsubflast <- subset(datsub, flastitem == 1)
+            meanswi.irt[i] <- mean(datsubflast$irt)
+            meanoverall.irt[i] <- sum(datsub$irt)/nrow(datsub)
+            prods[i] <- nrow(datsub)
+        }
+        
+        output$RTplot <- renderPlot({
+            ggplot(data.frame(abs(meanswi.irt-meanoverall.irt)),aes(abs(meanswi.irt-meanoverall.irt), prods)) + 
+            geom_point(col = "turquoise3") +
+            ylab("Number of words produced") +
+            xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
+            geom_smooth(method='lm', col = "indianred2")
+        })
+        RTplot <<- ggplot(data.frame(abs(meanswi.irt-meanoverall.irt)),aes(abs(meanswi.irt-meanoverall.irt), prods)) + 
+            geom_point(col = "turquoise3") +
+            ylab("Number of words produced") +
+            xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
+            geom_smooth(method='lm', col = "indianred2")
+        
     })
+    
+    output$download_analysis <- downloadHandler(
+        
+        filename = function()
+        {
+            paste("OptimalForagingAnalysis", class = ".pdf", sep = "")
+        },
+        
+        content = function(file) 
+        {
+            pdf(file,paper = "a4")
+            
+            grid.arrange(
+                
+                itemplot,
+                
+                simplot,
+                
+                RTplot
+                
+            ) # end grid arrange
+            
+            dev.off()
+        })
     
 }
 
