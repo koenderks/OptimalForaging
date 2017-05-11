@@ -23,22 +23,46 @@ if(!"shinythemes" %in% installed.packages())
 library(shinythemes)
 
 # Define UI for application that draws a histogram
-ui <- navbarPage("Optimal Foraging modeling",theme = shinytheme("united"),
+ui <- navbarPage(title = "Optimal Foraging modeling",
+                 theme = shinytheme("united"),
                  
-                 # tab 1
-                 tabPanel("Task",
+                 # Task panel
+                 tabPanel(title = "Task",
+                          
+                          tags$head(tags$style(
+                              HTML('
+                                   #sidebar {
+                                   background-color: #FABC3C;
+                                   }
+
+                                    #submit {
+                                    background-color: #1E3888
+                                    }
+                                    #start {
+                                    background-color: #9C3848
+                                   }
+                                   
+                                   body, label, input, button, select { 
+                                   font-family: "Arial";
+                                   }')
+                          )),
+                          
+                          # Title panel
                           headerPanel("The task"),
+                          # sidebar
                           sidebarLayout(
-                              sidebarPanel(
-                                  h3("Introduction"),
-                                  p(strong("The purpose of this task is to name as much animals as possible within the time limit of 60 seconds.")),
-                                  br(),
-                                  actionButton("start", "Start the timer",icon = icon("clock-o")),
-                                  br(),
-                                  textOutput(outputId = "timer"),
-                                  br(),
-                                  textInput(inputId = "word",label = "Name an animal:"),
-                                  actionButton(inputId = "submit", label = "Submit", icon = icon("check"))
+                              sidebarPanel(id="sidebar",
+                                           tags$head(tags$script(src = "enter-button.js")),
+                                           h3("Introduction"),
+                                           h4(p("The purpose of this task is to name as much animals as possible within the time limit of 60 seconds.")),
+                                           br(),
+                                           p("Press start the timer to begin."),
+                                           actionButton("start", "Start the timer",icon = icon("clock-o")),
+                                           br(),
+                                           textOutput(outputId = "timer"),
+                                           br(),
+                                           textInput(inputId = "word",label = "Name an animal and press enter (or submit) to submit:",placeholder = "Name an animal:"),
+                                           actionButton(inputId = "submit", label = "Submit", icon = icon("check"))
                               ),
                               mainPanel(
                                   titlePanel("The responses"),
@@ -57,24 +81,19 @@ ui <- navbarPage("Optimal Foraging modeling",theme = shinytheme("united"),
                  tabPanel("Upload file",
                           headerPanel("The file upload"),
                           sidebarLayout(
-                              sidebarPanel(
-                                  radioButtons(inputId = "type", label = "File Type:",
-                                               choices = c(".csv" = "csv",
-                                                           ".txt" = "txt",
-                                                           ".xlsx" = "xlsx"),
-                                               selected = "csv"),
-                                  radioButtons(inputId = "separator",label = "Separator",
-                                               choices = c("comma" = ",",
-                                                           "semicolon" = ";",
-                                                           "tab" = "\t"),
-                                               selected = ","),
-                                  checkboxInput(inputId = "header",label = "Header",value = TRUE),
-                                  fileInput(inputId = "file",label = "Choose file",multiple = FALSE)
-                                  # radioButtons(inputId = "quote", label = "Quote",
-                                  #              choices = c("none" = "none",
-                                  #                          "Double quote" = "double",
-                                  #                          "Single quote" = "single")
-                                  #              ,selected = "double")
+                              sidebarPanel(id = "sidebar",
+                                           radioButtons(inputId = "type", label = "File Type:",
+                                                        choices = c(".csv" = "csv",
+                                                                    ".txt" = "txt",
+                                                                    ".xlsx" = "xlsx"),
+                                                        selected = "csv"),
+                                           radioButtons(inputId = "separator",label = "Separator",
+                                                        choices = c("comma" = ",",
+                                                                    "semicolon" = ";",
+                                                                    "tab" = "\t"),
+                                                        selected = ","),
+                                           checkboxInput(inputId = "header",label = "Header",value = TRUE),
+                                           fileInput(inputId = "file",label = "Choose file",multiple = FALSE)
                               ),
                               mainPanel(
                                   titlePanel("The results"),
@@ -92,7 +111,7 @@ ui <- navbarPage("Optimal Foraging modeling",theme = shinytheme("united"),
                  tabPanel("Theory",
                           headerPanel("The theory"),
                           br(),
-                          h3("Relation with the animal kingdom"),
+                          h3("The relation with the animal kingdom"),
                           # paragraph
                           p("Animals often search for resources that occur in spatial patches,
                             such as the berries on separate bushes or nuts beneath a cluster of
@@ -112,9 +131,10 @@ ui <- navbarPage("Optimal Foraging modeling",theme = shinytheme("united"),
                             A classic model of optimal foraging theory (Charnov, 1976) predicts
                             that the overall rate of return is optimized if the forager leaves a patch
                             when the rate of finding new targets within the patch falls below the
-                            long-term average rate achieved by following the optimal strategy.")),
-                 img(src = "bee.jpg", height = 300, width = 300,style="display: block; margin-left: auto; margin-right: auto;"),
-                 p("In the animal foraging literature, dynamic responses to the
+                            long-term average rate achieved by following the optimal strategy."),
+                          img(src = "bee.jpg", height = 300, width = 300,style="display: block; margin-left: auto; margin-right: auto;"),
+                          h3("The math"),
+                          p("In the animal foraging literature, dynamic responses to the
                     environment are often assessed with respect to an optimal model
                    representing a hypothesis about the trade-offs that must be negotiated
                    in a given behavior- environment relationship. One of the
@@ -124,11 +144,19 @@ ui <- navbarPage("Optimal Foraging modeling",theme = shinytheme("united"),
                    that are monotonically depleted during foraging. The animal seeks
                    to maximize the gain per unit time of foraging defined as the
                    average resource intake, R, over all patches:"),
-                 
-                 # change this formula !
-                 h2(withMathJax("$$X_n=X_{n-1}-\\varepsilon$$"))
-                 #img(src = "Optimal_Foraging_Theory.jpg", height = 400, width = 400,style="display: block; margin-left: auto; margin-right: auto;")
+                          h2(withMathJax("$$R=\\frac{g(t_W)}{t_W + t_B}$$")),
+                          p("where tW is the time spent foraging within each resource patch, tB
+                    is the average time spent traveling between patches, and g(tW) is
+                    the cumulative gain within a patch.
+                    Equation 1 provides a measure of resources per time unit, as a
+                    function of an individual's control over their time tW within a
+                    patch. This is subject to patch quality, reflected by g(tW), and travel
+                    time tB between patches. The organism is predicted to spend the
+                    optimal amount of time in a patch (t*) such that R is maximized:"),
+                          h2(withMathJax("$$R^* = g'(t^*)$$"))
+                          #img(src = "Optimal_Foraging_Theory.jpg", height = 400, width = 400,style="display: block; margin-left: auto; margin-right: auto;")
                  )
+)
 
 server <- function(input, output) {
     
