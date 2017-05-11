@@ -1,0 +1,232 @@
+Animal name;Subcluster;Main cluster
+aardvark;Africa;Living environment
+antelope;Africa;Living environment
+buffalo;Africa;Living environment
+came;Africa;Living environment
+chameleon;Africa;Living environment
+cheetah;Africa;Living environment
+chimpanzee;Africa;Living environment
+cobra;Africa;Living environment
+eland;Africa;Living environment
+elephant;Africa;Living environment
+gazelle;Africa;Living environment
+giraffe;Africa;Living environment
+gnu;Africa;Living environment
+gorilla;Africa;Living environment
+hippopotamus;Africa;Living environment
+hyena;Africa;Living environment
+impala;Africa;Living environment
+jackal;Africa;Living environment
+lemur;Africa;Living environment
+leopard;Africa;Living environment
+lion;Africa;Living environment
+manatee;Africa;Living environment
+mongoose;Africa;Living environment
+monkey;Africa;Living environment
+ostrich;Africa;Living environment
+panther;Africa;Living environment
+rhinoceros;Africa;Living environment
+tiger;Africa;Living environment
+wildebeest;Africa;Living environment
+warthog;Africa;Living environment
+zebra;Africa;Living environment
+emu;Australia;Living environment
+kangaroo;Australia;Living environment
+kiwi;Australia;Living environment
+opossum;Australia;Living environment
+platypus;Australia;Living environment
+tasmanian devil;Australia;Living environment
+wallaby;Australia;Living environment
+wombat;Australia;Living environment
+auk;Arctic / Far north;Living environment
+caribou;Arctic / Far north;Living environment
+musk ox;Arctic / Far north;Living environment
+penguin;Arctic / Far north;Living environment
+polar bear;Arctic / Far north;Living environment
+reindeer;Arctic / Far north;Living environment
+seal;Arctic / Far north;Living environment
+chicken;Farm;Living environment
+cow;Farm;Living environment
+donkey;Farm;Living environment
+ferret;Farm;Living environment
+goat;Farm;Living environment
+horse;Farm;Living environment
+mule;Farm;Living environment
+pig;Farm;Living environment
+sheep;Farm;Living environment
+turkey;Farm;Living environment
+badger;North America;Living environment
+bear;North America;Living environment
+beaver;North America;Living environment
+bobcat;North America;Living environment
+caribou;North America;Living environment
+chipmunk;North America;Living environment
+cougar;North America;Living environment
+deer;North America;Living environment
+elk;North America;Living environment
+fpx;North America;Living environment
+moose;North America;Living environment
+mountain lion;North America;Living environment
+puma;North America;Living environment
+rabbit;North America;Living environment
+raccoon;North America;Living environment
+skunk;North America;Living environment
+squirrel;North America;Living environment
+wolf;North America;Living environment
+alligator;Water;Living environment
+auk;Water;Living environment
+beaver;Water;Living environment
+crocodile;Water;Living environment
+dolphin;Water;Living environment
+fish;Water;Living environment
+frog;Water;Living environment
+lobster;Water;Living environment
+manatee;Water;Living environment
+muskrat;Water;Living environment
+newt;Water;Living environment
+octopus;Water;Living environment
+otter;Water;Living environment
+oyster;Water;Living environment
+penguin;Water;Living environment
+platypus;Water;Living environment
+salamander;Water;Living environment
+sea lion;Water;Living environment
+seal;Water;Living environment
+shark;Water;Living environment
+toad;Water;Living environment
+turtle;Water;Living environment
+whale;Water;Living environment
+camel;Beasts of burden;Human use
+donkey;Beasts of burden;Human use
+horse;Beasts of burden;Human use
+llama;Beasts of burden;Human use
+ox;Beasts of burden;Human use
+beaver;Fur;Human use
+cjinchilla;Fur;Human use
+fox;Fur;Human use
+mink;Fur;Human use
+rabbit;Fur;Human use
+budgie;Pets;Human use
+canary;Pets;Human use
+cat;Pets;Human use
+dog;Pets;Human use
+gerbil;Pets;Human use
+golden retriever;Pets;Human use
+guinea pig;Pets;Human use
+hamster;Pets;Human use
+parrot;Pets;Human use
+rabbit;Pets;Human use
+budgie;Bird;Zoological categories
+condor;Bird;Zoological categories
+eagle;Bird;Zoological categories
+finch;Bird;Zoological categories
+kiwi;Bird;Zoological categories
+macaw;Bird;Zoological categories
+parrot;Bird;Zoological categories
+parakeet;Bird;Zoological categories
+pelican;Bird;Zoological categories
+penguin;Bird;Zoological categories
+robin;Bird;Zoological categories
+toucan;Bird;Zoological categories
+woodpecker;Bird;Zoological categories
+bison;Bovine;Zoological categories
+buffalo;Bovine;Zoological categories
+cow;Bovine;Zoological categories
+musk ox;Bovine;Zoological categories
+yak;Bovine;Zoological categories
+coyote;Canine;Zoological categories
+dog;Canine;Zoological categories
+fox;Canine;Zoological categories
+hyena;Canine;Zoological categories
+jackal;Canine;Zoological categories
+wolf;Canine;Zoological categories
+antelope;Deer;Zoological categories
+caribou;Deer;Zoological categories
+eland;Deer;Zoological categories
+elk;Deer;Zoological categories
+gazelle;Deer;Zoological categories
+gnu;Deer;Zoological categories
+impala;Deer;Zoological categories
+moose;Deer;Zoological categories
+reindeer;Deer;Zoological categories
+wildebeest;Deer;Zoological categories
+bobcat;Feline;Zoological categories
+cat;Feline;Zoological categories
+cheetah;Feline;Zoological categories
+cougar;Feline;Zoological categories
+jaguar;Feline;Zoological categories
+leopard;Feline;Zoological categories
+lion;Feline;Zoological categories
+lynx;Feline;Zoological categories
+mountain lion;Feline;Zoological categories
+ocelot;Feline;Zoological categories
+panther;Feline;Zoological categories
+puma;Feline;Zoological categories
+tiger;Feline;Zoological categories
+bass;Fish;Zoological categories
+guppy;Fish;Zoological categories
+salmon;Fish;Zoological categories
+trout;Fish;Zoological categories
+ant;Insects;Zoological categories
+beetle;Insects;Zoological categories
+cockroach;Insects;Zoological categories
+flea;Insects;Zoological categories
+fly;Insects;Zoological categories
+praying mantis;Insects;Zoological categories
+aardvark;Insectivores;Zoological categories
+anteater;Insectivores;Zoological categories
+hedgehog;Insectivores;Zoological categories
+mole;Insectivores;Zoological categories
+shrew;Insectivores;Zoological categories
+ape;Primate;Zoological categories
+baboon;Primate;Zoological categories
+chimpanzee;Primate;Zoological categories
+gibbon;Primate;Zoological categories
+gorilla;Primate;Zoological categories
+human lemur;Primate;Zoological categories
+marmoset;Primate;Zoological categories
+monkey;Primate;Zoological categories
+orangutan;Primate;Zoological categories
+shrew;Primate;Zoological categories
+coney;Rabbit;Zoological categories
+hare;Rabbit;Zoological categories
+pika;Rabbit;Zoological categories
+rabbit;Rabbit;Zoological categories
+alligator;Reptile;Zoological categories
+char;Reptile;Zoological categories
+crocodile;Reptile;Zoological categories
+frog;Reptile;Zoological categories
+gecko;Reptile;Zoological categories
+iguana;Reptile;Zoological categories
+lizard;Reptile;Zoological categories
+newt;Reptile;Zoological categories
+salamander;Reptile;Zoological categories
+snake;Reptile;Zoological categories
+toad;Reptile;Zoological categories
+tortoise;Reptile;Zoological categories
+turtle;Reptile;Zoological categories
+beaver;Rodent;Zoological categories
+chinchilla;Rodent;Zoological categories
+chipmunk;Rodent;Zoological categories
+gerbil;Rodent;Zoological categories
+gopher;Rodent;Zoological categories
+groundhog;Rodent;Zoological categories
+guinea pig;Rodent;Zoological categories
+hamster;Rodent;Zoological categories
+hedgehog;Rodent;Zoological categories
+marmot;Rodent;Zoological categories
+mole;Rodent;Zoological categories
+mouse;Rodent;Zoological categories
+muskrat;Rodent;Zoological categories
+porcupine;Rodent;Zoological categories
+rat;Rodent;Zoological categories
+squirrel;Rodent;Zoological categories
+woodchuck;Rodent;Zoological categories
+badger;Weasel;Zoological categories
+ferret;Weasel;Zoological categories
+marten;Weasel;Zoological categories
+mink;Weasel;Zoological categories
+mongoose;Weasel;Zoological categories
+otter;Weasel;Zoological categories
+polecat;Weasel;Zoological categories
+skunk;Weasel;Zoological categories
