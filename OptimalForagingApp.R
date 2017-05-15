@@ -1,6 +1,5 @@
-############################
-# Load neccesary packages ##
-############################
+
+# Load neccesary packages -----------------------------------------------------------
 
 if(!"shiny" %in% installed.packages()) 
 { 
@@ -38,16 +37,13 @@ if(!"gridExtra" %in% installed.packages())
 }
 library(gridExtra)
 
-#######
-# UI ##
-#######
+
+# Define UI ---------------------------------------------------------------
 
 ui <- navbarPage(title = "Optimal Foraging modeling",
                  theme = shinytheme("united"),
                  
-                 ###########
-                 ## Tab 1 ##
-                 ###########
+                 ## Tab 1 UI ################################################################
                  
                  tabPanel(title = "Task",
                           
@@ -109,9 +105,7 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                           )
                  ),
                  
-                 ##########
-                 # Tab 2 ##
-                 ##########
+                 # Tab 2 UI ################################################################
                  
                  tabPanel("Upload file",
                           
@@ -189,10 +183,8 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                                  
                               )
                           )),
-                 
-                 ##########
-                 # Tab 3 ##
-                 ##########
+
+                 # Tab 3 UI ################################################################
                  
                  tabPanel(title = "Theory", 
                           
@@ -272,17 +264,12 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                  )
 )
 
-###########
-# Server ##
-###########
+
+# Server ------------------------------------------------------------------
 
 server <- function(input, output) {
     
-    #####################
-    # define functions ##
-    #####################
-    
-    # Tab 1
+    ## Tab 1 Define Functions ################################################################
     
     .isValidInput <- function(results,word,indexes,data){
         
@@ -361,20 +348,91 @@ server <- function(input, output) {
         
     }
     
-    # Tab 2 ##
+    ## Tab 2 Define Functions ################################################################
     
-    ########################
-    # Load neccesary data ##
-    ########################
+    .testSimilarity <- function(simback1,simback2,simback3,simback4,simback5){
+        if(any(length(simback1) == 0, length(simback2) == 0, length(simback3) == 0, length(simback4) == 0, length(simback5) == 0)){
+            print("FAILED similarity test")
+        } else {
+            print("PASSED similarity test")
+        }
+    }
+    
+    .testProximity <- function(msss){
+        if(is.null(msss)){
+            print("FAILED proximity test")
+        } else {
+            print("PASSED proximity test")
+        }
+        
+    }
+    
+    .testReactionTime <- function(meanswi.irt,meanoverall.irt){
+        if(any(is.null(meanswi.irt),is.null(meanoverall.irt))){
+            print("FAILED reaction time test")
+        } else {
+            print("PASSED reaction time test")
+        }
+    }
+    
+    .computeSimilarity <- function(dccc,ancos){
+        
+        simback1 <- rep(NA, nrow(dccc))
+        simback2 <- rep(NA, nrow(dccc))
+        simback3 <- rep(NA, nrow(dccc))
+        simback4 <- rep(NA, nrow(dccc))
+        simback5 <- rep(NA, nrow(dccc))
+        
+        for(i in 2:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-1] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-1]){
+                    simback1[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-1])]
+                }
+            }
+        }
+        
+        for(i in 3:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-2] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-2]){
+                    simback2[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-2])]
+                }
+            }
+        }
+        
+        for(i in 4:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-3] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-3]){
+                    simback3[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-3])]
+                }
+            }
+        }
+        
+        for(i in 5:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-4] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-4]){
+                    simback4[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-4])]
+                }
+            }
+        }
+        
+        for(i in 6:nrow(dccc)){
+            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-5] %in% rownames(ancos)){
+                if (dccc$sid[i] == dccc$sid[i-5]){
+                    simback5[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-5])]
+                }
+            }
+        }
+        
+        return(list(simback1,simback2,simback3,simback4,simback5))
+        
+    }
+    
+    ## Load neccesary data ################################################################
     
     data <- read.csv("animal_clusters.csv",sep = ";",stringsAsFactors = FALSE)
     load("onlinedata.Rdata")
     
-    ########################
-    # Create placeholders ##
-    ########################
-    
-    # Tab 1 ##
+    ## Create placeholders Tab 1 ################################################################
     
     df <- data.frame()
     ancos <- ancos
@@ -382,18 +440,14 @@ server <- function(input, output) {
     sim <- NULL
     simitem <- NULL
     
-    # Tab 2 ##
+    ## Create placeholders Tab 2 ################################################################
     
     blank <- data.frame()
     itemplot <- NULL
     simplot <- NULL
     RTplot <- NULL
     
-    ##########################################################
-    # Create empty plots to display if nothing happened yet ##
-    ##########################################################
-    
-    # Tab 1 ##
+    ## Create empty plots tab 1 ################################################################
     
     output$simitem <- renderPlot({ggplot(df) + 
             ylab("BEAGLE similariry") +
@@ -420,7 +474,7 @@ server <- function(input, output) {
             ylab("Time spent on word (s)")
     })
     
-    # Tab 2 ##
+    ## Create empty plots Tab 2 ################################################################
     
     output$itemplot <- renderPlot({ggplot(blank) + 
             ylab("BEAGLE similariry") +
@@ -446,20 +500,12 @@ server <- function(input, output) {
             xlim(c(0,40)) +
             ylim(c(0,10))
     })
-    
-    #################
-    # Create timer ##
-    #################
+
+    # Create timer ####################################################################
     
     output$timer <- renderText("Time left: 60 secs")
     
-    ################
-    # Run program ##
-    ################
-    
-    # Tab 1 ## 
-    
-    # TODO: fit optimal foraging model on data from participant.
+    # Run program tab 1 ################################################################
     
     observeEvent(input$start,once = FALSE, {
         
@@ -588,6 +634,8 @@ server <- function(input, output) {
         })
         
         time <- 0
+        # added
+        time_plot <- NULL
         
         observe({
             
@@ -617,6 +665,8 @@ server <- function(input, output) {
         
     })
     
+    ## Download button tab 1 ################################################################
+    
     output$download_task <- downloadHandler(
         
         filename = function()
@@ -634,7 +684,7 @@ server <- function(input, output) {
             
             grid.arrange(
                 
-                simitem, # time plot
+                simitem, # item plot
                 
                 ggplot(data.frame(sim),aes(seq_along(sim),sim))+
                     geom_bar(stat="identity", fill = "magenta3") +
@@ -655,7 +705,7 @@ server <- function(input, output) {
             dev.off()
         })
     
-    # Tab 2 ##
+    ## Run program Tab 2 ################################################################
     
     observe({
         toggle("line0",anim = TRUE,condition = input$show)
@@ -698,51 +748,16 @@ server <- function(input, output) {
         dccc <- dat
         dccc <- data.frame(dccc["sid"], dccc["entry"])
         names(dccc) <- c("sid", "entry")
-        simback1 <- rep(NA, nrow(dccc))
-        simback2 <- rep(NA, nrow(dccc))
-        simback3 <- rep(NA, nrow(dccc))
-        simback4 <- rep(NA, nrow(dccc))
-        simback5 <- rep(NA, nrow(dccc))
         
-        for(i in 2:nrow(dccc)){
-            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-1] %in% rownames(ancos)){
-                if (dccc$sid[i] == dccc$sid[i-1]){
-                    simback1[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-1])]
-                }
-            }
-        }
+        simback <- .computeSimilarity(dccc,ancos)
         
-        for(i in 3:nrow(dccc)){
-            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-2] %in% rownames(ancos)){
-                if (dccc$sid[i] == dccc$sid[i-2]){
-                    simback2[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-2])]
-                }
-            }
-        }
+        simback1 <- simback[[1]]
+        simback2 <- simback[[2]]
+        simback3 <- simback[[3]]
+        simback4 <- simback[[4]]
+        simback5 <- simback[[5]]
         
-        for(i in 4:nrow(dccc)){
-            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-3] %in% rownames(ancos)){
-                if (dccc$sid[i] == dccc$sid[i-3]){
-                    simback3[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-3])]
-                }
-            }
-        }
-        
-        for(i in 5:nrow(dccc)){
-            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-4] %in% rownames(ancos)){
-                if (dccc$sid[i] == dccc$sid[i-4]){
-                    simback4[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-4])]
-                }
-            }
-        }
-        
-        for(i in 6:nrow(dccc)){
-            if (dccc$entry[i] %in% rownames(ancos) && dccc$entry[i-5] %in% rownames(ancos)){
-                if (dccc$sid[i] == dccc$sid[i-5]){
-                    simback5[i] <- ancos[toString(dccc$entry[i]), toString(dccc$entry[i-5])]
-                }
-            }
-        }
+        .testSimilarity(simback1,simback2,simback3,simback4,simback5)
         
         progress$inc(0.10, detail = 'Computing similarity')
         
@@ -845,7 +860,9 @@ server <- function(input, output) {
             sd(hits[hits[,7] < 999,7], na.rm = T) / sqrt(length(hits[hits[,7] < 999,7])-sum(as.numeric(is.na(hits[,7])))),
             sd(hits[hits[,8] < 999,8], na.rm = T) / sqrt(length(hits[hits[,8] < 999,8])-sum(as.numeric(is.na(hits[,8])))))
         
-        progress$inc(0.10, detail = 'Creating plot')
+        .testProximity(msss)
+       
+         progress$inc(0.10, detail = 'Creating plot')
         
         output$simplot <- renderPlot({
             ggplot(data.frame(msss[c(3,4,5,6,7)]),aes(seq_along(msss[c(3,4,5,6,7)]),msss[c(3,4,5,6,7)])) +
@@ -880,6 +897,8 @@ server <- function(input, output) {
             prods[i] <- nrow(datsub)
         }
         
+        .testReactionTime(meanswi.irt,meanoverall.irt)
+        
         output$RTplot <- renderPlot({
             ggplot(data.frame(abs(meanswi.irt-meanoverall.irt)),aes(abs(meanswi.irt-meanoverall.irt), prods)) + 
             geom_point(col = "turquoise3") +
@@ -894,6 +913,8 @@ server <- function(input, output) {
             geom_smooth(method='lm', col = "indianred2")
         
     })
+    
+    ## Download button Tab 2 ############################################################
     
     output$download_analysis <- downloadHandler(
         
