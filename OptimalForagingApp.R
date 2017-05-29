@@ -37,6 +37,11 @@ if(!"gridExtra" %in% installed.packages())
 }
 library(gridExtra)
 
+if(!"markdown" %in% installed.packages()) 
+{ 
+    install.packages("markdown") 
+}
+library(markdown)
 
 # Define UI ---------------------------------------------------------------
 
@@ -261,6 +266,13 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                             category for retrieval and B represents the saliency (or attention
                             weight) assigned to a given cue."),
                           img(src = "Optimal_Foraging_Theory.jpg", height = 400, width = 400,style="display: block; margin-left: auto; margin-right: auto;")
+                 ),
+                 
+                 # Tab 4 UI ######################################################################
+                 tabPanel(title = "Manual",
+                          mainPanel(
+                              includeMarkdown("manual.Rmd")
+                          )
                  )
 )
 
@@ -303,6 +315,7 @@ server <- function(input, output) {
             xlim(c(0,20)) +
             ylim(c(0,0.7))
     },width = 400,height = 400)
+    
     output$similarity <- renderPlot({
         ggplot(df,aes(seq_along(df),df))+
             geom_bar(stat="identity", fill = "magenta3") +
@@ -312,6 +325,7 @@ server <- function(input, output) {
             ylim(c(0,0.7)) +
             xlim(c(0,5))
     },width = 400,height = 400)
+    
     output$RT <- renderPlot({
         ggplot(data.frame()) +
             xlim(c(0,200)) +
@@ -330,6 +344,7 @@ server <- function(input, output) {
             ylim(c(0,0.5)) +
             xlim(c(0,5))
     },width = 400,height = 400)
+    
     output$simplot <- renderPlot({
         ggplot(blank,aes(seq_along(blank),blank))+
             geom_bar(stat="identity", fill = "magenta3") +
@@ -339,6 +354,7 @@ server <- function(input, output) {
             ylim(c(0,0.7)) +
             xlim(c(0,5))
     },width = 400,height = 400)
+    
     output$RTplot <- renderPlot({
         ggplot(blank,aes(seq_along(blank), blank)) + 
             geom_point(col = "turquoise3") +
@@ -356,14 +372,16 @@ server <- function(input, output) {
     
     observeEvent(input$start,once = FALSE, {
         
+        # reset if "submit" is clicked
         clicked <- 0
-        # create for plot
+        
         tab <<- NULL
         sim <<- NULL
         simitem <<- NULL
         
         stoptime <- Sys.time() + 60
         
+        # update the timer ####
         output$timer <- renderText({
             invalidateLater(10)
             if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs')))<0){

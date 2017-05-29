@@ -1,0 +1,11 @@
+---
+title: "Manual"
+author: "Koen Derks"
+date: "29 mei 2017"
+output: html_document
+runtime: shiny
+---
+
+This is the manual for the optimal foraging app you are using right now. 
+
+code for the app can be found on [Github] (https://github.com/koenderks/OptimalForaging)
