@@ -314,6 +314,7 @@ server <- function(input, output) {
     tab <- NULL
     sim <- NULL
     simitem <- NULL
+    hoi <- NULL
     
     ## Create placeholders Tab 2 ################################################################
     
@@ -540,14 +541,12 @@ server <- function(input, output) {
             output$RT <- renderPlot({.RTplot2(time)})
             
             time_plot <<- time
+            hoi <<- .RTplot2(time)
             
         })
         
         time_plot <<- time_plot
         tab <<- tab
-        
-        print(time_plot)
-        
         
     })
     
