@@ -2,10 +2,24 @@
 title: "Manual"
 author: "Koen Derks"
 date: "29 mei 2017"
-output: html_document
 runtime: shiny
+output: 
+    html_document:
+        toc: true
 ---
 
-This is the manual for the optimal foraging app you are using right now. 
+## Introduction
 
-code for the app can be found on [Github] (https://github.com/koenderks/OptimalForaging)
+This is the manual for the optimal foraging app you are using right now. It is designed to give you a clear indication of what to expect for the app and what to give the app as input. Also, we will discuss what the app returns as results. 
+
+## The task
+
+## File
+
+## The theory
+
+This page describe the theory underlying the Optimal Foraging Theory. It is based on the article by [Hills & Todd (2012)] (https://pdfs.semanticscholar.org/8857/9afc83b90c1530b16f9396eca8eb55757c7e.pdf).
+
+## Github
+
+The code for this app can be found on [Github] (https://github.com/koenderks/OptimalForaging).
