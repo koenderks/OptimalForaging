@@ -63,14 +63,14 @@ ggplot(data.frame(similarity),aes(seq_along(similarity),similarity))+
 3. Below, a reaction time plot is displayed, showing the reaction time throughout the 60 seconds where the user submits words to the app. It can be seen as a line, which drops to zero when an answer is submitted. This allows you to link the patch switches to the reaction time, as the user can see when the reaction time is higher and lower. The reaction time is displayed in blue, while the mean of the reaction time is displayed in red and updated throughout the task. An example of this plot is displayed below.
 
 ```{r, echo = FALSE, eval = TRUE}
-time <- c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2,2.1,2.2,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,0.1,0.2,0.3,0.4) 
+timo <- c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2,2.1,2.2,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,0.1,0.2,0.3,0.4) 
 
-ggplot(data.frame(time), aes(seq_along(time),time)) +
+ggplot(data.frame(timo), aes(seq_along(timo),timo)) +
         ggtitle("Reaction time") + 
         geom_line(size = 2, col = "turquoise3", linetype = 1) +
         xlab("Time (0.3 s)") +
         ylab("Time spent on item") +
-        geom_hline(yintercept = mean(time), col = "indianred2",linetype = 2,size = 1.5)
+        geom_hline(yintercept = mean(timo), col = "indianred2",linetype = 2,size = 1.5)
 
 ```
 

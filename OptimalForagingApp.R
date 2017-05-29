@@ -82,6 +82,10 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                    font-family: "Arial";
                                    }')
                           )),
+                          tags$a(
+                              tags$img(style="position: absolute; top: 10; right: 0; border: 0; width: 500px; height: 100px",
+                                       src="uva-acroniem.png")
+                          ),
                           
                           # Title panel
                           headerPanel("The task"),
@@ -142,6 +146,10 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                    font-family: "Arial";
                                    }')
                           )),
+                          tags$a(
+                              tags$img(style="position: absolute; top: 10; right: 0; border: 0; width: 500px; height: 100px",
+                                       src="uva-acroniem.png")
+                          ),
                           
                           headerPanel("The file upload"),
                           sidebarLayout(
@@ -176,6 +184,12 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                               ),
                               mainPanel(
                                   titlePanel("The results"),
+                                  
+                                  br(),
+                                  
+                                  h3(textOutput(outputId = "final")),
+                                  
+                                  br(),
 
                                   fluidRow(                                
                                       splitLayout(cellWidths = c("50%", "50%"), plotOutput("itemplot"), plotOutput("simplot"))
@@ -197,6 +211,10 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                  HTML("&bull;"),
                                  span("Code"),
                                  a("on GitHub", href = "https://github.com/koenderks/OptimalForaging")
+                          ),
+                          tags$a(
+                              tags$img(style="position: absolute; top: 10; right: 0; border: 0; width: 500px; height: 100px",
+                                       src="uva-acroniem.png")
                           ),
                           
                           headerPanel("The theory"),
@@ -394,6 +412,7 @@ server <- function(input, output) {
         patches <- NULL
         categories <- NULL
         
+        # save the responses
         mat <- matrix(nrow=0,ncol=3)
         colnames(mat)<- c("word", "switch_patch", "switch_cat")
         results <- data.frame(mat)
@@ -410,6 +429,7 @@ server <- function(input, output) {
         
         color_vector <- rep("turquoise3",20)
         
+        # observe submit button
         observeEvent(input$submit, {
             
             clicked <<- 1
@@ -439,7 +459,7 @@ server <- function(input, output) {
                 tmp_response <- data.frame(word = word, RT = RT)
                 responses_output <<- rbind(responses_output,tmp_response)
                 
-                # participant switched from patch or categorie?
+                # participant switched from patch?
                 switch_patch <- !any(prev_patch == patches)
                 switch_cat <- !any(prev_cat == categories)
                 
@@ -497,9 +517,10 @@ server <- function(input, output) {
         })
         
         time <- 0
-        # added
+
         time_plot <- NULL
         
+        # observe timer
         observe({
             
             invalidateLater(millis = 0.1)
@@ -522,9 +543,11 @@ server <- function(input, output) {
             
         })
         
-        # save for plot
         time_plot <<- time_plot
         tab <<- tab
+        
+        print(time_plot)
+        
         
     })
     
@@ -557,12 +580,12 @@ server <- function(input, output) {
                     ylim(c(0,0.7)), 
                 
                 ggplot(data.frame(time_plot), aes(seq_along(time_plot),time_plot)) +
-                    ggtitle("Reaction time") + 
+                    ggtitle("Reaction time") +
                     geom_line(size = 2, col = "turquoise3", linetype = 1) +
                     xlab("Time (0.3 s)") +
                     ylab("Time spent on item") +
                     geom_hline(yintercept = mean(time_plot), col = "indianred2",linetype = 3,size = 1.5)
-                
+
             ) # end grid arrange
             
             dev.off()
@@ -635,6 +658,14 @@ server <- function(input, output) {
         x <- rep(1:5, each=141)
         
         a_table <- data.frame(x, sim = c(sb1, sb2, sb3, sb4, sb5))
+        
+        res <- anova(lm(sim~factor(x), data=a_table))
+        
+        if(res$`Pr(>F)`[1] < .05){
+            output$final <- renderText("The optimal foraging model fits the data.")
+        } else {
+            output$final <- renderText("The optimal foraging model does not fit the data.")
+        }
         
         ms <- c(mean(sb1, na.rm=T),
                 mean(sb2, na.rm=T),
@@ -798,7 +829,7 @@ server <- function(input, output) {
                 
                 RTplot
                 
-            ) # end grid arrange
+            )
             
             dev.off()
         })
