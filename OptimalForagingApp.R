@@ -43,9 +43,11 @@ if(!"markdown" %in% installed.packages())
 }
 library(markdown)
 
+knitr::knit("manual.Rmd")
+
 # Define UI ---------------------------------------------------------------
 
-ui <- navbarPage(title = "Optimal Foraging modeling",
+ui <- navbarPage(title = "The Optimal Foraging app",
                  theme = shinytheme("united"),
                  
                  ## Tab 1 UI ################################################################
@@ -128,10 +130,6 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                                    background-color: #FABC3C;
                                    }
 
-                                    #show {
-                                    background-color: #9C3848;
-                                    }
-
                                    #download_analysis {
                                    background-color: #9C3848
                                    }
@@ -149,7 +147,7 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                           sidebarLayout(
                               sidebarPanel(id = "sidebar",
                                            useShinyjs(),
-                                           actionButton(inputId = "show",label = "Show data requirements", icon = icon("list-ol")),
+                                           checkboxInput(inputId = "show",label = "Show data requirements"),
                                            h4(id = "line0","The file should contain (variable names in brackets [ ]):"),
                                            p(id = "line1","Column 1 [sid]: ID of participant"),
                                            p(id = "line2","Column 2 [entry]: Response of participant"),
@@ -271,7 +269,7 @@ ui <- navbarPage(title = "Optimal Foraging modeling",
                  # Tab 4 UI ######################################################################
                  tabPanel(title = "Manual",
                           mainPanel(
-                              includeMarkdown("manual.Rmd")
+                              includeMarkdown("manual.md")
                           )
                  )
 )

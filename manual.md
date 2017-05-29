@@ -10,9 +10,7 @@ output:
         fig_height: 3
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, eval = TRUE)
-```
+
 
 ## Introduction
 
@@ -24,55 +22,15 @@ In this tab, one can do its own variant of a creativity task used by [Hills, Jon
 
 1. In the upper left corner there is a plot which indicates the similarity of the submitted word with the previous word (hence, the first word will not be plotted). The color of the bars depends on the switching between patches by the participant, where a red color indicates a patch switch and a blue color a patch stay. An example of such a plot is displayed below. 
 
-```{r, echo = FALSE}
-
-if(!"ggplot2" %in% installed.packages()) 
-{ 
-    install.packages("ggplot2") 
-}
-library(ggplot2)
-
-vector <- c(0,0.30,0.25,0.70,0.50,0.10, 0.60,0.50,0.60,0.20,0.10)
-color <- c("indianred2","indianred2","indianred2", "turquoise3", "turquoise3", "indianred2", "turquoise3", "turquoise3", "turquoise3", "indianred2", "indianred2")
-
-ggplot(data.frame(vector),aes(seq_along(vector),vector))+
-    geom_bar(stat="identity", fill = color) +
-    ylab("BEAGLE similariry") +
-    xlab("Word index") +
-    ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
-    xlim(c(0,11)) +
-    ylim(c(0,0.7)) 
-
-```
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
 
 2. In the upper right corner, the similarity of the submitted word with the previous five words is displayed. This plot only shows up when you have submitted more than 5 responses to the app. An example of this plot is displayed below.
 
-```{r, echo = FALSE, eval = TRUE}
-
-similarity <- c(0.50, 0.30, 0.20,0.60,0.20)
-
-ggplot(data.frame(similarity),aes(seq_along(similarity),similarity))+
-                                geom_bar(stat="identity", fill = "magenta3") +
-                                ylab("BEAGLE simlilarity") +
-                                xlab("Item's position preceding most recent item") +
-                                ggtitle("Similarity with previous 5 words") +
-                                ylim(c(0,0.7))
-
-```
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 
 3. Below, a reaction time plot is displayed, showing the reaction time throughout the 60 seconds where the user submits words to the app. It can be seen as a line, which drops to zero when an answer is submitted. This allows you to link the patch switches to the reaction time, as the user can see when the reaction time is higher and lower. The reaction time is displayed in blue, while the mean of the reaction time is displayed in red and updated throughout the task. An example of this plot is displayed below.
 
-```{r, echo = FALSE, eval = TRUE}
-time <- c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2,2.1,2.2,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,0.1,0.2,0.3,0.4) 
-
-ggplot(data.frame(time), aes(seq_along(time),time)) +
-        ggtitle("Reaction time") + 
-        geom_line(size = 2, col = "turquoise3", linetype = 1) +
-        xlab("Time (0.3 s)") +
-        ylab("Time spent on item") +
-        geom_hline(yintercept = mean(time), col = "indianred2",linetype = 2,size = 1.5)
-
-```
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 
 ## The file tab
@@ -95,50 +53,15 @@ When the file is uploaded, the app automatically analyses the data and displays 
 
 1. The upper right corner displays the mean similarit of all the words with the previous five words. Error bars are added to display standard errors of the mean.  
 
-```{r, echo = FALSE, eval = TRUE}
-
-m <- c(0.30,0.40,0.35,0.10,0.20)
-s <- c(0.05,0.09,0.03,0.02,0.04)
-
-ggplot(data.frame(m), aes(seq_along(m),m)) + 
-                geom_bar(stat = "identity", fill = "indianred2") +
-                ylab("BEAGLE similarity") +
-                xlab("Item's position preceding most recent item") +
-                ggtitle("Mean similarity with previous word") +
-                ylim(c(0,0.5)) + 
-                geom_errorbar(aes(ymin = m-s, ymax = m+s,width = .3))
-
-```
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 2. The upper left corner displays the mean residual proximity for the words relative to the patch swith. The residual proximity is computed as the mean similarity to all possible remaining (not yet produced) words in the overarching category in the BEAGLE semantic space (Hills, Jones & Todd, 2012). Error bars are standard errors of the mean.
 
-```{r, echo = FALSE, eval = TRUE}
-
-m <- c(0.30,0.40,0.35,0.10,0.20)
-s <- c(0.05,0.09,0.03,0.02,0.04)
-
-ggplot(data.frame(m),aes(seq_along(m),m)) +
-                geom_bar(stat = "identity", fill = "turquoise3") +
-                xlab("Order of entry relative to patch switch") +
-                ylab("Residual Proximity") +
-                ggtitle("Mean residual proximity for words") +
-                geom_errorbar(ymin = m-s, ymax = m+s,width = .3)
-```
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 3. The last plot displays the difference between the reaction time of the last item and the mean reaction time as a funcion of the number of words produced. The red line is the linear regression line in and the grey surrounding it is representative for the standard error. 
 
-```{r, echo = FALSE, eval = TRUE}
-
-mean.irt <- rnorm(100,mean = 2,sd = 1)
-mean.ov <- rep(1,100)
-pro <- rnorm(100,15,1)
-
-ggplot(data.frame(abs(mean.irt-mean.ov)),aes(abs(mean.irt-mean.ov), pro)) + 
-            geom_point(col = "turquoise3") +
-            ylab("Number of words produced") +
-            xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
-            geom_smooth(method='lm', col = "indianred2")
-```
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
 ## The theory tab
 
