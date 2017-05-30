@@ -330,6 +330,7 @@ server <- function(input, output) {
     sim <- NULL
     simitem <- NULL
     hoi <- NULL
+    time_plot <- NULL
     
     ## Create placeholders Tab 2 ################################################################
     
@@ -359,7 +360,7 @@ server <- function(input, output) {
     },width = 400,height = 400)
     
     output$RT <- renderPlot({
-        ggplot(data.frame()) +
+        ggplot(df) +
             xlim(c(0,200)) +
             ylim(c(0,5)) +
             ggtitle("Reaction time") +
@@ -402,14 +403,15 @@ server <- function(input, output) {
     
     # Run program tab 1 ################################################################
     
-    observeEvent(input$start,once = FALSE, {
+    observeEvent(input$start, {
         
-        # reset if "submit" is clicked
+        # set status quo
         clicked <- 0
         
         tab <<- NULL
         sim <<- NULL
         simitem <<- NULL
+        time_plot <<- NULL
         
         stoptime <- Sys.time() + 60
         
@@ -445,7 +447,7 @@ server <- function(input, output) {
         
         color_vector <- rep("black",20)
         
-        # observe submit button
+        # observe the submit button
         observeEvent(input$submit, {
             
             clicked <<- 1
@@ -469,16 +471,19 @@ server <- function(input, output) {
                 patches <<- validinput[["patches"]]
                 categories <<- validinput[["categories"]]
                 
+                # keep track of time
                 RT <- as.numeric(round(difftime(Sys.time(),current, units='secs')))
                 current <<- Sys.time()
                 
+                # update response table
                 tmp_response <- data.frame(word = word, RT = RT)
                 responses_output <<- rbind(responses_output,tmp_response)
                 
-                # participant switched from patch?
+                # did participant switch between patches?
                 switch_patch <- !any(prev_patch == patches)
                 switch_cat <- !any(prev_cat == categories)
                 
+                # compute similarity for right plot
                 if(valid == TRUE){
                     
                     results[nrow(results)+1,] <<- c(word, switch_patch, switch_cat)
@@ -492,8 +497,8 @@ server <- function(input, output) {
                         similarity5 <- ancos[word,results[nrow(results)-5,1]]
                         
                         similarity <- c(similarity5,similarity4,similarity3,similarity2,similarity1)
-                        # save for plot
-                        sim <<- similarity
+                    
+                        sim <<- similarity # keep that
                         
                         output$similarity <- renderPlot({
                             ggplot(data.frame(similarity),aes(seq_along(similarity),similarity))+
@@ -508,6 +513,7 @@ server <- function(input, output) {
                     
                 }
                 
+                # left plot
                 sim_last <- ancos[word,results[nrow(results)-1,1]]
                 
                 if(results[nrow(results),2] == "FALSE" & valid){
@@ -520,22 +526,27 @@ server <- function(input, output) {
                     index_vector[nrow(results)] <<- sim_last
                 } 
                 
-                output$simitem <- renderPlot({.updateBarPlot(index_vector, iter, results,color_vector, valid)},width = 400,height = 400)
-                simitem <<- .updateBarPlot(index_vector, iter, results,color_vector, valid)
+                if(nrow(results) <= 20){ # to make sure you don't see more than 20 answers and crash the program
+                    
+                output$simitem <- renderPlot({
+                    .updateBarPlot(index_vector, iter, results,color_vector, valid)
+                    },width = 400,height = 400)
                 
+                simitem <<- .updateBarPlot(index_vector, iter, results,color_vector, valid) # keep that as well
+                
+                }
             } 
             
             output$responses <- renderTable(responses_output)
             
-            tab <<- responses_output
+            tab <<- responses_output # and keep this
             
         })
         
+        # reset time to jump back to zero when answer is submitted
         time <- 0
-
-        #time_plot <- NULL
         
-        # observe timer
+        # add the response time to the time vector
         observe({
             
             invalidateLater(millis = 0.1)
@@ -550,11 +561,14 @@ server <- function(input, output) {
                 
             }
             
+            # reset the submit button
             clicked <<- 0
             
-            output$RT <- renderPlot({.RTplot2(time)})
+            output$RT <- renderPlot({
+                .RTplot2(time)
+                })
             
-            time_plot <<- time
+            time_plot <<- time # keep this
             
         })
         
@@ -570,8 +584,8 @@ server <- function(input, output) {
             }
         })
         
-        time_plot <<- time_plot
-        tab <<- tab
+        time_plot <<- time_plot # keep in upper level for download
+        tab <<- tab # same
         
     })
     
@@ -596,18 +610,22 @@ server <- function(input, output) {
                 
                 simitem, # item plot
                 
-                ggplot(data.frame(sim),aes(seq_along(sim),sim))+
+                ggplot(
+                    data.frame(sim),
+                    aes(seq_along(sim),sim)) +
                     geom_bar(stat="identity", fill = "magenta3") +
                     ylab("BEAGLE simlilarity") +
                     xlab("Item's position preceding most recent item") +
                     ggtitle("Similarity with previous 5 words") +
                     ylim(c(0,0.7)), 
                 
-                ggplot(data.frame(time_plot), aes(seq_along(time_plot),time_plot)) +
+                ggplot(
+                    data.frame(time_plot), 
+                    aes(seq_along(time_plot),time_plot)) +
                     ggtitle("Reaction time") +
                     geom_line(size = 2, col = "turquoise3", linetype = 1) +
                     xlab("Time (0.3 s)") +
-                    ylab("Time spent on item") +
+                    ylab("Time spent on item (s)") +
                     geom_hline(yintercept = mean(time_plot), col = "indianred2",linetype = 3,size = 1.5)
 
             ) # end grid arrange
@@ -617,6 +635,7 @@ server <- function(input, output) {
     
     ## Run program Tab 2 ################################################################
     
+    # show or hide the data requirements when the checkbox is checked
     observe({
         toggle("line0",anim = TRUE,condition = input$show)
         toggle("line1",anim = TRUE,condition = input$show)
@@ -632,6 +651,7 @@ server <- function(input, output) {
     
     observe({
         
+        # create the progress bar
         progress <- shiny::Progress$new()
         
         on.exit(progress$close())
@@ -642,6 +662,7 @@ server <- function(input, output) {
         
         file <- input$file
         
+        # read data in various ways
         if(is.null(file)){
             return(NULL)
         } else if (input$type == "csv"){
@@ -652,31 +673,31 @@ server <- function(input, output) {
             dat <- read.xlsx(file$datapath, header = input$header, sep = input$separator,sheetIndex = 1)
         }
         
-        baddata <- FALSE
+        baddata <- FALSE # hopefully...
         
         if(colnames(dat)[1] == "X"){
             if(all(colnames(dat)[2:10] != c("sid", "entry", "irt", "fpatchnum", "fpatchitem", "fitemsfromend", "flastitem", "meanirt", "catitem"))){
                 output$error <- renderText({
-                    invalidateLater(10000)
+                    invalidateLater(10000) # keeps flickering if not this large
                     "Cannot perform analysis: data does not meet data requirements"})
                 baddata <- TRUE
             }
         } else if(colnames(dat)[1] != "X"){
             if(all(colnames(dat) != c("sid", "entry", "irt", "fpatchnum", "fpatchitem", "fitemsfromend", "flastitem", "meanirt", "catitem"))){
                 output$error <- renderText({
-                    invalidateLater(10000)
+                    invalidateLater(10000) # keeps flickering if not this large
                     "Cannot perform analysis: data does not meet data requirements"})
                 baddata <- TRUE
             }
         }
         
-        if(baddata == FALSE){
+        if(baddata == FALSE){ # this is good
             
-        output$error <- renderText("")
+        output$error <- renderText("") # no error!
         
         progress$inc(0.10, detail = 'Starting analysis')
         
-        # run analysis ##
+        # run analysis (code from onlinedata.R file)
         dccc <- dat
         dccc <- data.frame(dccc["sid"], dccc["entry"])
         names(dccc) <- c("sid", "entry")
@@ -689,9 +710,9 @@ server <- function(input, output) {
         simback4 <- simback[[4]]
         simback5 <- simback[[5]]
         
-        # Similarity test (commented out in the final version) ####
+        # Similarity test (for debugging, prints PASSED or FAILED to the console) ####
         
-        #.testSimilarity(simback1,simback2,simback3,simback4,simback5)
+        # .testSimilarity(simback1,simback2,simback3,simback4,simback5)
         
         progress$inc(0.10, detail = 'Computing similarity')
         
@@ -710,9 +731,9 @@ server <- function(input, output) {
         res <- anova(lm(sim~factor(x), data=a_table))
         
         if(res$`Pr(>F)`[1] < .05){
-            output$final <- renderText("The optimal foraging model fits the data.")
+            output$final <- renderText("The optimal foraging model fits the data.") # yeah
         } else {
-            output$final <- renderText("The optimal foraging model does not fit the data.")
+            output$final <- renderText("The optimal foraging model does not fit the data.") # too bad
         }
         
         ms <- c(mean(sb1, na.rm=T),
@@ -732,7 +753,9 @@ server <- function(input, output) {
         progress$inc(0.10, detail = 'Producing plot')
         
         output$itemplot <- renderPlot({
-            ggplot(data.frame(ms[5:1]), aes(seq_along(ms[5:1]),ms[5:1])) + 
+            ggplot(
+                data.frame(ms[5:1]), 
+                aes(seq_along(ms[5:1]),ms[5:1])) + 
                 geom_bar(stat = "identity", fill = "indianred2") +
                 ylab("BEAGLE similarity") +
                 xlab("Item's position preceding most recent item") +
@@ -740,7 +763,9 @@ server <- function(input, output) {
                 ylim(c(0,0.5)) + 
                 geom_errorbar(aes(ymin = ms[5:1]-see[5:1], ymax = ms[5:1]+see[5:1],width = .3))
         })
-        itemplot <<-  ggplot(data.frame(ms[5:1]), aes(seq_along(ms[5:1]),ms[5:1])) + 
+        itemplot <<-  ggplot(
+            data.frame(ms[5:1]), 
+            aes(seq_along(ms[5:1]),ms[5:1])) + 
             geom_bar(stat = "identity", fill = "indianred2") +
             ylab("BEAGLE similarity") +
             xlab("Item's position preceding most recent item") +
@@ -802,21 +827,25 @@ server <- function(input, output) {
             sd(hits[hits[,7] < 999,7], na.rm = T) / sqrt(length(hits[hits[,7] < 999,7])-sum(as.numeric(is.na(hits[,7])))),
             sd(hits[hits[,8] < 999,8], na.rm = T) / sqrt(length(hits[hits[,8] < 999,8])-sum(as.numeric(is.na(hits[,8])))))
         
-        # Proximity test (commented out in the final version) ####
+        # Proximity test (commented out in the final version, prints PASSED or FAILED to the console) ####
         
-        #.testProximity(msss)
+        # .testProximity(msss)
        
          progress$inc(0.10, detail = 'Creating plot')
         
         output$simplot <- renderPlot({
-            ggplot(data.frame(msss[c(3,4,5,6,7)]),aes(seq_along(msss[c(3,4,5,6,7)]),msss[c(3,4,5,6,7)])) +
+            ggplot(
+                data.frame(msss[c(3,4,5,6,7)]),
+                aes(seq_along(msss[c(3,4,5,6,7)]),msss[c(3,4,5,6,7)])) +
                 geom_bar(stat = "identity", fill = "turquoise3") +
                 xlab("Order of entry relative to patch switch") +
                 ylab("Residual Proximity") +
                 ggtitle("Mean residual proximity for words") +
                 geom_errorbar(ymin = msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)], ymax = msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)],width = .3)
         })
-        simplot <<- ggplot(data.frame(msss[c(3,4,5,6,7)]),aes(seq_along(msss[c(3,4,5,6,7)]),msss[c(3,4,5,6,7)])) +
+        simplot <<- ggplot(
+            data.frame(msss[c(3,4,5,6,7)]),
+            aes(seq_along(msss[c(3,4,5,6,7)]),msss[c(3,4,5,6,7)])) +
             geom_bar(stat = "identity", fill = "turquoise3") +
             xlab("Order of entry relative to patch switch") +
             ylab("Residual Proximity") +
@@ -841,18 +870,22 @@ server <- function(input, output) {
             prods[i] <- nrow(datsub)
         }
         
-        # Reaction time test (commented out in the final version) ####
+        # Reaction time test (commented out in the final version, prints PASSED or FAILED to the console) ####
         
         # .testReactionTime(meanswi.irt,meanoverall.irt)
         
         output$RTplot <- renderPlot({
-            ggplot(data.frame(abs(meanswi.irt-meanoverall.irt)),aes(abs(meanswi.irt-meanoverall.irt), prods)) + 
-            geom_point(col = "turquoise3") +
-            ylab("Number of words produced") +
-            xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
-            geom_smooth(method='lm', col = "indianred2")
+            ggplot(
+                data.frame(abs(meanswi.irt-meanoverall.irt)),
+                aes(abs(meanswi.irt-meanoverall.irt), prods)) + 
+                geom_point(col = "turquoise3") +
+                ylab("Number of words produced") +
+                xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
+                geom_smooth(method='lm', col = "indianred2")
         })
-        RTplot <<- ggplot(data.frame(abs(meanswi.irt-meanoverall.irt)),aes(abs(meanswi.irt-meanoverall.irt), prods)) + 
+        RTplot <<- ggplot(
+            data.frame(abs(meanswi.irt-meanoverall.irt)),
+            aes(abs(meanswi.irt-meanoverall.irt), prods)) + 
             geom_point(col = "turquoise3") +
             ylab("Number of words produced") +
             xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
@@ -890,6 +923,6 @@ server <- function(input, output) {
     
 }
 
-# Run the application 
+# Have fun
 shinyApp(ui = ui, server = server)
 

@@ -70,7 +70,7 @@
         ggtitle("Reaction time") + 
         geom_line(size = 2, col = "turquoise3", linetype = 1) +
         xlab("Time (0.3 s)") +
-        ylab("Time spent on item") +
+        ylab("Time spent on item (s)") +
         geom_hline(yintercept = mean(time), col = "indianred2",linetype = 2,size = 1.5)
     
 }
