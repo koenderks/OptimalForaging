@@ -689,7 +689,9 @@ server <- function(input, output) {
         simback4 <- simback[[4]]
         simback5 <- simback[[5]]
         
-        .testSimilarity(simback1,simback2,simback3,simback4,simback5)
+        # Similarity test (commented out in the final version) ####
+        
+        #.testSimilarity(simback1,simback2,simback3,simback4,simback5)
         
         progress$inc(0.10, detail = 'Computing similarity')
         
@@ -800,7 +802,9 @@ server <- function(input, output) {
             sd(hits[hits[,7] < 999,7], na.rm = T) / sqrt(length(hits[hits[,7] < 999,7])-sum(as.numeric(is.na(hits[,7])))),
             sd(hits[hits[,8] < 999,8], na.rm = T) / sqrt(length(hits[hits[,8] < 999,8])-sum(as.numeric(is.na(hits[,8])))))
         
-        .testProximity(msss)
+        # Proximity test (commented out in the final version) ####
+        
+        #.testProximity(msss)
        
          progress$inc(0.10, detail = 'Creating plot')
         
@@ -837,7 +841,9 @@ server <- function(input, output) {
             prods[i] <- nrow(datsub)
         }
         
-        .testReactionTime(meanswi.irt,meanoverall.irt)
+        # Reaction time test (commented out in the final version) ####
+        
+        # .testReactionTime(meanswi.irt,meanoverall.irt)
         
         output$RTplot <- renderPlot({
             ggplot(data.frame(abs(meanswi.irt-meanoverall.irt)),aes(abs(meanswi.irt-meanoverall.irt), prods)) + 
