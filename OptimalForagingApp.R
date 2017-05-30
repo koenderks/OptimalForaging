@@ -1,4 +1,3 @@
-
 # Load neccesary packages -----------------------------------------------------------
 
 if(!"shiny" %in% installed.packages()) 
@@ -71,12 +70,18 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                     #submit {
                                     background-color: #9C3848
                                     }
+
                                     #start {
                                     background-color: #9C3848
                                     }
+
                                     #download_task {
                                     background-color: #9C3848
-                                   }
+                                    }
+
+                                    #participant_result {
+                                    color: #ff0000
+                                    }
                                    
                                    body, label, input, button, select { 
                                    font-family: "Arial";
@@ -105,6 +110,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                               ),
                               mainPanel(
                                   titlePanel("The responses"),
+                                  h3(textOutput(outputId = "participant_result")),
                                   fluidRow(
                                       splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses'),plotOutput("simitem"), plotOutput("similarity"))
                                   ),
@@ -139,7 +145,15 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                    }
 
                                    #link {
-                                   color: #000000
+                                   color: #0066ff
+                                   }
+
+                                    #error {
+                                    color: #ff0000
+                                    }
+
+                                    #final {
+                                    color: #ff0000 
                                    }
                                    
                                    body, label, input, button, select { 
@@ -180,12 +194,13 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                            checkboxInput(inputId = "header",label = "Header",value = TRUE),
                                            fileInput(inputId = "file",label = "Choose file",multiple = FALSE),
                                            
-                                           a(id = "link","Example dataset", href = "https://www.dropbox.com/s/37is6uf3jrhx2g0/testdata.csv?dl=0",col = "black")
+                                           h4(a(id = "link","Example dataset", href = "https://www.dropbox.com/s/37is6uf3jrhx2g0/testdata.csv?dl=0"))
                               ),
                               mainPanel(
                                   titlePanel("The results"),
                                   
                                   br(),
+                                  textOutput(outputId = "error"),
                                   
                                   h3(textOutput(outputId = "final")),
                                   
@@ -428,7 +443,7 @@ server <- function(input, output) {
         
         index_vector <- rep(0,25)
         
-        color_vector <- rep("turquoise3",20)
+        color_vector <- rep("black",20)
         
         # observe submit button
         observeEvent(input$submit, {
@@ -510,7 +525,6 @@ server <- function(input, output) {
                 
             } 
             
-            
             output$responses <- renderTable(responses_output)
             
             tab <<- responses_output
@@ -519,7 +533,7 @@ server <- function(input, output) {
         
         time <- 0
 
-        time_plot <- NULL
+        #time_plot <- NULL
         
         # observe timer
         observe({
@@ -541,8 +555,19 @@ server <- function(input, output) {
             output$RT <- renderPlot({.RTplot2(time)})
             
             time_plot <<- time
-            hoi <<- .RTplot2(time)
             
+        })
+        
+        output$participant_result <- renderText({
+            invalidateLater(10000)
+            proportion <- (length(which(color_vector=="indianred2"))-1)/length(which(color_vector != "black"))
+            if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) < 0){
+                if(proportion <= 0.33){
+                    paste("You switched patches", length(which(color_vector=="indianred2"))-1, "out of", length(which(color_vector != "black")), "times and displayed an optimal foraging technique.")
+                } else {
+                    paste("You switched patches", length(which(color_vector=="indianred2"))-1, "out of", length(which(color_vector != "black")), "times and did not display an optimal foraging technique.")
+                }
+            }
         })
         
         time_plot <<- time_plot
@@ -626,6 +651,28 @@ server <- function(input, output) {
         } else if (input$type == "xlsx"){
             dat <- read.xlsx(file$datapath, header = input$header, sep = input$separator,sheetIndex = 1)
         }
+        
+        baddata <- FALSE
+        
+        if(colnames(dat)[1] == "X"){
+            if(all(colnames(dat)[2:10] != c("sid", "entry", "irt", "fpatchnum", "fpatchitem", "fitemsfromend", "flastitem", "meanirt", "catitem"))){
+                output$error <- renderText({
+                    invalidateLater(10000)
+                    "Cannot perform analysis: data does not meet data requirements"})
+                baddata <- TRUE
+            }
+        } else if(colnames(dat)[1] != "X"){
+            if(all(colnames(dat) != c("sid", "entry", "irt", "fpatchnum", "fpatchitem", "fitemsfromend", "flastitem", "meanirt", "catitem"))){
+                output$error <- renderText({
+                    invalidateLater(10000)
+                    "Cannot perform analysis: data does not meet data requirements"})
+                baddata <- TRUE
+            }
+        }
+        
+        if(baddata == FALSE){
+            
+        output$error <- renderText("")
         
         progress$inc(0.10, detail = 'Starting analysis')
         
@@ -804,6 +851,8 @@ server <- function(input, output) {
             ylab("Number of words produced") +
             xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
             geom_smooth(method='lm', col = "indianred2")
+        
+        }
         
     })
     
