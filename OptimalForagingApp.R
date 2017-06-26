@@ -51,18 +51,12 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                  
                  ## Tab 1 UI ################################################################
                  
-                 tabPanel(title = "Task",
-                          
-                          strong(id = "text", 
-                                 span("Created by "),
-                                 a("Koen Derks", href = "https://www.linkedin.com/in/koen-derks-283273124/"),
-                                 HTML("&bull;"),
-                                 span("Code"),
-                                 a("on GitHub", href = "https://github.com/koenderks/OptimalForaging")
-                          ),
-                          
-                          tags$head(tags$style(
-                              HTML('
+                 navbarMenu(title = "Tasks",
+                            
+                            tabPanel(title = "Verbal Fluency Task (EN)",
+                                     
+                                     tags$head(tags$style(
+                                         HTML('
                                    #sidebar {
                                    background-color: #FABC3C;
                                    }
@@ -86,53 +80,229 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                    body, label, input, button, select { 
                                    font-family: "Arial";
                                    }')
-                          )),
-                          tags$a(
-                              tags$img(style="position: absolute; top: 10; right: 0; border: 0; width: 500px; height: 100px",
-                                       src="uva-acroniem.png")
-                          ),
-                          
-                          # Title panel
-                          headerPanel("The task"),
-                          # sidebar
-                          sidebarLayout(
-                              sidebarPanel(id="sidebar",
-                                           tags$head(tags$script(src = "enter-button.js")),
-                                           h3("Introduction"),
-                                           h4(p("The purpose of this task is to name as much animals as possible within the time limit of 60 seconds.")),
-                                           br(),
-                                           actionButton("start", "Start the timer",icon = icon("clock-o")),
-                                           br(),
-                                           h3(textOutput(outputId = "timer")),
-                                           br(),
-                                           textInput(inputId = "word",label = "Name an animal and press enter (or submit):",placeholder = "Name an animal:"),
-                                           actionButton(inputId = "submit", label = "Submit", icon = icon("check"))
-                              ),
-                              mainPanel(
-                                  titlePanel("The responses"),
-                                  h3(textOutput(outputId = "participant_result")),
-                                  fluidRow(
-                                      splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses'),plotOutput("simitem"), plotOutput("similarity"))
-                                  ),
-                                  plotOutput(outputId = 'RT'),
-                                  textOutput(outputId = 'model'),
-                                  
-                                  downloadButton('download_task', 'Download results')
-                              )
-                          )
+                                     )),
+                                     tags$a(
+                                         tags$img(style="position: absolute; top: 70px; right: 20px; border: 0; max-height: 80px;",
+                                                  src="logo.png")
+                                     ),
+                                     
+                                     # sidebar
+                                     sidebarLayout(
+                                         sidebarPanel(id="sidebar",
+                                                      tags$head(tags$script(src = "enter-button.js")),
+                                                      h3("Verbal Fluency Task (EN)"),
+                                                      h4(p("The purpose of this task is to name as much animals as possible within the time limit of 60 seconds.")),
+                                                      br(),
+                                                      actionButton("start", "Start the timer",icon = icon("clock-o")),
+                                                      br(),
+                                                      h3(textOutput(outputId = "timer")),
+                                                      br(),
+                                                      textInput(inputId = "word",label = "Name an animal and press enter (or submit):",placeholder = "Name an animal:"),
+                                                      actionButton(inputId = "submit", label = "Submit", icon = icon("check"))
+                                         ),
+                                         mainPanel(
+                                             titlePanel("Responses"),
+                                             h3(textOutput(outputId = "participant_result")),
+                                             fluidRow(
+                                                 splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses'),plotOutput("simitem"), plotOutput("similarity"))
+                                             ),
+                                             plotOutput(outputId = 'RT'),
+                                             textOutput(outputId = 'model'),
+                                             
+                                             downloadButton('download_task', 'Download results')
+                                         )
+                                     )
+                            ),
+                            
+                            tabPanel(title = "Verbal Fluency Task (NL)",
+                                     
+                                     tags$head(tags$style(
+                                         HTML('
+                                              #sidebar {
+                                              background-color: #FABC3C;
+                                              }
+                                              
+                                              #submit2 {
+                                              background-color: #9C3848
+                                              }
+                                              
+                                              #start {
+                                              background-color: #9C3848
+                                              }
+                                              
+                                              #download_task2 {
+                                              background-color: #9C3848
+                                              }
+                                              
+                                              #participant_result2 {
+                                              color: #ff0000
+                                              }
+                                              
+                                              body, label, input, button, select { 
+                                              font-family: "Arial";
+                                              }')
+                                     )),
+                                     tags$a(
+                                         tags$img(style="position: absolute; top: 70px; right: 20px; border: 0; max-height: 80px;",
+                                                  src="logo.png")
+                                     ),
+                                     
+                                     # sidebar
+                                     sidebarLayout(
+                                         sidebarPanel(id="sidebar",
+                                                      tags$head(tags$script(src = "enter-button.js")),
+                                                      h3("Verbal Fluency Task (NL)"),
+                                                      h4(p("De bedoeling van deze taak is het benoemen van zo veel mogelijk dieren binnen de tijdlimiet van 60 seconden.")),
+                                                      br(),
+                                                      actionButton("start", "Start de klok",icon = icon("clock-o")),
+                                                      br(),
+                                                      h3(textOutput(outputId = "timer2")),
+                                                      br(),
+                                                      textInput(inputId = "word2",label = "Noem een dier en klik op enter (of submit):",placeholder = "Noem een dier:"),
+                                                      actionButton(inputId = "submit2", label = "Submit", icon = icon("check"))
+                                         ),
+                                         mainPanel(
+                                             titlePanel("Responses"),
+                                             h3(textOutput(outputId = "participant_result2")),
+                                             fluidRow(
+                                                 splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses2'),plotOutput("simitem2"), plotOutput("similarity2"))
+                                             ),
+                                             plotOutput(outputId = 'RT2'),
+                                             textOutput(outputId = 'model2'),
+                                             
+                                             downloadButton(outputId = 'download_task2', label = 'Download resultaten')
+                                         )
+                                     )
+                                     
+                            ),
+                            tabPanel(title = "Alternative Uses Task (EN)",
+                                     
+                                     tags$head(tags$style(
+                                         HTML('
+                                              #sidebar {
+                                              background-color: #FABC3C;
+                                              }
+                                              
+                                              #submit3 {
+                                              background-color: #9C3848
+                                              }
+                                              
+                                              #start {
+                                              background-color: #9C3848
+                                              }
+                                              
+                                              #download_task3 {
+                                              background-color: #9C3848
+                                              }
+                                              
+                                              #participant_result3 {
+                                              color: #ff0000
+                                              }
+                                              
+                                              body, label, input, button, select { 
+                                              font-family: "Arial";
+                                              }')
+                                     )),
+                                     tags$a(
+                                         tags$img(style="position: absolute; top: 70px; right: 20px; border: 0; max-height: 80px;",
+                                                  src="logo.png")
+                                     ),
+                                     
+                                     # sidebar
+                                     sidebarLayout(
+                                         sidebarPanel(id="sidebar",
+                                                      tags$head(tags$script(src = "enter-button.js")),
+                                                      h3("Alternative Uses Task (EN)"),
+                                                      h4(p("The purpose of this task is to name as much applications for a brick as possible within the time limit of 60 seconds")),
+                                                      br(),
+                                                      actionButton("start", "Start the timer",icon = icon("clock-o")),
+                                                      br(),
+                                                      h3(textOutput(outputId = "timer3")),
+                                                      br(),
+                                                      textInput(inputId = "word3",label = "Name an application and press enter (or submit):",placeholder = "Name an application:"),
+                                                      actionButton(inputId = "submit3", label = "Submit", icon = icon("check"))
+                                         ),
+                                         mainPanel(
+                                             titlePanel("Responses"),
+                                             h3(textOutput(outputId = "participant_result3")),
+                                             fluidRow(
+                                                 splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses3'),plotOutput("simitem3"), plotOutput("similarity3"))
+                                             ),
+                                             plotOutput(outputId = 'RT3'),
+                                             textOutput(outputId = 'model3'),
+                                             
+                                             downloadButton(outputId = 'download_task3', label = 'Download results')
+                                         )
+                                     )
+                                     
+                            ),
+                            tabPanel(title = "Alternative Uses Task (NL)",
+                                     
+                                     tags$head(tags$style(
+                                         HTML('
+                                              #sidebar {
+                                              background-color: #FABC3C;
+                                              }
+                                              
+                                              #submit4 {
+                                              background-color: #9C3848
+                                              }
+                                              
+                                              #start {
+                                              background-color: #9C3848
+                                              }
+                                              
+                                              #download_task4 {
+                                              background-color: #9C3848
+                                              }
+                                              
+                                              #participant_result4 {
+                                              color: #ff0000
+                                              }
+                                              
+                                              body, label, input, button, select { 
+                                              font-family: "Arial";
+                                              }')
+                                     )),
+                                     tags$a(
+                                         tags$img(style="position: absolute; top: 70px; right: 20px; border: 0; max-height: 80px;",
+                                                  src="logo.png")
+                                     ),
+                                     
+                                     # sidebar
+                                     sidebarLayout(
+                                         sidebarPanel(id="sidebar",
+                                                      tags$head(tags$script(src = "enter-button.js")),
+                                                      h3("Alternative Uses Task (NL)"),
+                                                      h4(p("De bedoeling van deze taak is het benoemen van zo veel applicaties voor een baksteen binnen de tijdlimiet van 60 seconden.")),
+                                                      br(),
+                                                      actionButton("start", "Start de klok",icon = icon("clock-o")),
+                                                      br(),
+                                                      h3(textOutput(outputId = "timer4")),
+                                                      br(),
+                                                      textInput(inputId = "word4",label = "Noem een applicatie en klik op enter (of submit):",placeholder = "Noem een applicatie:"),
+                                                      actionButton(inputId = "submit4", label = "Submit", icon = icon("check"))
+                                         ),
+                                         mainPanel(
+                                             titlePanel("Responses"),
+                                             h3(textOutput(outputId = "participant_result4")),
+                                             fluidRow(
+                                                 splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses4'),plotOutput("simitem4"), plotOutput("similarity4"))
+                                             ),
+                                             plotOutput(outputId = 'RT4'),
+                                             textOutput(outputId = 'model4'),
+                                             
+                                             downloadButton(outputId = 'download_task4', label = 'Download resultaten')
+                                         )
+                                     )
+                                     
+                            )
+                            
                  ),
                  
                  # Tab 2 UI ################################################################
                  
-                 tabPanel("Upload file",
-                          
-                          strong(id = "text", 
-                                 span("Created by "),
-                                 a("Koen Derks", href = "https://www.linkedin.com/in/koen-derks-283273124/"),
-                                 HTML("&bull;"),
-                                 span("Code"),
-                                 a("on GitHub", href = "https://github.com/koenderks/OptimalForaging")
-                          ),
+                 tabPanel("Data Analysis",
                           
                           tags$head(tags$style(
                               HTML('
@@ -160,10 +330,6 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                    font-family: "Arial";
                                    }')
                           )),
-                          tags$a(
-                              tags$img(style="position: absolute; top: 10; right: 0; border: 0; width: 500px; height: 100px",
-                                       src="uva-acroniem.png")
-                          ),
                           
                           headerPanel("The file upload"),
                           sidebarLayout(
@@ -205,32 +371,20 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                   h3(textOutput(outputId = "final")),
                                   
                                   br(),
-
+                                  
                                   fluidRow(                                
                                       splitLayout(cellWidths = c("50%", "50%"), plotOutput("itemplot"), plotOutput("simplot"))
                                   ),
                                   plotOutput(outputId = 'RTplot'),
                                   
                                   downloadButton('download_analysis', 'Download output')
-                                 
+                                  
                               )
                           )),
-
+                 
                  # Tab 3 UI ################################################################
                  
                  tabPanel(title = "Theory", 
-                          
-                          strong(id = "text", 
-                                 span("Created by "),
-                                 a("Koen Derks", href = "https://www.linkedin.com/in/koen-derks-283273124/"),
-                                 HTML("&bull;"),
-                                 span("Code"),
-                                 a("on GitHub", href = "https://github.com/koenderks/OptimalForaging")
-                          ),
-                          tags$a(
-                              tags$img(style="position: absolute; top: 10; right: 0; border: 0; width: 500px; height: 100px",
-                                       src="uva-acroniem.png")
-                          ),
                           
                           headerPanel("The theory"),
                           br(),
@@ -305,6 +459,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                               includeMarkdown("manual.md")
                           )
                  )
+                 
 )
 
 
@@ -322,7 +477,7 @@ server <- function(input, output) {
     data <- read.csv("animal_clusters.csv",sep = ";",stringsAsFactors = FALSE)
     load("onlinedata.Rdata")
     
-    ## Create placeholders Tab 1 ################################################################
+    ## Create placeholders Tab 1 option 1 ################################################################
     
     df <- data.frame()
     ancos <- ancos
@@ -339,10 +494,10 @@ server <- function(input, output) {
     simplot <- NULL
     RTplot <- NULL
     
-    ## Create empty plots tab 1 ################################################################
+    ## Create empty plots tab 1 option 1 ################################################################
     
     output$simitem <- renderPlot({ggplot(df) + 
-            ylab("BEAGLE similariry") +
+            ylab("Similariry") +
             xlab("Word index") +
             ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
             xlim(c(0,20)) +
@@ -352,7 +507,7 @@ server <- function(input, output) {
     output$similarity <- renderPlot({
         ggplot(df,aes(seq_along(df),df))+
             geom_bar(stat="identity", fill = "magenta3") +
-            ylab("BEAGLE simlilarity") +
+            ylab("Simlilarity") +
             xlab("Item's position preceding most recent item") +
             ggtitle("Similarity with previous 5 words") +
             ylim(c(0,0.7)) +
@@ -368,10 +523,97 @@ server <- function(input, output) {
             ylab("Time spent on word (s)")
     })
     
+    ## Create empty plots Tab 1 option 2 ######################################################
+    
+    output$simitem2 <- renderPlot({ggplot(df) + 
+            ylab("Gelijkenis") +
+            xlab("Woord index") +
+            ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel") +
+            xlim(c(0,20)) +
+            ylim(c(0,0.7))
+    },width = 400,height = 400)
+    
+    output$similarity2 <- renderPlot({
+        ggplot(df,aes(seq_along(df),df))+
+            geom_bar(stat="identity", fill = "magenta3") +
+            ylab("Gelijkenis") +
+            xlab("Positie van item voorafgaand aan recentste woord") +
+            ggtitle("Gelijkenis met vorige 5 woorden") +
+            ylim(c(0,0.7)) +
+            xlim(c(0,5))
+    },width = 400,height = 400)
+    
+    output$RT2 <- renderPlot({
+        ggplot(df) +
+            xlim(c(0,200)) +
+            ylim(c(0,5)) +
+            ggtitle("Reactietijd") +
+            xlab("Tijd (0.3 s)") +
+            ylab("Tijd bezig met woord (s)")
+    })
+    
+    ## Create empty plots tab 1 option 3 ################################################################
+    
+    output$simitem3 <- renderPlot({ggplot(df) + 
+            ylab("Similariry") +
+            xlab("Word index") +
+            ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
+            xlim(c(0,20)) +
+            ylim(c(0,0.7))
+    },width = 400,height = 400)
+    
+    output$similarity3 <- renderPlot({
+        ggplot(df,aes(seq_along(df),df))+
+            geom_bar(stat="identity", fill = "magenta3") +
+            ylab("Simlilarity") +
+            xlab("Item's position preceding most recent item") +
+            ggtitle("Similarity with previous 5 words") +
+            ylim(c(0,0.7)) +
+            xlim(c(0,5))
+    },width = 400,height = 400)
+    
+    output$RT3 <- renderPlot({
+        ggplot(df) +
+            xlim(c(0,200)) +
+            ylim(c(0,5)) +
+            ggtitle("Reaction time") +
+            xlab("Time (0.3 s)") +
+            ylab("Time spent on word (s)")
+    })
+    
+    ## Create empty plots tab 1 option 4 ################################################################
+    
+    output$simitem4 <- renderPlot({ggplot(df) + 
+            ylab("Gelijkenis") +
+            xlab("Woord index") +
+            ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel") +
+            xlim(c(0,20)) +
+            ylim(c(0,0.7))
+    },width = 400,height = 400)
+    
+    output$similarity4 <- renderPlot({
+        ggplot(df,aes(seq_along(df),df))+
+            geom_bar(stat="identity", fill = "magenta3") +
+            ylab("Gelijkenis") +
+            xlab("Positie van item voorafgaand aan recentste woord") +
+            ggtitle("Gelijkenis met vorige 5 woorden") +
+            ylim(c(0,0.7)) +
+            xlim(c(0,5))
+    },width = 400,height = 400)
+    
+    output$RT4 <- renderPlot({
+        ggplot(df) +
+            xlim(c(0,200)) +
+            ylim(c(0,5)) +
+            ggtitle("Reactietijd") +
+            xlab("Tijd (0.3 s)") +
+            ylab("Tijd bezig met woord (s)")
+    })
+    
     ## Create empty plots Tab 2 ################################################################
     
     output$itemplot <- renderPlot({ggplot(blank) + 
-            ylab("BEAGLE similariry") +
+            ylab("Similariry") +
             xlab("Item's position preceding most recent item") +
             ggtitle("Mean similarity with previous word") +
             ylim(c(0,0.5)) +
@@ -400,6 +642,9 @@ server <- function(input, output) {
     # Create timer ####################################################################
     
     output$timer <- renderText("Time left: 60 secs")
+    output$timer2 <- renderText("Tijd over: 60 secs")
+    output$timer3 <- renderText("Time left: 60 secs")
+    output$timer4 <- renderText("Tijd over: 60 secs")
     
     # Run program tab 1 ################################################################
     
