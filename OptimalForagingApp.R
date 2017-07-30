@@ -529,7 +529,7 @@ server <- function(input, output) {
             xlim(c(0,200)) +
             ylim(c(0,5)) +
             ggtitle("Reaction time") +
-            xlab("Time (0.3 s)") +
+            xlab("Time (s)") +
             ylab("Time spent on word (s)")
     })
     
@@ -558,7 +558,7 @@ server <- function(input, output) {
             xlim(c(0,200)) +
             ylim(c(0,5)) +
             ggtitle("Reactietijd") +
-            xlab("Tijd (0.3 s)") +
+            xlab("Tijd (s)") +
             ylab("Tijd bezig met woord (s)")
     })
     
@@ -587,7 +587,7 @@ server <- function(input, output) {
             xlim(c(0,200)) +
             ylim(c(0,5)) +
             ggtitle("Reaction time") +
-            xlab("Time (0.3 s)") +
+            xlab("Time (s)") +
             ylab("Time spent on word (s)")
     })
     
@@ -616,7 +616,7 @@ server <- function(input, output) {
             xlim(c(0,200)) +
             ylim(c(0,5)) +
             ggtitle("Reactietijd") +
-            xlab("Tijd (0.3 s)") +
+            xlab("Tijd (s)") +
             ylab("Tijd bezig met woord (s)")
     })
     
@@ -879,7 +879,7 @@ server <- function(input, output) {
                     aes(seq_along(time_plot),time_plot)) +
                     ggtitle("Reaction time") +
                     geom_line(size = 1, col = "black", linetype = 1) +
-                    xlab("Time (0.3 s)") +
+                    xlab("Time (s)") +
                     ylab("Time spent on item (s)") +
                     geom_hline(yintercept = mean(time_plot), col = "red",linetype = 3,size = 1)
 
@@ -906,11 +906,11 @@ server <- function(input, output) {
         output$timer2 <- renderText({
             invalidateLater(1000)
             if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs')))<0){
-                paste("Time left:", 
-                      0, 'secs')
+                paste("Tijd over:", 
+                      0, 'sec')
             } else {
-                paste("Time left:", 
-                      round(difftime(stoptime, Sys.time(), units='secs')), 'secs')
+                paste("Tijd over:", 
+                      round(difftime(stoptime, Sys.time(), units='secs')), 'sec')
             }
         })
         
@@ -1111,7 +1111,7 @@ server <- function(input, output) {
                     aes(seq_along(time_plot2),time_plot2)) +
                     ggtitle("Reaction time") +
                     geom_line(size = 1, col = "black", linetype = 1) +
-                    xlab("Time (0.3 s)") +
+                    xlab("Time (s)") +
                     ylab("Time spent on item (s)") +
                     geom_hline(yintercept = mean(time_plot2), col = "red",linetype = 3,size = 1)
                 
