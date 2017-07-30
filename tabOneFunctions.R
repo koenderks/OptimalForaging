@@ -64,6 +64,45 @@
     
 }
 
+.updateBarPlotNL <- function(index_vector,iter, results, color_vector,valid){
+    
+    if(iter == 1){
+        
+        ggplot(data.frame(rev(index_vector)),aes(seq_along(index_vector),index_vector))+
+            geom_bar(stat="identity", fill = color_vector) +
+            ylab("Gelijkenis") +
+            xlab("Woord index") +
+            ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel")+
+            xlim(c(0,20)) +
+            ylim(c(0,0.7))
+        
+    } else {
+        
+        if(results[nrow(results),2]=="FALSE"){
+            
+            ggplot(data.frame(rev(index_vector)),aes(seq_along(index_vector),index_vector))+
+                geom_bar(stat="identity", fill = color_vector) +
+                ylab("Gelijkenis") +
+                xlab("Woord index") +
+                ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel") +
+                xlim(c(0,20)) +
+                ylim(c(0,0.7))  
+            
+        } else if(results[nrow(results),2]=="TRUE"){
+            
+            ggplot(data.frame(rev(index_vector)),aes(seq_along(index_vector),index_vector))+
+                geom_bar(stat="identity", fill = color_vector) +
+                ylab("Gelijkenis") +
+                xlab("Woord index") +
+                ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel") +
+                xlim(c(0,20)) +
+                ylim(c(0,0.7))
+            
+        }
+    }
+    
+}
+
 .RTplot2 <- function(time){
     
     ggplot(data.frame(time), aes(seq_along(time),time)) +
@@ -71,6 +110,17 @@
         geom_line(size = 1.5, col = "black", linetype = 1) +
         xlab("Time (0.3 s)") +
         ylab("Time spent on item (s)") +
+        geom_hline(yintercept = mean(time), col = "red",linetype = 2,size = 1)
+    
+}
+
+.RTplot2NL <- function(time){
+    
+    ggplot(data.frame(time), aes(seq_along(time),time)) +
+        ggtitle("Reactietijd") + 
+        geom_line(size = 1.5, col = "black", linetype = 1) +
+        xlab("Tijd (s)") +
+        ylab("Tijd besteed aan item (s)") +
         geom_hline(yintercept = mean(time), col = "red",linetype = 2,size = 1)
     
 }

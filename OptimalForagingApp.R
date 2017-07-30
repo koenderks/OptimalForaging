@@ -51,7 +51,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                  
                  ## Tab 1 UI ################################################################
                  
-                 navbarMenu(title = "Tasks",
+                 navbarMenu(title = "Task",
                             
                             tabPanel(title = "Verbal Fluency Task (EN)",
                                      
@@ -152,14 +152,14 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                          sidebarPanel(id="sidebar",
                                                       tags$head(tags$script(src = "enter-button2.js")),
                                                       h3("Verbal Fluency Task (NL)"),
-                                                      h4(p("De bedoeling van deze taak is het benoemen van zo veel mogelijk dieren binnen de tijdlimiet van 60 seconden.")),
+                                                      h4(p("De bedoeling van deze taak is het benoemen van zo veel mogelijk dieren binnen de tijdslimiet van 60 seconden.")),
                                                       br(),
                                                       actionButton("start2", "Start de klok",icon = icon("clock-o")),
                                                       br(),
                                                       h3(textOutput(outputId = "timer2")),
                                                       br(),
-                                                      textInput(inputId = "word2",label = "Noem een dier en klik op enter (of submit):",placeholder = "Noem een dier:"),
-                                                      actionButton(inputId = "submit2", label = "Submit", icon = icon("check"))
+                                                      textInput(inputId = "word2",label = "Noem een dier en druk op enter (of invoeren):",placeholder = "Noem een dier:"),
+                                                      actionButton(inputId = "submit2", label = "Invoeren", icon = icon("check"))
                                          ),
                                          mainPanel(
                                              titlePanel("Resultaten"),
@@ -274,13 +274,13 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                          sidebarPanel(id="sidebar",
                                                       tags$head(tags$script(src = "enter-button4.js")),
                                                       h3("Alternative Uses Task (NL)"),
-                                                      h4(p("De bedoeling van deze taak is het benoemen van zo veel applicaties voor een baksteen binnen de tijdlimiet van 60 seconden.")),
+                                                      h4(p("De bedoeling van deze taak is het benoemen van zo veel applicaties voor een baksteen binnen de tijdslimiet van 60 seconden.")),
                                                       br(),
                                                       actionButton("start4", "Start de klok",icon = icon("clock-o")),
                                                       br(),
                                                       h3(textOutput(outputId = "timer4")),
                                                       br(),
-                                                      textInput(inputId = "word4",label = "Noem een applicatie en klik op enter (of submit):",placeholder = "Noem een applicatie:"),
+                                                      textInput(inputId = "word4",label = "Noem een applicatie en druk op enter (of invoeren):",placeholder = "Noem een applicatie:"),
                                                       actionButton(inputId = "submit4", label = "Submit", icon = icon("check"))
                                          ),
                                          mainPanel(
@@ -990,9 +990,9 @@ server <- function(input, output) {
                         output$similarity2 <- renderPlot({
                             ggplot(data.frame(similarity),aes(seq_along(similarity),similarity))+
                                 geom_bar(stat="identity", fill = "dimgrey") +
-                                ylab("Simlilarity") +
-                                xlab("Item's position preceding most recent item") +
-                                ggtitle("Similarity with previous 5 words") +
+                                ylab("Gelijkenis") +
+                                xlab("Positie van item voorafgaand aan recentste woord") +
+                                ggtitle("Gelijkenis met vorige 5 woorden") +
                                 ylim(c(0,0.7)) 
                         },width = 400,height = 400)
                         
@@ -1016,10 +1016,10 @@ server <- function(input, output) {
                 if(nrow(results) <= 20){ # to make sure you don't see more than 20 answers and crash the program
                     
                     output$simitem2 <- renderPlot({
-                        .updateBarPlot(index_vector, iter, results,color_vector, valid)
+                        .updateBarPlotNL(index_vector, iter, results,color_vector, valid)
                     },width = 400,height = 400)
                     
-                    simitem2 <<- .updateBarPlot(index_vector, iter, results,color_vector, valid) # keep that as well
+                    simitem2 <<- .updateBarPlotNL(index_vector, iter, results,color_vector, valid) # keep that as well
                     
                 }
             } 
@@ -1052,7 +1052,7 @@ server <- function(input, output) {
             clicked <<- 0
             
             output$RT2 <- renderPlot({
-                .RTplot2(time)
+                .RTplot2NL(time)
             })
             
             time_plot2 <<- time # keep this
