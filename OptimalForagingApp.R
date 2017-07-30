@@ -58,19 +58,19 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                      tags$head(tags$style(
                                          HTML('
                                    #sidebar {
-                                   background-color: #FABC3C;
+                                   background-color: #EEEEEE;
                                    }
 
                                     #submit {
-                                    background-color: #9C3848
+                                    background-color: #FF5722
                                     }
 
                                     #start {
-                                    background-color: #9C3848
+                                    background-color: #FF5722
                                     }
 
                                     #download_task {
-                                    background-color: #9C3848
+                                    background-color: #FF5722
                                     }
 
                                     #participant_result {
@@ -101,7 +101,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                                       actionButton(inputId = "submit", label = "Submit", icon = icon("check"))
                                          ),
                                          mainPanel(
-                                             titlePanel("Responses"),
+                                             titlePanel("Results"),
                                              h3(textOutput(outputId = "participant_result")),
                                              fluidRow(
                                                  splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses'),plotOutput("simitem"), plotOutput("similarity"))
@@ -109,7 +109,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              plotOutput(outputId = 'RT'),
                                              textOutput(outputId = 'model'),
                                              
-                                             downloadButton('download_task', 'Download results')
+                                             downloadButton('download_task', 'Download Results')
                                          )
                                      )
                             ),
@@ -119,19 +119,19 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                      tags$head(tags$style(
                                          HTML('
                                               #sidebar {
-                                              background-color: #FABC3C;
+                                              background-color: #EEEEEE;
                                               }
                                               
                                               #submit2 {
-                                              background-color: #9C3848
+                                              background-color: #FF5722
                                               }
                                               
-                                              #start {
-                                              background-color: #9C3848
+                                              #start2 {
+                                              background-color: #FF5722
                                               }
                                               
                                               #download_task2 {
-                                              background-color: #9C3848
+                                              background-color: #FF5722
                                               }
                                               
                                               #participant_result2 {
@@ -150,11 +150,11 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                      # sidebar
                                      sidebarLayout(
                                          sidebarPanel(id="sidebar",
-                                                      tags$head(tags$script(src = "enter-button.js")),
+                                                      tags$head(tags$script(src = "enter-button2.js")),
                                                       h3("Verbal Fluency Task (NL)"),
                                                       h4(p("De bedoeling van deze taak is het benoemen van zo veel mogelijk dieren binnen de tijdlimiet van 60 seconden.")),
                                                       br(),
-                                                      actionButton("start", "Start de klok",icon = icon("clock-o")),
+                                                      actionButton("start2", "Start de klok",icon = icon("clock-o")),
                                                       br(),
                                                       h3(textOutput(outputId = "timer2")),
                                                       br(),
@@ -162,7 +162,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                                       actionButton(inputId = "submit2", label = "Submit", icon = icon("check"))
                                          ),
                                          mainPanel(
-                                             titlePanel("Responses"),
+                                             titlePanel("Resultaten"),
                                              h3(textOutput(outputId = "participant_result2")),
                                              fluidRow(
                                                  splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses2'),plotOutput("simitem2"), plotOutput("similarity2"))
@@ -170,7 +170,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              plotOutput(outputId = 'RT2'),
                                              textOutput(outputId = 'model2'),
                                              
-                                             downloadButton(outputId = 'download_task2', label = 'Download resultaten')
+                                             downloadButton(outputId = 'download_task2', label = 'Download Resultaten')
                                          )
                                      )
                                      
@@ -180,19 +180,19 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                      tags$head(tags$style(
                                          HTML('
                                               #sidebar {
-                                              background-color: #FABC3C;
+                                              background-color: #EEEEEE;
                                               }
                                               
                                               #submit3 {
-                                              background-color: #9C3848
+                                              background-color: #FF5722
                                               }
                                               
-                                              #start {
-                                              background-color: #9C3848
+                                              #start3 {
+                                              background-color: #FF5722
                                               }
                                               
                                               #download_task3 {
-                                              background-color: #9C3848
+                                              background-color: #FF5722
                                               }
                                               
                                               #participant_result3 {
@@ -211,11 +211,11 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                      # sidebar
                                      sidebarLayout(
                                          sidebarPanel(id="sidebar",
-                                                      tags$head(tags$script(src = "enter-button.js")),
+                                                      tags$head(tags$script(src = "enter-button3.js")),
                                                       h3("Alternative Uses Task (EN)"),
                                                       h4(p("The purpose of this task is to name as much applications for a brick as possible within the time limit of 60 seconds")),
                                                       br(),
-                                                      actionButton("start", "Start the timer",icon = icon("clock-o")),
+                                                      actionButton("start3", "Start the timer",icon = icon("clock-o")),
                                                       br(),
                                                       h3(textOutput(outputId = "timer3")),
                                                       br(),
@@ -223,7 +223,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                                       actionButton(inputId = "submit3", label = "Submit", icon = icon("check"))
                                          ),
                                          mainPanel(
-                                             titlePanel("Responses"),
+                                             titlePanel("Results"),
                                              h3(textOutput(outputId = "participant_result3")),
                                              fluidRow(
                                                  splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses3'),plotOutput("simitem3"), plotOutput("similarity3"))
@@ -231,7 +231,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              plotOutput(outputId = 'RT3'),
                                              textOutput(outputId = 'model3'),
                                              
-                                             downloadButton(outputId = 'download_task3', label = 'Download results')
+                                             downloadButton(outputId = 'download_task3', label = 'Download Results')
                                          )
                                      )
                                      
@@ -241,19 +241,19 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                      tags$head(tags$style(
                                          HTML('
                                               #sidebar {
-                                              background-color: #FABC3C;
+                                              background-color: #EEEEEE;
                                               }
                                               
                                               #submit4 {
-                                              background-color: #9C3848
+                                              background-color: #FF5722
                                               }
                                               
-                                              #start {
-                                              background-color: #9C3848
+                                              #start4 {
+                                              background-color: #FF5722
                                               }
                                               
                                               #download_task4 {
-                                              background-color: #9C3848
+                                              background-color: #FF5722
                                               }
                                               
                                               #participant_result4 {
@@ -272,11 +272,11 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                      # sidebar
                                      sidebarLayout(
                                          sidebarPanel(id="sidebar",
-                                                      tags$head(tags$script(src = "enter-button.js")),
+                                                      tags$head(tags$script(src = "enter-button4.js")),
                                                       h3("Alternative Uses Task (NL)"),
                                                       h4(p("De bedoeling van deze taak is het benoemen van zo veel applicaties voor een baksteen binnen de tijdlimiet van 60 seconden.")),
                                                       br(),
-                                                      actionButton("start", "Start de klok",icon = icon("clock-o")),
+                                                      actionButton("start4", "Start de klok",icon = icon("clock-o")),
                                                       br(),
                                                       h3(textOutput(outputId = "timer4")),
                                                       br(),
@@ -284,7 +284,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                                       actionButton(inputId = "submit4", label = "Submit", icon = icon("check"))
                                          ),
                                          mainPanel(
-                                             titlePanel("Responses"),
+                                             titlePanel("Resultaten"),
                                              h3(textOutput(outputId = "participant_result4")),
                                              fluidRow(
                                                  splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses4'),plotOutput("simitem4"), plotOutput("similarity4"))
@@ -292,7 +292,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              plotOutput(outputId = 'RT4'),
                                              textOutput(outputId = 'model4'),
                                              
-                                             downloadButton(outputId = 'download_task4', label = 'Download resultaten')
+                                             downloadButton(outputId = 'download_task4', label = 'Download Resultaten')
                                          )
                                      )
                                      
@@ -307,7 +307,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                           tags$head(tags$style(
                               HTML('
                                    #sidebar {
-                                   background-color: #FABC3C;
+                                   background-color: #EEEEEE;
                                    }
 
                                    #download_analysis {
@@ -476,6 +476,10 @@ server <- function(input, output) {
     
     data <- read.csv("animal_clusters.csv",sep = ";",stringsAsFactors = FALSE)
     load("onlinedata.Rdata")
+    ancos2 <- read.table("similarity_matrix_dieren.txt", sep = " ")
+    labels2 <- read.table("labels_dieren.csv"); labels2 <- as.vector(as.matrix(labels2))
+    colnames(ancos2) <- labels2
+    data2 <- read.csv("dieren_clusters.csv", sep = ";", stringsAsFactors = FALSE)
     
     ## Create placeholders Tab 1 option 1 ################################################################
     
@@ -484,8 +488,14 @@ server <- function(input, output) {
     tab <- NULL
     sim <- NULL
     simitem <- NULL
-    hoi <- NULL
     time_plot <- NULL
+    
+    ## Create placeholders Tab 1 option 2 ################################################################
+    
+    tab2 <- NULL
+    sim2 <- NULL
+    simitem2 <- NULL
+    time_plot2 <- NULL
     
     ## Create placeholders Tab 2 ################################################################
     
@@ -506,7 +516,7 @@ server <- function(input, output) {
     
     output$similarity <- renderPlot({
         ggplot(df,aes(seq_along(df),df))+
-            geom_bar(stat="identity", fill = "magenta3") +
+            geom_bar(stat="identity", fill = "dimgrey") +
             ylab("Simlilarity") +
             xlab("Item's position preceding most recent item") +
             ggtitle("Similarity with previous 5 words") +
@@ -535,7 +545,7 @@ server <- function(input, output) {
     
     output$similarity2 <- renderPlot({
         ggplot(df,aes(seq_along(df),df))+
-            geom_bar(stat="identity", fill = "magenta3") +
+            geom_bar(stat="identity", fill = "dimgrey") +
             ylab("Gelijkenis") +
             xlab("Positie van item voorafgaand aan recentste woord") +
             ggtitle("Gelijkenis met vorige 5 woorden") +
@@ -564,7 +574,7 @@ server <- function(input, output) {
     
     output$similarity3 <- renderPlot({
         ggplot(df,aes(seq_along(df),df))+
-            geom_bar(stat="identity", fill = "magenta3") +
+            geom_bar(stat="identity", fill = "dimgrey") +
             ylab("Simlilarity") +
             xlab("Item's position preceding most recent item") +
             ggtitle("Similarity with previous 5 words") +
@@ -593,7 +603,7 @@ server <- function(input, output) {
     
     output$similarity4 <- renderPlot({
         ggplot(df,aes(seq_along(df),df))+
-            geom_bar(stat="identity", fill = "magenta3") +
+            geom_bar(stat="identity", fill = "dimgrey") +
             ylab("Gelijkenis") +
             xlab("Positie van item voorafgaand aan recentste woord") +
             ggtitle("Gelijkenis met vorige 5 woorden") +
@@ -622,7 +632,7 @@ server <- function(input, output) {
     
     output$simplot <- renderPlot({
         ggplot(blank,aes(seq_along(blank),blank))+
-            geom_bar(stat="identity", fill = "magenta3") +
+            geom_bar(stat="identity", fill = "dimgrey") +
             ylab("Residual proximity") +
             xlab("Order of entry relative to patch switch") +
             ggtitle("Mean residual proximity for words") +
@@ -646,7 +656,7 @@ server <- function(input, output) {
     output$timer3 <- renderText("Time left: 60 secs")
     output$timer4 <- renderText("Tijd over: 60 secs")
     
-    # Run program tab 1 ################################################################
+    # Run program tab 1 option 1 ################################################################
     
     observeEvent(input$start, {
         
@@ -662,7 +672,7 @@ server <- function(input, output) {
         
         # update the timer ####
         output$timer <- renderText({
-            invalidateLater(10)
+            invalidateLater(1000)
             if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs')))<0){
                 paste("Time left:", 
                       0, 'secs')
@@ -747,8 +757,8 @@ server <- function(input, output) {
                         
                         output$similarity <- renderPlot({
                             ggplot(data.frame(similarity),aes(seq_along(similarity),similarity))+
-                                geom_bar(stat="identity", fill = "magenta3") +
-                                ylab("BEAGLE simlilarity") +
+                                geom_bar(stat="identity", fill = "dimgrey") +
+                                ylab("Simlilarity") +
                                 xlab("Item's position preceding most recent item") +
                                 ggtitle("Similarity with previous 5 words") +
                                 ylim(c(0,0.7)) 
@@ -794,11 +804,11 @@ server <- function(input, output) {
         # add the response time to the time vector
         observe({
             
-            invalidateLater(millis = 0.1)
+            invalidateLater(millis = 1000)
             
             if(clicked == 0 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
                 
-                time <<- c(time, time[length(time)] + 0.60)
+                time <<- c(time, time[length(time)] + 1)
                 
             } else if(clicked == 1 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
                 
@@ -834,7 +844,7 @@ server <- function(input, output) {
         
     })
     
-    ## Download button tab 1 ################################################################
+    ## Download button tab 1 option 1 ################################################################
     
     output$download_task <- downloadHandler(
         
@@ -858,8 +868,8 @@ server <- function(input, output) {
                 ggplot(
                     data.frame(sim),
                     aes(seq_along(sim),sim)) +
-                    geom_bar(stat="identity", fill = "magenta3") +
-                    ylab("BEAGLE simlilarity") +
+                    geom_bar(stat="identity", fill = "dimgrey") +
+                    ylab("Simlilarity") +
                     xlab("Item's position preceding most recent item") +
                     ggtitle("Similarity with previous 5 words") +
                     ylim(c(0,0.7)), 
@@ -868,11 +878,243 @@ server <- function(input, output) {
                     data.frame(time_plot), 
                     aes(seq_along(time_plot),time_plot)) +
                     ggtitle("Reaction time") +
-                    geom_line(size = 2, col = "turquoise3", linetype = 1) +
+                    geom_line(size = 1, col = "black", linetype = 1) +
                     xlab("Time (0.3 s)") +
                     ylab("Time spent on item (s)") +
-                    geom_hline(yintercept = mean(time_plot), col = "indianred2",linetype = 3,size = 1.5)
+                    geom_hline(yintercept = mean(time_plot), col = "red",linetype = 3,size = 1)
 
+            ) # end grid arrange
+            
+            dev.off()
+        })
+    
+    ## Run program Tab 1 option 2 #######################################################
+    
+    observeEvent(input$start2, {
+        
+        # set status quo
+        clicked <- 0
+        
+        tab2 <<- NULL
+        sim2 <<- NULL
+        simitem2 <<- NULL
+        time_plot2 <<- NULL
+        
+        stoptime <- Sys.time() + 60
+        
+        # update the timer ####
+        output$timer2 <- renderText({
+            invalidateLater(1000)
+            if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs')))<0){
+                paste("Time left:", 
+                      0, 'secs')
+            } else {
+                paste("Time left:", 
+                      round(difftime(stoptime, Sys.time(), units='secs')), 'secs')
+            }
+        })
+        
+        patches <- NULL
+        categories <- NULL
+        
+        # save the responses
+        mat <- matrix(nrow=0,ncol=3)
+        colnames(mat)<- c("word", "switch_patch", "switch_cat")
+        results <- data.frame(mat)
+        
+        responses_output <- matrix(nrow = 0,ncol = 2)
+        colnames(responses_output) <- c("response", "RT")
+        responses_output <- data.frame(responses_output)
+        
+        current <- Sys.time()
+        
+        iter <- 0
+        
+        index_vector <- rep(0,25)
+        
+        color_vector <- rep("black",20)
+        
+        # observe the submit button
+        observeEvent(input$submit2, {
+            
+            clicked <<- 1
+            
+            if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
+                
+                iter <<- iter + 1
+                
+                word <- input$word2
+                
+                prev_patch <- patches
+                prev_cat <- categories
+                
+                indexes <- which(data2[,1]==word)
+                
+                # is the input valid?
+                validinput <- .isValidInput(results = results,word = word,indexes = indexes,data=data2)
+                
+                valid <- validinput[["valid"]]
+                not_unique <- validinput[["not_unique"]]
+                patches <<- validinput[["patches"]]
+                categories <<- validinput[["categories"]]
+                
+                # keep track of time
+                RT <- as.numeric(round(difftime(Sys.time(),current, units='secs')))
+                current <<- Sys.time()
+                
+                # update response table
+                tmp_response <- data.frame(word = word, RT = RT)
+                responses_output <<- rbind(responses_output,tmp_response)
+                
+                # did participant switch between patches?
+                switch_patch <- !any(prev_patch == patches)
+                switch_cat <- !any(prev_cat == categories)
+                
+                # compute similarity for right plot
+                if(valid == TRUE){
+                    
+                    results[nrow(results)+1,] <<- c(word, switch_patch, switch_cat)
+                    
+                    if(iter > 5){
+                        
+                        similarity1 <- ancos2[which(colnames(ancos2)==word),results[nrow(results)-1,1]]
+                        similarity2 <- ancos2[which(colnames(ancos2)==word),results[nrow(results)-2,1]]
+                        similarity3 <- ancos2[which(colnames(ancos2)==word),results[nrow(results)-3,1]]
+                        similarity4 <- ancos2[which(colnames(ancos2)==word),results[nrow(results)-4,1]]
+                        similarity5 <- ancos2[which(colnames(ancos2)==word),results[nrow(results)-5,1]]
+                        
+                        similarity <- c(similarity5,similarity4,similarity3,similarity2,similarity1)
+                        
+                        sim2 <<- similarity # keep that
+                        
+                        output$similarity2 <- renderPlot({
+                            ggplot(data.frame(similarity),aes(seq_along(similarity),similarity))+
+                                geom_bar(stat="identity", fill = "dimgrey") +
+                                ylab("Simlilarity") +
+                                xlab("Item's position preceding most recent item") +
+                                ggtitle("Similarity with previous 5 words") +
+                                ylim(c(0,0.7)) 
+                        },width = 400,height = 400)
+                        
+                    }
+                    
+                }
+                
+                # left plot
+                sim_last <- ancos2[which(colnames(ancos2)==word),results[nrow(results)-1,1]]
+
+                if(results[nrow(results),2] == "FALSE" & valid){
+                    color_vector[nrow(results)] <<- "turquoise3"
+                } else if (results[nrow(results),2] == "TRUE" & valid){
+                    color_vector[nrow(results)] <<- "indianred2"
+                }
+
+                if(iter != 1 & !not_unique & valid){
+                    index_vector[nrow(results)] <<- sim_last
+                } 
+                
+                if(nrow(results) <= 20){ # to make sure you don't see more than 20 answers and crash the program
+                    
+                    output$simitem2 <- renderPlot({
+                        .updateBarPlot(index_vector, iter, results,color_vector, valid)
+                    },width = 400,height = 400)
+                    
+                    simitem2 <<- .updateBarPlot(index_vector, iter, results,color_vector, valid) # keep that as well
+                    
+                }
+            } 
+            
+            output$responses2 <- renderTable(responses_output)
+            
+            tab2 <<- responses_output # and keep this
+            
+        })
+        
+        # reset time to jump back to zero when answer is submitted
+        time <- 0
+        
+        # add the response time to the time vector
+        observe({
+            
+            invalidateLater(millis = 1000)
+            
+            if(clicked == 0 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
+                
+                time <<- c(time, time[length(time)] + 1)
+                
+            } else if(clicked == 1 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
+                
+                time <<- c(time, time[length(time)] - time[length(time)])
+                
+            }
+            
+            # reset the submit button
+            clicked <<- 0
+            
+            output$RT2 <- renderPlot({
+                .RTplot2(time)
+            })
+            
+            time_plot2 <<- time # keep this
+            
+        })
+        
+        output$participant_result2 <- renderText({
+            invalidateLater(10000)
+            proportion <- (length(which(color_vector=="indianred2"))-1)/length(which(color_vector != "black"))
+            if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) < 0){
+                if(proportion <= 0.33){
+                    paste("Je bent", length(which(color_vector=="indianred2"))-1, "van de", length(which(color_vector != "black")), "keren gewisseld van categorie, niet volgens een Optimal Foraging techniek.",sep = " ")
+                } else {
+                    paste("Je bent ", length(which(color_vector=="indianred2"))-1, "van de ", length(which(color_vector != "black")), "keren gewisseld van categorie volgens een Optimal Foraging techniek")
+                }
+            }
+        })
+        
+        time_plot2 <<- time_plot2 # keep in upper level for download
+        tab2 <<- tab2 # same
+        
+    })
+    
+    ## Download button tab 1 option 2 ################################################################
+    
+    output$download_task2 <- downloadHandler(
+        
+        filename = function()
+        {
+            paste("OptimalForagingTask", class = ".pdf", sep = "")
+        },
+        
+        content = function(file) 
+        {
+            pdf(file,paper = "a4")
+            
+            if(!is.null(tab2)){
+                grid.table(tab2)
+            }
+            
+            grid.arrange(
+                
+                simitem2, # item plot
+                
+                ggplot(
+                    data.frame(sim2),
+                    aes(seq_along(sim2),sim2)) +
+                    geom_bar(stat="identity", fill = "dimgrey") +
+                    ylab("Simlilarity") +
+                    xlab("Item's position preceding most recent item") +
+                    ggtitle("Similarity with previous 5 words") +
+                    ylim(c(0,0.7)), 
+                
+                ggplot(
+                    data.frame(time_plot2), 
+                    aes(seq_along(time_plot2),time_plot2)) +
+                    ggtitle("Reaction time") +
+                    geom_line(size = 1, col = "black", linetype = 1) +
+                    xlab("Time (0.3 s)") +
+                    ylab("Time spent on item (s)") +
+                    geom_hline(yintercept = mean(time_plot2), col = "red",linetype = 3,size = 1)
+                
             ) # end grid arrange
             
             dev.off()
@@ -1002,7 +1244,7 @@ server <- function(input, output) {
                 data.frame(ms[5:1]), 
                 aes(seq_along(ms[5:1]),ms[5:1])) + 
                 geom_bar(stat = "identity", fill = "indianred2") +
-                ylab("BEAGLE similarity") +
+                ylab("Similarity") +
                 xlab("Item's position preceding most recent item") +
                 ggtitle("Mean similarity with previous word") +
                 ylim(c(0,0.5)) + 
@@ -1012,7 +1254,7 @@ server <- function(input, output) {
             data.frame(ms[5:1]), 
             aes(seq_along(ms[5:1]),ms[5:1])) + 
             geom_bar(stat = "identity", fill = "indianred2") +
-            ylab("BEAGLE similarity") +
+            ylab("Similarity") +
             xlab("Item's position preceding most recent item") +
             ggtitle("Mean similarity with previous word") +
             ylim(c(0,0.5)) + 

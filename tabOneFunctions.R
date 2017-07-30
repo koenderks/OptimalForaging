@@ -31,7 +31,7 @@
         
         ggplot(data.frame(rev(index_vector)),aes(seq_along(index_vector),index_vector))+
             geom_bar(stat="identity", fill = color_vector) +
-            ylab("BEAGLE similariry") +
+            ylab("Similariry") +
             xlab("Word index") +
             ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith")+
             xlim(c(0,20)) +
@@ -43,7 +43,7 @@
             
             ggplot(data.frame(rev(index_vector)),aes(seq_along(index_vector),index_vector))+
                 geom_bar(stat="identity", fill = color_vector) +
-                ylab("BEAGLE similariry") +
+                ylab("Similariry") +
                 xlab("Word index") +
                 ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
                 xlim(c(0,20)) +
@@ -53,7 +53,7 @@
             
             ggplot(data.frame(rev(index_vector)),aes(seq_along(index_vector),index_vector))+
                 geom_bar(stat="identity", fill = color_vector) +
-                ylab("BEAGLE ") +
+                ylab("Similarity") +
                 xlab("Word index") +
                 ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
                 xlim(c(0,20)) +
@@ -68,10 +68,10 @@
     
     ggplot(data.frame(time), aes(seq_along(time),time)) +
         ggtitle("Reaction time") + 
-        geom_line(size = 2, col = "turquoise3", linetype = 1) +
+        geom_line(size = 1.5, col = "black", linetype = 1) +
         xlab("Time (0.3 s)") +
         ylab("Time spent on item (s)") +
-        geom_hline(yintercept = mean(time), col = "indianred2",linetype = 2,size = 1.5)
+        geom_hline(yintercept = mean(time), col = "red",linetype = 2,size = 1)
     
 }
 

@@ -1,0 +1,420 @@
+Animal Name;Cluster1;Cluster2
+cavia;huisdieren;knaagdieren
+dwerghamster ;huisdieren;knaagdieren
+goudvis;huisdieren;waterdieren
+guppy;huisdieren;
+hamster;huisdieren;knaagdieren
+hond;huisdieren;hondachtigen
+huiskat;huisdieren;
+kanarie;huisdieren;vogels
+kat;huisdieren;katachtigen
+konijn;huisdieren;knaagdieren
+labrador;huisdieren;hondachtigen
+muis;huisdieren;knaagdieren
+papegaai;huisdieren;vogels
+parkiet;huisdieren;vogels
+poes;huisdieren;katachtigen
+rat;huisdieren;knaagdieren
+vis;huisdieren;waterdieren
+vogel;huisdieren;vogels
+wandelende tak;huisdieren;insecten
+aap;afrikaanse en jungle dieren;primaten
+aardvarken;afrikaanse en jungle dieren;insectivoren
+aasgier;afrikaanse en jungle dieren;
+antilope;afrikaanse en jungle dieren;hoefdieren
+baviaan;afrikaanse en jungle dieren;primaten
+bizon;afrikaanse en jungle dieren;buffelachtigen
+bonobo;afrikaanse en jungle dieren;primaten
+brulaap;afrikaanse en jungle dieren;primaten
+buffel;afrikaanse en jungle dieren;buffelachtigen
+cheetah;afrikaanse en jungle dieren;katachtigen
+chimpansee;afrikaanse en jungle dieren;primaten
+dikdik;afrikaanse en jungle dieren;hoefdieren
+gazelle;afrikaanse en jungle dieren;hoefdieren
+gier;afrikaanse en jungle dieren;vogels
+giraffe;afrikaanse en jungle dieren;
+gnoe;afrikaanse en jungle dieren;
+gorilla;afrikaanse en jungle dieren;primaten
+hyena;afrikaanse en jungle dieren;hondachtigen
+impala;afrikaanse en jungle dieren;
+jachtluipaard;afrikaanse en jungle dieren;
+jaguar;afrikaanse en jungle dieren;katachtigen
+japanse makaak;afrikaanse en jungle dieren;
+kameel;afrikaanse en jungle dieren;dieren van last
+kruisspin;afrikaanse en jungle dieren;
+leeuw;afrikaanse en jungle dieren;katachtigen
+lemur;afrikaanse en jungle dieren;primaten
+lijger;afrikaanse en jungle dieren;katachtigen
+luiaard;afrikaanse en jungle dieren;zuid amerikaanse dieren
+luipaard;afrikaanse en jungle dieren;katachtigen
+lynx;afrikaanse en jungle dieren;katachtigen
+makaak;afrikaanse en jungle dieren;primaten
+maki;afrikaanse en jungle dieren;primaten
+neusaap;afrikaanse en jungle dieren;
+neushoorn;afrikaanse en jungle dieren;
+nijlpaard;afrikaanse en jungle dieren;
+oerang oetan;afrikaanse en jungle dieren;primaten
+okapi;afrikaanse en jungle dieren;
+olifant;afrikaanse en jungle dieren;
+panda;afrikaanse en jungle dieren;beren
+panter;afrikaanse en jungle dieren;katachtigen
+piranha;afrikaanse en jungle dieren;waterdieren
+poema;afrikaanse en jungle dieren;katachtigen
+ringstaartmaki;afrikaanse en jungle dieren;primaten
+rode brulaap;afrikaanse en jungle dieren;
+ronde franjeaap;afrikaanse en jungle dieren;
+rode panda;afrikaanse en jungle dieren;beren
+sabeltandtijger;afrikaanse en jungle dieren;
+schorpioen;afrikaanse en jungle dieren;geleedpotigen
+sfynx;afrikaanse en jungle dieren;
+slingeraap;afrikaanse en jungle dieren;primaten
+steenbok;afrikaanse en jungle dieren;
+stekelvarken;afrikaanse en jungle dieren;
+stokstaartje;afrikaanse en jungle dieren;
+struisvogel;afrikaanse en jungle dieren;
+tasmaanse duivel;afrikaanse en jungle dieren;
+tijger;afrikaanse en jungle dieren;katachtigen
+vleermuis;afrikaanse en jungle dieren;insectivoren
+zebra;afrikaanse en jungle dieren;
+zwijn;afrikaanse en jungle dieren;
+boskonijn;bosdieren;
+brilbeer;bosdieren;beren
+bruine beer;bosdieren;beren
+das;bosdieren;
+edelhert;bosdieren;hoefdieren
+eekhoorn;bosdieren;knaagdieren
+egel;bosdieren;insectivoren
+ekster;bosdieren;vogels
+eland;bosdieren;hoefdieren
+emoe;bosdieren;hoefdieren
+everzwijn;bosdieren;
+haas;bosdieren;knaagdieren
+hert;bosdieren;
+mol;bosdieren;insectivoren
+ree;bosdieren;
+rendier;bosdieren;
+stinkdier;bosdieren;
+uil;bosdieren;vogels
+vos;bosdieren;
+wild zwijn;bosdieren;hoefdieren
+wasbeer;bosdieren;beren
+zwarte beer;bosdieren;beren
+big;boerderijdieren;
+ezel;boerderijdieren;hoefdieren
+geit;boerderijdieren;
+haan;boerderijdieren;
+kalf;boerderijdieren;
+kalkoen;boerderijdieren;vogels
+kip;boerderijdieren;vogels
+koe ;boerderijdieren;
+kuiken;boerderijdieren;
+lam;boerderijdieren;dieren voor bont
+paard;boerderijdieren;dieren van last
+pony;boerderijdieren;dieren van last
+ram;boerderijdieren;
+rund;boerderijdieren;buffelachtigen
+schaap;boerderijdieren;dieren voor bont
+varken;boerderijdieren;
+veulen;boerderijdieren;
+ameise;insecten;
+bij;insecten;
+duizendpoot;insecten;
+eencelligen;insecten;
+eendagsvlieg;insecten;
+fruitvlieg;insecten;
+hommel;insecten;
+hooiwagen;insecten;
+horzel;insecten;
+insect;insecten;
+kakkerlak;insecten;
+kever;insecten;
+krekel;insecten;
+langpootmug;insecten;
+langpootspin;insecten;
+larf;insecten;
+libelle;insecten;
+lieveheersbeestje;insecten;
+meelworm;insecten;
+mestkever;insecten;
+mier;insecten;
+mot;insecten;
+mug;insecten;
+naaktslak;insecten;
+oorkruiper;insecten;
+organisme;insecten;
+pantoffeldiertje;insecten;
+pissebed;insecten;
+regenworm;insecten;
+ringworm;insecten;
+rode mier;insecten;
+rups;insecten;
+schimmels;insecten;
+schrijvertje;insecten;
+slak;insecten;
+spin;insecten;geleedpotigen
+sprinkhaan;insecten;
+stofmijt;insecten;
+teek;insecten;geleedpotigen
+termieten;insecten;
+tor;insecten;
+veenmol;insecten;
+vlieg;insecten;
+vlinder;insecten;
+vlo;insecten;
+waterjuffer;insecten;
+wesp;insecten;
+worm;insecten;
+zilvervisje;insecten;
+adder;reptielen en amfibieen;
+alligator;reptielen en amfibieen;
+amfibie;reptielen en amfibieen;
+anaconda;reptielen en amfibieen;
+boa constrictor;reptielen en amfibieen;
+cicade;reptielen en amfibieen;
+cobra;reptielen en amfibieen;
+gekko;reptielen en amfibieen;
+hagedis;reptielen en amfibieen;
+kameleon;reptielen en amfibieen;
+kikker;reptielen en amfibieen;
+kikkervisje;reptielen en amfibieen;
+komodovaraan;reptielen en amfibieen;
+kraaghagedis;reptielen en amfibieen;
+krokodil;reptielen en amfibieen;
+leguaan;reptielen en amfibieen;
+nijlkrokodil;reptielen en amfibieen;
+pad;reptielen en amfibieen;
+ratelslang;reptielen en amfibieen;
+reptiel;reptielen en amfibieen;
+ringslang;reptielen en amfibieen;
+salamander;reptielen en amfibieen;
+slang;reptielen en amfibieen;
+zeeslang;reptielen en amfibieen;waterdieren
+baardagaam;australische dieren;
+blobvis;australische dieren;
+buideldier;australische dieren;
+buidelrat;australische dieren;
+dingo;australische dieren;hondachtigen
+kangoeroe;australische dieren;
+koala;australische dieren;beren
+vogelbekdier;australische dieren;
+wombat;australische dieren;
+beer;beren;
+grizzly beer;beren;
+ijsbeer;beren;antartica en noordpooldieren
+bergeend;nederlandse vogelsoorten;vogels
+buizerd;nederlandse vogelsoorten;vogels
+duif;nederlandse vogelsoorten;vogels
+eend;nederlandse vogelsoorten;vogels
+fazant;nederlandse vogelsoorten;vogels
+gaai;nederlandse vogelsoorten;vogels
+gans;nederlandse vogelsoorten;vogels
+grutto;nederlandse vogelsoorten;vogels
+havik;nederlandse vogelsoorten;vogels
+houtduif;nederlandse vogelsoorten;vogels
+houtuil;nederlandse vogelsoorten;vogels
+ijsvogel;nederlandse vogelsoorten;vogels
+kauw;nederlandse vogelsoorten;vogels
+kieviet;nederlandse vogelsoorten;vogels
+koekoek;nederlandse vogelsoorten;vogels
+koolmees;nederlandse vogelsoorten;vogels
+kraai;nederlandse vogelsoorten;vogels
+leeuwerik;nederlandse vogelsoorten;vogels
+lepelaar;nederlandse vogelsoorten;vogels
+meerkoet ;nederlandse vogelsoorten;vogels
+mees;nederlandse vogelsoorten;vogels
+meeuw;nederlandse vogelsoorten;vogels
+merel;nederlandse vogelsoorten;vogels
+mus;nederlandse vogelsoorten;vogels
+nachtegaal;nederlandse vogelsoorten;vogels
+nijlgans ;nederlandse vogelsoorten;vogels
+ooievaar;nederlandse vogelsoorten;vogels
+patrijs;nederlandse vogelsoorten;vogels
+pauw;nederlandse vogelsoorten;vogels
+postduif ;nederlandse vogelsoorten;vogels
+raaf;nederlandse vogelsoorten;vogels
+reiger;nederlandse vogelsoorten;vogels
+roodborstje;nederlandse vogelsoorten;vogels
+specht;nederlandse vogelsoorten;vogels
+sperwer ;nederlandse vogelsoorten;vogels
+spreeuw;nederlandse vogelsoorten;vogels
+steenuil ;nederlandse vogelsoorten;vogels
+valk;nederlandse vogelsoorten;vogels
+vlaamse gaai;nederlandse vogelsoorten;vogels
+zeemeeuw;nederlandse vogelsoorten;vogels
+zwaan;nederlandse vogelsoorten;vogels
+zwaluw;nederlandse vogelsoorten;vogels
+dolfijn;antartica en noordpooldieren;waterdieren
+orka;antartica en noordpooldieren;waterdieren
+pinguin;antartica en noordpooldieren;
+poolvos;antartica en noordpooldieren;
+walrus;antartica en noordpooldieren;waterdieren
+zeehond;antartica en noordpooldieren;waterdieren
+zeekoe;antartica en noordpooldieren;waterdieren
+zeeleeuw;antartica en noordpooldieren;waterdieren
+zeeolifant;antartica en noordpooldieren;waterdieren
+civet;katachtigen;
+europese korthaar ;katachtigen;
+jachtluipaard ;katachtigen;
+sabeltandtijger ;katachtigen;
+sfynx ;katachtigen;
+siamees;katachtigen;
+sneeuwluipaard;katachtigen;
+bulldog;hondachtigen;
+chihuahua;hondachtigen;
+dalmatier;hondachtigen;
+golden retriever;hondachtigen;
+herdershond ;hondachtigen;
+hulphond ;hondachtigen;
+husky;hondachtigen;
+maltezer ;hondachtigen;
+poedel;hondachtigen;
+tekkel;hondachtigen;
+wilde hond;hondachtigen;
+wolf;hondachtigen;
+bever;knaagdieren;waterdieren
+beverrat;knaagdieren;waterdieren
+boskonijn ;knaagdieren;
+capibara;knaagdieren;waterdieren
+chinchilla;knaagdieren;zuid amerikaanse dieren
+gerbil;knaagdieren;
+marmot;knaagdieren;waterdieren
+molrat;knaagdieren;
+otter;knaagdieren;waterdieren
+relmuis;knaagdieren;
+spitsmuis;knaagdieren;
+veldmuis;knaagdieren;
+gordeldier;insectivoren;zuid amerikaanse dieren
+miereneter;insectivoren;zuid amerikaanse dieren
+tapir;insectivoren;
+vliegende eekhoorn;insectivoren;
+bok ;hoefdieren;
+everzwijn ;hoefdieren;
+ram ;hoefdieren;
+alpaca;dieren voor bont;zuid amerikaanse dieren
+lama;dieren voor bont;zuid amerikaanse dieren
+aal;waterdieren;
+aalscholver;waterdieren;meer en rivierdieren
+alg;waterdieren;
+amoebe;waterdieren;
+baars;waterdieren;meer en rivierdieren
+barracuda;waterdieren;
+beloega;waterdieren;
+blauwe vinvis;waterdieren;
+blobvis ;waterdieren;
+bloedzuiger;waterdieren;
+bruinvis;waterdieren;
+bultrug;waterdieren;
+clownvis;waterdieren;
+coelacanth ;waterdieren;
+diepzeevis ;waterdieren;
+forel;waterdieren;meer en rivierdieren
+gamba;waterdieren;
+garnaal;waterdieren;
+goudvis ;waterdieren;
+haai;waterdieren;
+hamerhaai;waterdieren;
+haring;waterdieren;
+inktvis;waterdieren;
+kabeljauw ;waterdieren;
+karper;waterdieren;meer en rivierdieren
+katvis;waterdieren;
+kogelvis;waterdieren;
+kokkel ;waterdieren;schelp en schaaldieren
+kooikarper ;waterdieren;meer en rivierdieren
+koraalduivel;waterdieren;
+krab;waterdieren;geleedpotigen
+kreeft;waterdieren;geleedpotigen
+kwal;waterdieren;
+langoustine ;waterdieren;
+maanvis;waterdieren;
+makreel;waterdieren;
+mantrarog;waterdieren;
+mossel;waterdieren;schelp en schaaldieren
+neusvis ;waterdieren;
+octopus;waterdieren;
+oester;waterdieren;schelp en schaaldieren
+paling ;waterdieren;
+pijlstaartrog;waterdieren;
+pistoolgarnaal ;waterdieren;
+plankton ;waterdieren;
+platvis ;waterdieren;
+potvis ;waterdieren;
+rog ;waterdieren;
+roodbaars ;waterdieren;
+schaaldieren ;waterdieren;schelp en schaaldieren
+schelpdieren;waterdieren;schelp en schaaldieren
+schildpad;waterdieren;
+schol ;waterdieren;
+sidderaal ;waterdieren;meer en rivierdieren
+sliptong ;waterdieren;
+snoek;waterdieren;meer en rivierdieren
+spons;waterdieren;
+steenvis;waterdieren;
+stekelbaars;waterdieren;
+tijgerhaai ;waterdieren;
+tilapia;waterdieren;meer en rivierdieren
+tonijn;waterdieren;
+venusschelp ;waterdieren;meer en rivierdieren
+vinvis ;waterdieren;
+vliegende vis ;waterdieren;
+walvis;waterdieren;
+weekdier ;waterdieren;
+witte haai;waterdieren;
+zalm;waterdieren;meer en rivierdieren
+zee anemoon;waterdieren;
+zee-egel;waterdieren;
+zeebaars ;waterdieren;
+zeeduivel ;waterdieren;
+zeekomkommer ;waterdieren;
+zeeotter;waterdieren;
+zeepaardje;waterdieren;
+zeester;waterdieren;
+zwaardvis;waterdieren;
+aal ;meer en rivierdieren;
+paling;meer en rivierdieren;
+witvis ;meer en rivierdieren;
+doodshoofdaap;primaten;
+gibbon;primaten;
+japanse makaak ;primaten;
+neusaap ;primaten;
+rode brulaap ;primaten;
+rode franjeaap;primaten;
+aasgier ;vogels;
+adelaar;vogels;
+ara;vogels;
+arend ;vogels;
+buizerd ;vogels;
+flamingo;vogels;
+gaai ;vogels;
+houtduif ;vogels;
+houtuil ;vogels;
+kaketoe;vogels;
+meerkoet;vogels;
+paradijsvogel ;vogels;
+pelikaan;vogels;
+roofvogel;vogels;
+sperwer;vogels;
+toekan;vogels;
+xenops ;vogels;
+zebravink ;vogels;
+zee-arend;vogels;
+koe;buffelachtigen;
+os;buffelachtigen;dieren van last
+schotse hooglander ;buffelachtigen;
+stier ;buffelachtigen;
+waterbuffel;buffelachtigen;dieren van last
+yak;buffelachtigen;dieren van last
+bunzing;marterachtigen;
+fret;marterachtigen;
+hermelijn;marterachtigen;
+nerts;marterachtigen;
+wezel;marterachtigen;
+dromedaris;dieren van last;
+blauwe spin ;geleedpotigen;
+geleedpotigen;geleedpotigen;
+hooiwagen ;geleedpotigen;
+kruisspin ;geleedpotigen;
+rode spin ;geleedpotigen;
+tarantula;geleedpotigen;
+vogelspin ;geleedpotigen;
+zwarte spin;geleedpotigen;
