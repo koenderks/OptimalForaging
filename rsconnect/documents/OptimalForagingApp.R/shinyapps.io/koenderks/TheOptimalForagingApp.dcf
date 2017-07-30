@@ -2,7 +2,7 @@ name: TheOptimalForagingApp
 title: The Optimal Foraging app
 account: koenderks
 server: shinyapps.io
-appId: 200665
-bundleId: 920895
+appId: 200667
+bundleId: 920902
 url: https://koenderks.shinyapps.io/TheOptimalForagingApp/
-when: 1501427050.60852
+when: 1501427310.8519
