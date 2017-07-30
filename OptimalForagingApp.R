@@ -804,11 +804,11 @@ server <- function(input, output) {
         # add the response time to the time vector
         observe({
             
-            invalidateLater(millis = 1000)
+            invalidateLater(millis = 100)
             
             if(clicked == 0 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
                 
-                time <<- c(time, time[length(time)] + 1)
+                time <<- c(time, time[length(time)] + 0.1)
                 
             } else if(clicked == 1 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
                 
@@ -1036,11 +1036,11 @@ server <- function(input, output) {
         # add the response time to the time vector
         observe({
             
-            invalidateLater(millis = 1000)
+            invalidateLater(millis = 100)
             
             if(clicked == 0 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
                 
-                time <<- c(time, time[length(time)] + 1)
+                time <<- c(time, time[length(time)] + 0.1)
                 
             } else if(clicked == 1 && as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) >= 0){
                 
