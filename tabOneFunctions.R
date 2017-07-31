@@ -35,7 +35,12 @@
             xlab("Word index") +
             ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith")+
             xlim(c(0,20)) +
-            ylim(c(0,0.7))
+            ylim(c(0,0.7)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
         
     } else {
         
@@ -47,7 +52,12 @@
                 xlab("Word index") +
                 ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
                 xlim(c(0,20)) +
-                ylim(c(0,0.7))  
+                ylim(c(0,0.7)) +
+                theme(axis.line = element_line(colour = "black"),
+                      panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(),
+                      panel.border = element_blank(),
+                      panel.background = element_blank())  
             
         } else if(results[nrow(results),2]=="TRUE"){
             
@@ -57,7 +67,12 @@
                 xlab("Word index") +
                 ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
                 xlim(c(0,20)) +
-                ylim(c(0,0.7))
+                ylim(c(0,0.7)) +
+                theme(axis.line = element_line(colour = "black"),
+                      panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(),
+                      panel.border = element_blank(),
+                      panel.background = element_blank())
             
         }
     }
@@ -74,7 +89,12 @@
             xlab("Woord index") +
             ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel")+
             xlim(c(0,20)) +
-            ylim(c(0,0.7))
+            ylim(c(0,0.7)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
         
     } else {
         
@@ -86,7 +106,12 @@
                 xlab("Woord index") +
                 ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel") +
                 xlim(c(0,20)) +
-                ylim(c(0,0.7))  
+                ylim(c(0,0.7)) +
+                theme(axis.line = element_line(colour = "black"),
+                      panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(),
+                      panel.border = element_blank(),
+                      panel.background = element_blank())
             
         } else if(results[nrow(results),2]=="TRUE"){
             
@@ -96,7 +121,12 @@
                 xlab("Woord index") +
                 ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel") +
                 xlim(c(0,20)) +
-                ylim(c(0,0.7))
+                ylim(c(0,0.7)) +
+                theme(axis.line = element_line(colour = "black"),
+                      panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(),
+                      panel.border = element_blank(),
+                      panel.background = element_blank())
             
         }
     }
@@ -110,7 +140,12 @@
         geom_line(size = 1.5, col = "black", linetype = 1) +
         xlab("Time (0.3 s)") +
         ylab("Time spent on item (s)") +
-        geom_hline(yintercept = mean(time), col = "red",linetype = 2,size = 1)
+        geom_hline(yintercept = mean(time), col = "red",linetype = 2,size = 1) +
+        theme(axis.line = element_line(colour = "black"),
+              panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              panel.border = element_blank(),
+              panel.background = element_blank())
     
 }
 
@@ -121,7 +156,12 @@
         geom_line(size = 1.5, col = "black", linetype = 1) +
         xlab("Tijd (s)") +
         ylab("Tijd besteed aan item (s)") +
-        geom_hline(yintercept = mean(time), col = "red",linetype = 2,size = 1)
+        geom_hline(yintercept = mean(time), col = "red",linetype = 2,size = 1) +
+        theme(axis.line = element_line(colour = "black"),
+              panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              panel.border = element_blank(),
+              panel.background = element_blank())
     
 }
 

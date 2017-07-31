@@ -302,7 +302,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                  
                  # Tab 2 UI ################################################################
                  
-                 tabPanel("Data Analysis",
+                 tabPanel("Analysis",
                           
                           tags$head(tags$style(
                               HTML('
@@ -311,7 +311,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                    }
 
                                    #download_analysis {
-                                   background-color: #9C3848
+                                   background-color: #FF5722
                                    }
 
                                    #link {
@@ -511,7 +511,13 @@ server <- function(input, output) {
             xlab("Word index") +
             ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
             xlim(c(0,20)) +
-            ylim(c(0,0.7))
+            ylim(c(0,0.7)) +
+            theme_bw() +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$similarity <- renderPlot({
@@ -521,7 +527,12 @@ server <- function(input, output) {
             xlab("Item's position preceding most recent item") +
             ggtitle("Similarity with previous 5 words") +
             ylim(c(0,0.7)) +
-            xlim(c(0,5))
+            xlim(c(0,5)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$RT <- renderPlot({
@@ -530,7 +541,12 @@ server <- function(input, output) {
             ylim(c(0,5)) +
             ggtitle("Reaction time") +
             xlab("Time (s)") +
-            ylab("Time spent on word (s)")
+            ylab("Time spent on word (s)") +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     })
     
     ## Create empty plots Tab 1 option 2 ######################################################
@@ -540,7 +556,12 @@ server <- function(input, output) {
             xlab("Woord index") +
             ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel") +
             xlim(c(0,20)) +
-            ylim(c(0,0.7))
+            ylim(c(0,0.7)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$similarity2 <- renderPlot({
@@ -550,7 +571,12 @@ server <- function(input, output) {
             xlab("Positie van item voorafgaand aan recentste woord") +
             ggtitle("Gelijkenis met vorige 5 woorden") +
             ylim(c(0,0.7)) +
-            xlim(c(0,5))
+            xlim(c(0,5)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$RT2 <- renderPlot({
@@ -559,7 +585,12 @@ server <- function(input, output) {
             ylim(c(0,5)) +
             ggtitle("Reactietijd") +
             xlab("Tijd (s)") +
-            ylab("Tijd bezig met woord (s)")
+            ylab("Tijd bezig met woord (s)") +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     })
     
     ## Create empty plots tab 1 option 3 ################################################################
@@ -569,7 +600,12 @@ server <- function(input, output) {
             xlab("Word index") +
             ggtitle("Similarity with previous word",subtitle = "red indicates a patch swith") +
             xlim(c(0,20)) +
-            ylim(c(0,0.7))
+            ylim(c(0,0.7)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$similarity3 <- renderPlot({
@@ -579,7 +615,12 @@ server <- function(input, output) {
             xlab("Item's position preceding most recent item") +
             ggtitle("Similarity with previous 5 words") +
             ylim(c(0,0.7)) +
-            xlim(c(0,5))
+            xlim(c(0,5)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$RT3 <- renderPlot({
@@ -588,7 +629,12 @@ server <- function(input, output) {
             ylim(c(0,5)) +
             ggtitle("Reaction time") +
             xlab("Time (s)") +
-            ylab("Time spent on word (s)")
+            ylab("Time spent on word (s)") +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     })
     
     ## Create empty plots tab 1 option 4 ################################################################
@@ -598,7 +644,12 @@ server <- function(input, output) {
             xlab("Woord index") +
             ggtitle("Gelijkenis met vorige woord",subtitle = "Rode kleur is een indicator van patch wissel") +
             xlim(c(0,20)) +
-            ylim(c(0,0.7))
+            ylim(c(0,0.7)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$similarity4 <- renderPlot({
@@ -608,7 +659,12 @@ server <- function(input, output) {
             xlab("Positie van item voorafgaand aan recentste woord") +
             ggtitle("Gelijkenis met vorige 5 woorden") +
             ylim(c(0,0.7)) +
-            xlim(c(0,5))
+            xlim(c(0,5)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$RT4 <- renderPlot({
@@ -617,7 +673,12 @@ server <- function(input, output) {
             ylim(c(0,5)) +
             ggtitle("Reactietijd") +
             xlab("Tijd (s)") +
-            ylab("Tijd bezig met woord (s)")
+            ylab("Tijd bezig met woord (s)") +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     })
     
     ## Create empty plots Tab 2 ################################################################
@@ -627,7 +688,12 @@ server <- function(input, output) {
             xlab("Item's position preceding most recent item") +
             ggtitle("Mean similarity with previous word") +
             ylim(c(0,0.5)) +
-            xlim(c(0,5))
+            xlim(c(0,5)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$simplot <- renderPlot({
@@ -637,7 +703,12 @@ server <- function(input, output) {
             xlab("Order of entry relative to patch switch") +
             ggtitle("Mean residual proximity for words") +
             ylim(c(0,0.7)) +
-            xlim(c(0,5))
+            xlim(c(0,5)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     },width = 400,height = 400)
     
     output$RTplot <- renderPlot({
@@ -646,7 +717,12 @@ server <- function(input, output) {
             ylab("Number of words produced") +
             xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
             xlim(c(0,40)) +
-            ylim(c(0,10))
+            ylim(c(0,10)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
     })
 
     # Create timer ####################################################################
@@ -761,7 +837,12 @@ server <- function(input, output) {
                                 ylab("Simlilarity") +
                                 xlab("Item's position preceding most recent item") +
                                 ggtitle("Similarity with previous 5 words") +
-                                ylim(c(0,0.7)) 
+                                ylim(c(0,0.7)) +
+                                theme(axis.line = element_line(colour = "black"),
+                                      panel.grid.major = element_blank(),
+                                      panel.grid.minor = element_blank(),
+                                      panel.border = element_blank(),
+                                      panel.background = element_blank())
                         },width = 400,height = 400)
                         
                     }
@@ -872,7 +953,12 @@ server <- function(input, output) {
                     ylab("Simlilarity") +
                     xlab("Item's position preceding most recent item") +
                     ggtitle("Similarity with previous 5 words") +
-                    ylim(c(0,0.7)), 
+                    ylim(c(0,0.7)) +
+                    theme(axis.line = element_line(colour = "black"),
+                          panel.grid.major = element_blank(),
+                          panel.grid.minor = element_blank(),
+                          panel.border = element_blank(),
+                          panel.background = element_blank()), 
                 
                 ggplot(
                     data.frame(time_plot), 
@@ -881,7 +967,12 @@ server <- function(input, output) {
                     geom_line(size = 1, col = "black", linetype = 1) +
                     xlab("Time (s)") +
                     ylab("Time spent on item (s)") +
-                    geom_hline(yintercept = mean(time_plot), col = "red",linetype = 3,size = 1)
+                    geom_hline(yintercept = mean(time_plot), col = "red",linetype = 3,size = 1) +
+                    theme(axis.line = element_line(colour = "black"),
+                          panel.grid.major = element_blank(),
+                          panel.grid.minor = element_blank(),
+                          panel.border = element_blank(),
+                          panel.background = element_blank())
 
             ) # end grid arrange
             
@@ -993,7 +1084,12 @@ server <- function(input, output) {
                                 ylab("Gelijkenis") +
                                 xlab("Positie van item voorafgaand aan recentste woord") +
                                 ggtitle("Gelijkenis met vorige 5 woorden") +
-                                ylim(c(0,0.7)) 
+                                ylim(c(0,0.7)) +
+                                theme(axis.line = element_line(colour = "black"),
+                                      panel.grid.major = element_blank(),
+                                      panel.grid.minor = element_blank(),
+                                      panel.border = element_blank(),
+                                      panel.background = element_blank())
                         },width = 400,height = 400)
                         
                     }
@@ -1104,7 +1200,12 @@ server <- function(input, output) {
                     ylab("Simlilarity") +
                     xlab("Item's position preceding most recent item") +
                     ggtitle("Similarity with previous 5 words") +
-                    ylim(c(0,0.7)), 
+                    ylim(c(0,0.7)) +
+                    theme(axis.line = element_line(colour = "black"),
+                          panel.grid.major = element_blank(),
+                          panel.grid.minor = element_blank(),
+                          panel.border = element_blank(),
+                          panel.background = element_blank()), 
                 
                 ggplot(
                     data.frame(time_plot2), 
@@ -1113,7 +1214,12 @@ server <- function(input, output) {
                     geom_line(size = 1, col = "black", linetype = 1) +
                     xlab("Time (s)") +
                     ylab("Time spent on item (s)") +
-                    geom_hline(yintercept = mean(time_plot2), col = "red",linetype = 3,size = 1)
+                    geom_hline(yintercept = mean(time_plot2), col = "red",linetype = 3,size = 1) +
+                    theme(axis.line = element_line(colour = "black"),
+                          panel.grid.major = element_blank(),
+                          panel.grid.minor = element_blank(),
+                          panel.border = element_blank(),
+                          panel.background = element_blank())
                 
             ) # end grid arrange
             
@@ -1248,7 +1354,12 @@ server <- function(input, output) {
                 xlab("Item's position preceding most recent item") +
                 ggtitle("Mean similarity with previous word") +
                 ylim(c(0,0.5)) + 
-                geom_errorbar(aes(ymin = ms[5:1]-see[5:1], ymax = ms[5:1]+see[5:1],width = .3))
+                geom_errorbar(aes(ymin = ms[5:1]-see[5:1], ymax = ms[5:1]+see[5:1],width = .3)) +
+                theme(axis.line = element_line(colour = "black"),
+                      panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(),
+                      panel.border = element_blank(),
+                      panel.background = element_blank())
         })
         itemplot <<-  ggplot(
             data.frame(ms[5:1]), 
@@ -1258,7 +1369,12 @@ server <- function(input, output) {
             xlab("Item's position preceding most recent item") +
             ggtitle("Mean similarity with previous word") +
             ylim(c(0,0.5)) + 
-            geom_errorbar(aes(ymin = ms[5:1]-see[5:1], ymax = ms[5:1]+see[5:1],width = .3))
+            geom_errorbar(aes(ymin = ms[5:1]-see[5:1], ymax = ms[5:1]+see[5:1],width = .3)) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
         
         progress$inc(0.10, detail = 'Computing proximity')
         
@@ -1328,7 +1444,12 @@ server <- function(input, output) {
                 xlab("Order of entry relative to patch switch") +
                 ylab("Residual Proximity") +
                 ggtitle("Mean residual proximity for words") +
-                geom_errorbar(ymin = msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)], ymax = msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)],width = .3)
+                geom_errorbar(ymin = msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)], ymax = msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)],width = .3) +
+                theme(axis.line = element_line(colour = "black"),
+                      panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(),
+                      panel.border = element_blank(),
+                      panel.background = element_blank())
         })
         simplot <<- ggplot(
             data.frame(msss[c(3,4,5,6,7)]),
@@ -1337,7 +1458,12 @@ server <- function(input, output) {
             xlab("Order of entry relative to patch switch") +
             ylab("Residual Proximity") +
             ggtitle("Mean residual proximity for words") +
-            geom_errorbar(ymin = msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)], ymax = msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)],width = .3)
+            geom_errorbar(ymin = msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)], ymax = msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)],width = .3) +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
         
         progress$inc(0.10, detail = 'Analyzing reaction times')
         
@@ -1368,7 +1494,12 @@ server <- function(input, output) {
                 geom_point(col = "turquoise3") +
                 ylab("Number of words produced") +
                 xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
-                geom_smooth(method='lm', col = "indianred2")
+                geom_smooth(method='lm', col = "indianred2") +
+                theme(axis.line = element_line(colour = "black"),
+                      panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank(),
+                      panel.border = element_blank(),
+                      panel.background = element_blank())
         })
         RTplot <<- ggplot(
             data.frame(abs(meanswi.irt-meanoverall.irt)),
@@ -1376,7 +1507,12 @@ server <- function(input, output) {
             geom_point(col = "turquoise3") +
             ylab("Number of words produced") +
             xlab("Absolute difference between mean last item IRT and mean overall IRT (sec)") +
-            geom_smooth(method='lm', col = "indianred2")
+            geom_smooth(method='lm', col = "indianred2") +
+            theme(axis.line = element_line(colour = "black"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank(),
+                  panel.border = element_blank(),
+                  panel.background = element_blank())
         
         }
         
