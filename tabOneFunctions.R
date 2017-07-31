@@ -138,7 +138,7 @@
     ggplot(data.frame(time), aes(seq_along(time),time)) +
         ggtitle("Reaction time") + 
         geom_line(size = 1.5, col = "black", linetype = 1) +
-        xlab("Time (0.3 s)") +
+        xlab("") +
         ylab("Time spent on item (s)") +
         geom_hline(yintercept = mean(time), col = "red",linetype = 2,size = 1) +
         theme(axis.line = element_line(colour = "black"),
@@ -154,7 +154,7 @@
     ggplot(data.frame(time), aes(seq_along(time),time)) +
         ggtitle("Reactietijd") + 
         geom_line(size = 1.5, col = "black", linetype = 1) +
-        xlab("Tijd (s)") +
+        xlab("") +
         ylab("Tijd besteed aan item (s)") +
         geom_hline(yintercept = mean(time), col = "red",linetype = 2,size = 1) +
         theme(axis.line = element_line(colour = "black"),

@@ -109,7 +109,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              plotOutput(outputId = 'RT'),
                                              textOutput(outputId = 'model'),
                                              
-                                             downloadButton('download_task', 'Download Results')
+                                             downloadButton('download_task', 'Download')
                                          )
                                      )
                             ),
@@ -170,7 +170,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              plotOutput(outputId = 'RT2'),
                                              textOutput(outputId = 'model2'),
                                              
-                                             downloadButton(outputId = 'download_task2', label = 'Download Resultaten')
+                                             downloadButton(outputId = 'download_task2', label = 'Downloaden')
                                          )
                                      )
                                      
@@ -231,7 +231,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              plotOutput(outputId = 'RT3'),
                                              textOutput(outputId = 'model3'),
                                              
-                                             downloadButton(outputId = 'download_task3', label = 'Download Results')
+                                             downloadButton(outputId = 'download_task3', label = 'Download')
                                          )
                                      )
                                      
@@ -292,7 +292,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              plotOutput(outputId = 'RT4'),
                                              textOutput(outputId = 'model4'),
                                              
-                                             downloadButton(outputId = 'download_task4', label = 'Download Resultaten')
+                                             downloadButton(outputId = 'download_task4', label = 'Downloaden')
                                          )
                                      )
                                      
@@ -377,7 +377,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                   ),
                                   plotOutput(outputId = 'RTplot'),
                                   
-                                  downloadButton('download_analysis', 'Download output')
+                                  downloadButton('download_analysis', 'Download')
                                   
                               )
                           )),
@@ -540,7 +540,7 @@ server <- function(input, output) {
             xlim(c(0,200)) +
             ylim(c(0,5)) +
             ggtitle("Reaction time") +
-            xlab("Time (s)") +
+            xlab("") +
             ylab("Time spent on word (s)") +
             theme(axis.line = element_line(colour = "black"),
                   panel.grid.major = element_blank(),
@@ -584,7 +584,7 @@ server <- function(input, output) {
             xlim(c(0,200)) +
             ylim(c(0,5)) +
             ggtitle("Reactietijd") +
-            xlab("Tijd (s)") +
+            xlab("") +
             ylab("Tijd bezig met woord (s)") +
             theme(axis.line = element_line(colour = "black"),
                   panel.grid.major = element_blank(),
@@ -628,7 +628,7 @@ server <- function(input, output) {
             xlim(c(0,200)) +
             ylim(c(0,5)) +
             ggtitle("Reaction time") +
-            xlab("Time (s)") +
+            xlab("") +
             ylab("Time spent on word (s)") +
             theme(axis.line = element_line(colour = "black"),
                   panel.grid.major = element_blank(),
@@ -672,7 +672,7 @@ server <- function(input, output) {
             xlim(c(0,200)) +
             ylim(c(0,5)) +
             ggtitle("Reactietijd") +
-            xlab("Tijd (s)") +
+            xlab("") +
             ylab("Tijd bezig met woord (s)") +
             theme(axis.line = element_line(colour = "black"),
                   panel.grid.major = element_blank(),
@@ -938,6 +938,9 @@ server <- function(input, output) {
         {
             pdf(file,paper = "a4")
             
+            plot(0:10, type = "n", xaxt="n", yaxt="n", bty="n", xlab = "", ylab = "")
+            text(x = 5,y = 10, labels = "PDF download: The Optimal Foraging App",cex = 1.5)
+            
             if(!is.null(tab)){
                 grid.table(tab)
             }
@@ -973,6 +976,7 @@ server <- function(input, output) {
                           panel.grid.minor = element_blank(),
                           panel.border = element_blank(),
                           panel.background = element_blank())
+                
 
             ) # end grid arrange
             
@@ -1184,6 +1188,9 @@ server <- function(input, output) {
         content = function(file) 
         {
             pdf(file,paper = "a4")
+            
+            plot(0:10, type = "n", xaxt="n", yaxt="n", bty="n", xlab = "", ylab = "")
+            text(x = 5,y = 10, labels = "PDF download: The Optimal Foraging App",cex = 1.5)
             
             if(!is.null(tab2)){
                 grid.table(tab2)
