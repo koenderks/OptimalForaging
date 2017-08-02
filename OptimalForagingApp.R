@@ -546,7 +546,10 @@ server <- function(input, output) {
                   panel.grid.major = element_blank(),
                   panel.grid.minor = element_blank(),
                   panel.border = element_blank(),
-                  panel.background = element_blank())
+                  panel.background = element_blank(),
+                  axis.title.x=element_blank(),
+                  axis.text.x=element_blank(),
+                  axis.ticks.x=element_blank())
     })
     
     ## Create empty plots Tab 1 option 2 ######################################################
@@ -590,7 +593,10 @@ server <- function(input, output) {
                   panel.grid.major = element_blank(),
                   panel.grid.minor = element_blank(),
                   panel.border = element_blank(),
-                  panel.background = element_blank())
+                  panel.background = element_blank(),
+                  axis.title.x=element_blank(),
+                  axis.text.x=element_blank(),
+                  axis.ticks.x=element_blank())
     })
     
     ## Create empty plots tab 1 option 3 ################################################################
@@ -634,7 +640,10 @@ server <- function(input, output) {
                   panel.grid.major = element_blank(),
                   panel.grid.minor = element_blank(),
                   panel.border = element_blank(),
-                  panel.background = element_blank())
+                  panel.background = element_blank(),
+                  axis.title.x=element_blank(),
+                  axis.text.x=element_blank(),
+                  axis.ticks.x=element_blank())
     })
     
     ## Create empty plots tab 1 option 4 ################################################################
@@ -678,7 +687,10 @@ server <- function(input, output) {
                   panel.grid.major = element_blank(),
                   panel.grid.minor = element_blank(),
                   panel.border = element_blank(),
-                  panel.background = element_blank())
+                  panel.background = element_blank(),
+                  axis.title.x=element_blank(),
+                  axis.text.x=element_blank(),
+                  axis.ticks.x=element_blank())
     })
     
     ## Create empty plots Tab 2 ################################################################
@@ -975,7 +987,10 @@ server <- function(input, output) {
                           panel.grid.major = element_blank(),
                           panel.grid.minor = element_blank(),
                           panel.border = element_blank(),
-                          panel.background = element_blank())
+                          panel.background = element_blank(),
+                          axis.title.x=element_blank(),
+                          axis.text.x=element_blank(),
+                          axis.ticks.x=element_blank())
                 
 
             ) # end grid arrange
@@ -1226,7 +1241,10 @@ server <- function(input, output) {
                           panel.grid.major = element_blank(),
                           panel.grid.minor = element_blank(),
                           panel.border = element_blank(),
-                          panel.background = element_blank())
+                          panel.background = element_blank(),
+                          axis.title.x=element_blank(),
+                          axis.text.x=element_blank(),
+                          axis.ticks.x=element_blank())
                 
             ) # end grid arrange
             

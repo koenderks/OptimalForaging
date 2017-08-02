@@ -145,7 +145,10 @@
               panel.grid.major = element_blank(),
               panel.grid.minor = element_blank(),
               panel.border = element_blank(),
-              panel.background = element_blank())
+              panel.background = element_blank(),
+              axis.title.x=element_blank(),
+              axis.text.x=element_blank(),
+              axis.ticks.x=element_blank())
     
 }
 
@@ -161,7 +164,10 @@
               panel.grid.major = element_blank(),
               panel.grid.minor = element_blank(),
               panel.border = element_blank(),
-              panel.background = element_blank())
+              panel.background = element_blank(),
+              axis.title.x=element_blank(),
+              axis.text.x=element_blank(),
+              axis.ticks.x=element_blank())
     
 }
 
