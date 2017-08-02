@@ -36,24 +36,94 @@ if(!"gridExtra" %in% installed.packages())
 }
 library(gridExtra)
 
+if(!"shinyLP" %in% installed.packages()) 
+{ 
+    install.packages("shinyLP") 
+}
+library(shinyLP)
+
 if(!"markdown" %in% installed.packages()) 
 { 
     install.packages("markdown") 
 }
 library(markdown)
 
+if(!"shinyBS" %in% installed.packages()) 
+{ 
+    install.packages("shinyBS") 
+}
+library(shinyBS)
+
+if(!"shinydashboard" %in% installed.packages()) 
+{ 
+    install.packages("shinydashboard") 
+}
+library(shinydashboard)
+
 knitr::knit("manual.Rmd")
 
 # Define UI ---------------------------------------------------------------
 
-ui <- navbarPage(title = "The Optimal Foraging app",
+ui <- navbarPage(id = "navbar", title = "The Optimal Foraging app",
                  theme = shinytheme("united"),
+                 
+                 tabPanel(id = "home", title = "Home", icon = icon("home"),
+                          
+                          tags$head(tags$style(
+                              HTML('
+                                   #toTask {
+                                    background-color: #FF5722
+                                   }
+                                   
+                                   #toTheory {
+                                    background-color: #FF5722
+                                   }
+                                   
+                                   #toAnalysis {
+                                    background-color: #FF5722
+                                   }
+                                   
+                                   #toManual {
+                                    background-color: #FF5722
+                                   }
+                                   '))),
+                          
+                          jumbotron(header = "The Optimal Foraging app", content = "A Shiny app to gain more insight in Optimal Foraging processes.", button = TRUE, buttonLabel = "Learn more!"),
+                          
+                          bsModal("modal", "Optimal Foraging Theory", "tabBut", size = "large" ,
+                                  iframe(width = "560", height = "315", url_link = "https://www.youtube.com/watch?v=5xXRQoq-MqA")
+                          ),
+                          
+                          fluidRow(
+                              column(6, panel_div(class_type = "primary", panel_title = "Task", content = "Test whether you have what it takes to apply an Optimal Foraging strategy in your thinking.")),
+                              column(6, panel_div(class_type = "primary",panel_title = "Analysis", content = "Analyse your own dataset."))
+                              ),
+                          
+                          fluidRow(
+                              column(6,actionButton(inputId = "toTask",label = "Start the task")),
+                              column(6, actionButton(inputId = "toAnalysis",label = "Do the analysis"))
+                          ),
+                          
+                          br(),
+                          br(),
+                          
+                          fluidRow(
+                              column(6, panel_div(class_type = "primary", panel_title = "Theory", content = "Learn more about Optimal Foraging theory and its applications in Psychology.")),
+                              column(6, panel_div(class_type = "primary",panel_title = "Manual", content = "How to use and interpret the app."))
+                              ),
+                          
+                          fluidRow(
+                              column(6,actionButton(inputId = "toTheory",label = "Read up")),
+                              column(6, actionButton(inputId = "toManual",label = "Instructions"))
+                          )
+                 ),
+                 
                  
                  ## Tab 1 UI ################################################################
                  
-                 navbarMenu(title = "Task",
+                 navbarMenu(title = "Task", icon = icon("pencil"),
                             
-                            tabPanel(title = "Verbal Fluency Task (EN)",
+                            tabPanel(value = "task1", title = "Verbal Fluency Task (EN)",
                                      
                                      tags$head(tags$style(
                                          HTML('
@@ -302,7 +372,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                  
                  # Tab 2 UI ################################################################
                  
-                 tabPanel("Analysis",
+                 tabPanel(value = "analysis", title = "Analysis", icon = icon("bar-chart"),
                           
                           tags$head(tags$style(
                               HTML('
@@ -331,7 +401,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                    }')
                           )),
                           
-                          headerPanel("The file upload"),
+                          headerPanel("Analysis"),
                           sidebarLayout(
                               sidebarPanel(id = "sidebar",
                                            useShinyjs(),
@@ -384,11 +454,11 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                  
                  # Tab 3 UI ################################################################
                  
-                 tabPanel(title = "Theory", 
+                 tabPanel(value = "theory", title = "Theory", icon = icon("graduation-cap"),
                           
-                          headerPanel("The theory"),
+                          headerPanel("Optimal Foraging Theory"),
                           br(),
-                          h3("The relation with the animal kingdom"),
+                          h3("Relation with the animal kingdom"),
                           # paragraph
                           p("Animals often search for resources that occur in spatial patches,
                             such as the berries on separate bushes or nuts beneath a cluster of
@@ -454,7 +524,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                  ),
                  
                  # Tab 4 UI ######################################################################
-                 tabPanel(title = "Manual",
+                 tabPanel(value = "manual", title = "Manual", icon = icon("book"),
                           mainPanel(
                               includeMarkdown("manual.md")
                           )
@@ -465,7 +535,23 @@ ui <- navbarPage(title = "The Optimal Foraging app",
 
 # Server ------------------------------------------------------------------
 
-server <- function(input, output) {
+server <- function(input, output, session) {
+    
+    observeEvent(eventExpr = input$toTask,{
+        updateTabsetPanel(session, inputId = "navbar",selected = "task1")
+    })
+    
+    observeEvent(eventExpr = input$toAnalysis,{
+        updateTabsetPanel(session, inputId = "navbar",selected = "analysis")
+    })
+    
+    observeEvent(eventExpr = input$toTheory,{
+        updateTabsetPanel(session, inputId = "navbar",selected = "theory")
+    })
+    
+    observeEvent(eventExpr = input$toManual,{
+        updateTabsetPanel(session, inputId = "navbar",selected = "manual")
+    })
     
     ## Load Functions ################################################################
     
@@ -1269,6 +1355,9 @@ server <- function(input, output) {
     
     observe({
         
+        file <- input$file
+        
+        if(!is.null(file)){
         # create the progress bar
         progress <- shiny::Progress$new()
         
@@ -1277,8 +1366,7 @@ server <- function(input, output) {
         progress$set(message = "Running analysis", value = 0)
         
         progress$inc(0.10, detail = 'Uploading data')
-        
-        file <- input$file
+        }
         
         # read data in various ways
         if(is.null(file)){
