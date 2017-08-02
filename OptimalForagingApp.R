@@ -72,26 +72,26 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging app",
                           tags$head(tags$style(
                               HTML('
                                    #toTask {
-                                    background-color: #FF5722
+                                    background-color: #808080
                                    }
                                    
                                    #toTheory {
-                                    background-color: #FF5722
+                                    background-color: #808080
                                    }
                                    
                                    #toAnalysis {
-                                    background-color: #FF5722
+                                    background-color: #808080
                                    }
                                    
                                    #toManual {
-                                    background-color: #FF5722
+                                    background-color: #808080
                                    }
                                    '))),
                           
                           jumbotron(header = "The Optimal Foraging app", content = "A Shiny app to gain more insight in Optimal Foraging processes.", button = TRUE, buttonLabel = "Learn more!"),
                           
                           bsModal("modal", "Optimal Foraging Theory", "tabBut", size = "large" ,
-                                  iframe(width = "560", height = "315", url_link = "https://www.youtube.com/watch?v=5xXRQoq-MqA")
+                                  iframe(width = "560", height = "315", url_link = "https://www.youtube.com/embed/5xXRQoq-MqA")
                           ),
                           
                           fluidRow(
