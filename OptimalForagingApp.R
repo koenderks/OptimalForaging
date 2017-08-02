@@ -104,7 +104,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              titlePanel("Results"),
                                              h3(textOutput(outputId = "participant_result")),
                                              fluidRow(
-                                                 splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses'),plotOutput("simitem"), plotOutput("similarity"))
+                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses'),plotOutput("simitem"), plotOutput("similarity"))
                                              ),
                                              plotOutput(outputId = 'RT'),
                                              textOutput(outputId = 'model'),
@@ -165,7 +165,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              titlePanel("Resultaten"),
                                              h3(textOutput(outputId = "participant_result2")),
                                              fluidRow(
-                                                 splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses2'),plotOutput("simitem2"), plotOutput("similarity2"))
+                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses2'),plotOutput("simitem2"), plotOutput("similarity2"))
                                              ),
                                              plotOutput(outputId = 'RT2'),
                                              textOutput(outputId = 'model2'),
@@ -226,7 +226,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              titlePanel("Results"),
                                              h3(textOutput(outputId = "participant_result3")),
                                              fluidRow(
-                                                 splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses3'),plotOutput("simitem3"), plotOutput("similarity3"))
+                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses3'),plotOutput("simitem3"), plotOutput("similarity3"))
                                              ),
                                              plotOutput(outputId = 'RT3'),
                                              textOutput(outputId = 'model3'),
@@ -287,7 +287,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                              titlePanel("Resultaten"),
                                              h3(textOutput(outputId = "participant_result4")),
                                              fluidRow(
-                                                 splitLayout(cellWidths = c("15%","45%", "55%"), tableOutput(outputId = 'responses4'),plotOutput("simitem4"), plotOutput("similarity4"))
+                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses4'),plotOutput("simitem4"), plotOutput("similarity4"))
                                              ),
                                              plotOutput(outputId = 'RT4'),
                                              textOutput(outputId = 'model4'),
@@ -803,7 +803,7 @@ server <- function(input, output) {
                 categories <<- validinput[["categories"]]
                 
                 # keep track of time
-                RT <- as.numeric(round(difftime(Sys.time(),current, units='secs')))
+                RT <- as.numeric(round(difftime(Sys.time(),current, units='secs'),digits = 2))
                 current <<- Sys.time()
                 
                 # update response table
@@ -872,7 +872,7 @@ server <- function(input, output) {
                 
                 }
             } 
-            
+
             output$responses <- renderTable(responses_output)
             
             tab <<- responses_output # and keep this
@@ -1054,7 +1054,7 @@ server <- function(input, output) {
                 categories <<- validinput[["categories"]]
                 
                 # keep track of time
-                RT <- as.numeric(round(difftime(Sys.time(),current, units='secs')))
+                RT <- as.numeric(round(difftime(Sys.time(),current, units='secs'),digits = 2))
                 current <<- Sys.time()
                 
                 # update response table
