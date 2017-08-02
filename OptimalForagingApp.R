@@ -315,7 +315,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                    }
 
                                    #link {
-                                   color: #0066ff
+                                   color: #FF5722
                                    }
 
                                     #error {
@@ -363,7 +363,7 @@ ui <- navbarPage(title = "The Optimal Foraging app",
                                            h4(a(id = "link","Example dataset", href = "https://www.dropbox.com/s/37is6uf3jrhx2g0/testdata.csv?dl=0"))
                               ),
                               mainPanel(
-                                  titlePanel("The results"),
+                                  titlePanel("Results"),
                                   
                                   br(),
                                   textOutput(outputId = "error"),
@@ -776,7 +776,7 @@ server <- function(input, output) {
         
         index_vector <- rep(0,25)
         
-        color_vector <- rep("black",20)
+        color_vector <- rep("white",20)
         
         # observe the submit button
         observeEvent(input$submit, {
@@ -807,7 +807,7 @@ server <- function(input, output) {
                 current <<- Sys.time()
                 
                 # update response table
-                tmp_response <- data.frame(word = word, RT = RT)
+                tmp_response <- data.frame(Word = word, RT = RT)
                 responses_output <<- rbind(responses_output,tmp_response)
                 
                 # did participant switch between patches?
@@ -910,12 +910,12 @@ server <- function(input, output) {
         
         output$participant_result <- renderText({
             invalidateLater(10000)
-            proportion <- (length(which(color_vector=="indianred2"))-1)/length(which(color_vector != "black"))
+            proportion <- (length(which(color_vector=="indianred2"))-1)/length(which(color_vector != "white"))
             if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) < 0){
                 if(proportion <= 0.33){
-                    paste("You switched patches", length(which(color_vector=="indianred2"))-1, "out of", length(which(color_vector != "black")), "times and displayed an optimal foraging technique.")
+                    paste("You switched patches", length(which(color_vector=="indianred2"))-1, "out of", length(which(color_vector != "white")), "times and displayed an optimal foraging technique.")
                 } else {
-                    paste("You switched patches", length(which(color_vector=="indianred2"))-1, "out of", length(which(color_vector != "black")), "times and did not display an optimal foraging technique.")
+                    paste("You switched patches", length(which(color_vector=="indianred2"))-1, "out of", length(which(color_vector != "white")), "times and did not display an optimal foraging technique.")
                 }
             }
         })
@@ -968,7 +968,7 @@ server <- function(input, output) {
                     aes(seq_along(time_plot),time_plot)) +
                     ggtitle("Reaction time") +
                     geom_line(size = 1, col = "black", linetype = 1) +
-                    xlab("Time (s)") +
+                    xlab("") +
                     ylab("Time spent on item (s)") +
                     geom_hline(yintercept = mean(time_plot), col = "red",linetype = 3,size = 1) +
                     theme(axis.line = element_line(colour = "black"),
@@ -1027,7 +1027,7 @@ server <- function(input, output) {
         
         index_vector <- rep(0,25)
         
-        color_vector <- rep("black",20)
+        color_vector <- rep("white",20)
         
         # observe the submit button
         observeEvent(input$submit2, {
@@ -1058,7 +1058,7 @@ server <- function(input, output) {
                 current <<- Sys.time()
                 
                 # update response table
-                tmp_response <- data.frame(word = word, RT = RT)
+                tmp_response <- data.frame(Woord = word, RT = RT)
                 responses_output <<- rbind(responses_output,tmp_response)
                 
                 # did participant switch between patches?
@@ -1161,12 +1161,12 @@ server <- function(input, output) {
         
         output$participant_result2 <- renderText({
             invalidateLater(10000)
-            proportion <- (length(which(color_vector=="indianred2"))-1)/length(which(color_vector != "black"))
+            proportion <- (length(which(color_vector=="indianred2"))-1)/length(which(color_vector != "white"))
             if(as.numeric(round(difftime(stoptime, Sys.time(), units='secs'))) < 0){
                 if(proportion <= 0.33){
-                    paste("Je bent", length(which(color_vector=="indianred2"))-1, "van de", length(which(color_vector != "black")), "keren gewisseld van categorie, niet volgens een Optimal Foraging techniek.",sep = " ")
+                    paste("Je bent", length(which(color_vector=="indianred2"))-1, "van de", length(which(color_vector != "white")), "keren gewisseld van categorie, niet volgens een Optimal Foraging techniek.",sep = " ")
                 } else {
-                    paste("Je bent ", length(which(color_vector=="indianred2"))-1, "van de ", length(which(color_vector != "black")), "keren gewisseld van categorie volgens een Optimal Foraging techniek")
+                    paste("Je bent ", length(which(color_vector=="indianred2"))-1, "van de ", length(which(color_vector != "white")), "keren gewisseld van categorie volgens een Optimal Foraging techniek")
                 }
             }
         })
@@ -1204,9 +1204,9 @@ server <- function(input, output) {
                     data.frame(sim2),
                     aes(seq_along(sim2),sim2)) +
                     geom_bar(stat="identity", fill = "dimgrey") +
-                    ylab("Simlilarity") +
-                    xlab("Item's position preceding most recent item") +
-                    ggtitle("Similarity with previous 5 words") +
+                    ylab("Gelijkenis") +
+                    xlab("Positie van item voorafgaand aan recentste woord") +
+                    ggtitle("Gelijkenis met vorige 5 woorden") +
                     ylim(c(0,0.7)) +
                     theme(axis.line = element_line(colour = "black"),
                           panel.grid.major = element_blank(),
@@ -1217,10 +1217,10 @@ server <- function(input, output) {
                 ggplot(
                     data.frame(time_plot2), 
                     aes(seq_along(time_plot2),time_plot2)) +
-                    ggtitle("Reaction time") +
+                    ggtitle("Reactietijd") +
                     geom_line(size = 1, col = "black", linetype = 1) +
-                    xlab("Time (s)") +
-                    ylab("Time spent on item (s)") +
+                    xlab("") +
+                    ylab("Tijd besteed aan item (s)") +
                     geom_hline(yintercept = mean(time_plot2), col = "red",linetype = 3,size = 1) +
                     theme(axis.line = element_line(colour = "black"),
                           panel.grid.major = element_blank(),
