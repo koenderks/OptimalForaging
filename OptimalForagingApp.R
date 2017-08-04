@@ -90,6 +90,11 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                           
                           jumbotron(header = "Optimal Foraging in Memory", content = "An R Shiny app to gain more insight in Optimal Foraging processes.", button = TRUE, buttonLabel = "Learn more!"),
                           
+                          tags$a(
+                              tags$img(style="position: absolute; top: 72px; right: 20px; border: 0; max-height: 100px;",
+                                       src="logo.png")
+                          ),
+                          
                           bsModal("modal", "Optimal Foraging Theory", "tabBut", size = "large" ,
                                   iframe(width = "560", height = "315", url_link = "https://www.youtube.com/embed/5xXRQoq-MqA")
                           ),
@@ -151,10 +156,6 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                                    font-family: "Arial";
                                    }')
                                      )),
-                                     tags$a(
-                                         tags$img(style="position: absolute; top: 70px; right: 20px; border: 0; max-height: 80px;",
-                                                  src="logo.png")
-                                     ),
                                      
                                      # sidebar
                                      sidebarLayout(
@@ -1064,7 +1065,7 @@ server <- function(input, output, session) {
                 ggplot(
                     data.frame(time_plot), 
                     aes(seq_along(time_plot),time_plot)) +
-                    ggtitle("Reaction time") +
+                    ggtitle("Reaction time", subtitle = "Answers are given at the peaks") +
                     geom_line(size = 1, col = "black", linetype = 1) +
                     xlab("") +
                     ylab("Time spent on item (s)") +
@@ -1318,7 +1319,7 @@ server <- function(input, output, session) {
                 ggplot(
                     data.frame(time_plot2), 
                     aes(seq_along(time_plot2),time_plot2)) +
-                    ggtitle("Reactietijd") +
+                    ggtitle("Reactietijd", subtitle = "Antwoorden zijn gegeven op de pieken") +
                     geom_line(size = 1, col = "black", linetype = 1) +
                     xlab("") +
                     ylab("Tijd besteed aan item (s)") +
