@@ -64,7 +64,7 @@ knitr::knit("manual.Rmd")
 
 # Define UI ---------------------------------------------------------------
 
-ui <- navbarPage(id = "navbar", title = "The Optimal Foraging app",
+ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                  theme = shinytheme("united"),
                  
                  tabPanel(id = "home", title = "Home", icon = icon("home"),
@@ -88,7 +88,7 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging app",
                                    }
                                    '))),
                           
-                          jumbotron(header = "The Optimal Foraging app", content = "A Shiny app to gain more insight in Optimal Foraging processes.", button = TRUE, buttonLabel = "Learn more!"),
+                          jumbotron(header = "Optimal Foraging in Memory", content = "An R Shiny app to gain more insight in Optimal Foraging processes.", button = TRUE, buttonLabel = "Learn more!"),
                           
                           bsModal("modal", "Optimal Foraging Theory", "tabBut", size = "large" ,
                                   iframe(width = "560", height = "315", url_link = "https://www.youtube.com/embed/5xXRQoq-MqA")
@@ -161,13 +161,13 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging app",
                                          sidebarPanel(id="sidebar",
                                                       tags$head(tags$script(src = "enter-button.js")),
                                                       h3("Verbal Fluency Task (EN)"),
-                                                      h4(p("The purpose of this task is to name as much animals as possible within the time limit of 60 seconds.")),
+                                                      h4(p("The purpose of this task is to name as many animals as you can in 60 seconds.")),
                                                       br(),
                                                       actionButton("start", "Start the timer",icon = icon("clock-o")),
                                                       br(),
                                                       h3(textOutput(outputId = "timer")),
                                                       br(),
-                                                      textInput(inputId = "word",label = "Name an animal and press enter (or submit):",placeholder = "Name an animal:"),
+                                                      textInput(inputId = "word",label = "Type in an animal and press enter (or submit):",placeholder = "Type in an animal:"),
                                                       actionButton(inputId = "submit", label = "Submit", icon = icon("check"))
                                          ),
                                          mainPanel(
@@ -222,13 +222,13 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging app",
                                          sidebarPanel(id="sidebar",
                                                       tags$head(tags$script(src = "enter-button2.js")),
                                                       h3("Verbal Fluency Task (NL)"),
-                                                      h4(p("De bedoeling van deze taak is het benoemen van zo veel mogelijk dieren binnen de tijdslimiet van 60 seconden.")),
+                                                      h4(p("Het doel van deze taak is het benoemen van zo veel mogelijk dieren binnen 60 seconden.")),
                                                       br(),
                                                       actionButton("start2", "Start de klok",icon = icon("clock-o")),
                                                       br(),
                                                       h3(textOutput(outputId = "timer2")),
                                                       br(),
-                                                      textInput(inputId = "word2",label = "Noem een dier en druk op enter (of invoeren):",placeholder = "Noem een dier:"),
+                                                      textInput(inputId = "word2",label = "Typ een dier in en druk op enter (of invoeren):",placeholder = "Typ een dier in:"),
                                                       actionButton(inputId = "submit2", label = "Invoeren", icon = icon("check"))
                                          ),
                                          mainPanel(
@@ -283,13 +283,13 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging app",
                                          sidebarPanel(id="sidebar",
                                                       tags$head(tags$script(src = "enter-button3.js")),
                                                       h3("Alternative Uses Task (EN)"),
-                                                      h4(p("The purpose of this task is to name as much applications for a brick as possible within the time limit of 60 seconds")),
+                                                      h4(p("The purpose of this task is to name as many creative uses for a brick as you can within 60 seconds.")),
                                                       br(),
                                                       actionButton("start3", "Start the timer",icon = icon("clock-o")),
                                                       br(),
                                                       h3(textOutput(outputId = "timer3")),
                                                       br(),
-                                                      textInput(inputId = "word3",label = "Name an application and press enter (or submit):",placeholder = "Name an application:"),
+                                                      textInput(inputId = "word3",label = "Type in a creative use and press enter (or submit):",placeholder = "Type in a creative use:"),
                                                       actionButton(inputId = "submit3", label = "Submit", icon = icon("check"))
                                          ),
                                          mainPanel(
@@ -344,13 +344,13 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging app",
                                          sidebarPanel(id="sidebar",
                                                       tags$head(tags$script(src = "enter-button4.js")),
                                                       h3("Alternative Uses Task (NL)"),
-                                                      h4(p("De bedoeling van deze taak is het benoemen van zo veel applicaties voor een baksteen binnen de tijdslimiet van 60 seconden.")),
+                                                      h4(p("Het doel van deze taak is het benoemen van zo veel mogelijk creatieve toepassingen voor een baksteen binnen 60 seconden.")),
                                                       br(),
                                                       actionButton("start4", "Start de klok",icon = icon("clock-o")),
                                                       br(),
                                                       h3(textOutput(outputId = "timer4")),
                                                       br(),
-                                                      textInput(inputId = "word4",label = "Noem een applicatie en druk op enter (of invoeren):",placeholder = "Noem een applicatie:"),
+                                                      textInput(inputId = "word4",label = "Typ een toepassing in en druk op enter (of invoeren):",placeholder = "Typ een toepassing in:"),
                                                       actionButton(inputId = "submit4", label = "Submit", icon = icon("check"))
                                          ),
                                          mainPanel(
@@ -505,7 +505,7 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging app",
                             leave a patch at time t*, when the instantaneous rate (or marginal
                             value) of resource gain, g(t*), is equal to the long-term average
                             resource intake over the entire environment (patches and time
-                            between), R*. In other words, the organism will switch to betweenpatch
+                            between), R*. In other words, the organism will switch to between patch
                             search when the within-patch rate (which usually starts high
                             in a new, undepleted patch) drops to R*. The foundational assumption of the
                             model is that recall is achieved by probing retrieval structures in
@@ -625,7 +625,7 @@ server <- function(input, output, session) {
         ggplot(df) +
             xlim(c(0,200)) +
             ylim(c(0,5)) +
-            ggtitle("Reaction time") +
+            ggtitle("Reaction time",subtitle = "Answers are given at the peaks") +
             xlab("") +
             ylab("Time spent on word (s)") +
             theme(axis.line = element_line(colour = "black"),
@@ -672,7 +672,7 @@ server <- function(input, output, session) {
         ggplot(df) +
             xlim(c(0,200)) +
             ylim(c(0,5)) +
-            ggtitle("Reactietijd") +
+            ggtitle("Reactietijd", subtitle = "Antwoorden zijn gegeven op de pieken") +
             xlab("") +
             ylab("Tijd bezig met woord (s)") +
             theme(axis.line = element_line(colour = "black"),
@@ -719,7 +719,7 @@ server <- function(input, output, session) {
         ggplot(df) +
             xlim(c(0,200)) +
             ylim(c(0,5)) +
-            ggtitle("Reaction time") +
+            ggtitle("Reaction time",subtitle = "Answers are given at the peaks") +
             xlab("") +
             ylab("Time spent on word (s)") +
             theme(axis.line = element_line(colour = "black"),
@@ -766,7 +766,7 @@ server <- function(input, output, session) {
         ggplot(df) +
             xlim(c(0,200)) +
             ylim(c(0,5)) +
-            ggtitle("Reactietijd") +
+            ggtitle("Reactietijd", subtitle = "Antwoorden zijn gegeven op de pieken") +
             xlab("") +
             ylab("Tijd bezig met woord (s)") +
             theme(axis.line = element_line(colour = "black"),

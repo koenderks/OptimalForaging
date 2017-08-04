@@ -136,7 +136,7 @@
 .RTplot2 <- function(time){
     
     ggplot(data.frame(time), aes(seq_along(time),time)) +
-        ggtitle("Reaction time") + 
+        ggtitle("Reaction time",subtitle = "Answers are given at the peaks") + 
         geom_line(size = 1.5, col = "black", linetype = 1) +
         xlab("") +
         ylab("Time spent on item (s)") +
@@ -155,7 +155,7 @@
 .RTplot2NL <- function(time){
     
     ggplot(data.frame(time), aes(seq_along(time),time)) +
-        ggtitle("Reactietijd") + 
+        ggtitle("Reactietijd",subtitle = "Antwoorden zijn gegeven op de pieken") + 
         geom_line(size = 1.5, col = "black", linetype = 1) +
         xlab("") +
         ylab("Tijd besteed aan item (s)") +
