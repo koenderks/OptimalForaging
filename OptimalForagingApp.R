@@ -60,6 +60,12 @@ if(!"shinydashboard" %in% installed.packages())
 }
 library(shinydashboard)
 
+if(!"shinycssloaders" %in% installed.packages()) 
+{ 
+    install.packages("shinycssloaders") 
+}
+library(shinycssloaders)
+
 knitr::knit("manual.Rmd")
 
 # Define UI ---------------------------------------------------------------
@@ -175,9 +181,9 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                                              titlePanel("Results"),
                                              h3(textOutput(outputId = "participant_result")),
                                              fluidRow(
-                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses'),plotOutput("simitem"), plotOutput("similarity"))
+                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses'),withSpinner(plotOutput("simitem"),color = "#FF5722"), withSpinner(plotOutput("similarity"),color = "#FF5722"))
                                              ),
-                                             plotOutput(outputId = 'RT'),
+                                             withSpinner(plotOutput(outputId = 'RT'),color = "#FF5722"),
                                              textOutput(outputId = 'model'),
                                              
                                              downloadButton('download_task', 'Download')
@@ -213,10 +219,6 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                                               font-family: "Arial";
                                               }')
                                      )),
-                                     tags$a(
-                                         tags$img(style="position: absolute; top: 70px; right: 20px; border: 0; max-height: 80px;",
-                                                  src="logo.png")
-                                     ),
                                      
                                      # sidebar
                                      sidebarLayout(
@@ -236,9 +238,9 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                                              titlePanel("Resultaten"),
                                              h3(textOutput(outputId = "participant_result2")),
                                              fluidRow(
-                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses2'),plotOutput("simitem2"), plotOutput("similarity2"))
+                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses2'),withSpinner(plotOutput("simitem2"),color = "#FF5722"), withSpinner(plotOutput("similarity2"),color = "#FF5722"))
                                              ),
-                                             plotOutput(outputId = 'RT2'),
+                                             withSpinner(plotOutput(outputId = 'RT2'),color = "#FF5722"),
                                              textOutput(outputId = 'model2'),
                                              
                                              downloadButton(outputId = 'download_task2', label = 'Downloaden')
@@ -274,10 +276,6 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                                               font-family: "Arial";
                                               }')
                                      )),
-                                     tags$a(
-                                         tags$img(style="position: absolute; top: 70px; right: 20px; border: 0; max-height: 80px;",
-                                                  src="logo.png")
-                                     ),
                                      
                                      # sidebar
                                      sidebarLayout(
@@ -297,9 +295,9 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                                              titlePanel("Results"),
                                              h3(textOutput(outputId = "participant_result3")),
                                              fluidRow(
-                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses3'),plotOutput("simitem3"), plotOutput("similarity3"))
+                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses3'),withSpinner(plotOutput("simitem3"),color = "#FF5722"), withSpinner(plotOutput("similarity3"),color = "#FF5722"))
                                              ),
-                                             plotOutput(outputId = 'RT3'),
+                                             withSpinner(plotOutput(outputId = 'RT3'),color = "#FF5722"),
                                              textOutput(outputId = 'model3'),
                                              
                                              downloadButton(outputId = 'download_task3', label = 'Download')
@@ -335,10 +333,6 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                                               font-family: "Arial";
                                               }')
                                      )),
-                                     tags$a(
-                                         tags$img(style="position: absolute; top: 70px; right: 20px; border: 0; max-height: 80px;",
-                                                  src="logo.png")
-                                     ),
                                      
                                      # sidebar
                                      sidebarLayout(
@@ -358,9 +352,9 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                                              titlePanel("Resultaten"),
                                              h3(textOutput(outputId = "participant_result4")),
                                              fluidRow(
-                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses4'),plotOutput("simitem4"), plotOutput("similarity4"))
+                                                 splitLayout(cellWidths = c("18%","42%", "40%"), tableOutput(outputId = 'responses4'),withSpinner(plotOutput("simitem4"),color = "#FF5722"), withSpinner(plotOutput("similarity4"),color = "#FF5722"))
                                              ),
-                                             plotOutput(outputId = 'RT4'),
+                                             withSpinner(plotOutput(outputId = 'RT4'),color = "#FF5722"),
                                              textOutput(outputId = 'model4'),
                                              
                                              downloadButton(outputId = 'download_task4', label = 'Downloaden')
@@ -444,9 +438,9 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                                   br(),
                                   
                                   fluidRow(                                
-                                      splitLayout(cellWidths = c("50%", "50%"), plotOutput("itemplot"), plotOutput("simplot"))
+                                      splitLayout(cellWidths = c("50%", "50%"), withSpinner(plotOutput("itemplot"),color = "#FF5722"), withSpinner(plotOutput("simplot"),color = "#FF5722"))
                                   ),
-                                  plotOutput(outputId = 'RTplot'),
+                                  withSpinner(plotOutput(outputId = 'RTplot'),color = "#FF5722"),
                                   
                                   downloadButton('download_analysis', 'Download')
                                   
