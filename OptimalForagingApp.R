@@ -474,7 +474,7 @@ ui <- navbarPage(id = "navbar", title = "The Optimal Foraging in Memory app",
                             that the overall rate of return is optimized if the forager leaves a patch
                             when the rate of finding new targets within the patch falls below the
                             long-term average rate achieved by following the optimal strategy."),
-                          img(src = "bee.jpg", height = 300, width = 300,style="display: block; margin-left: auto; margin-right: auto;"),
+                          img(src = "bee.JPG", height = 300, width = 300,style="display: block; margin-left: auto; margin-right: auto;"),
                           h3("The math"),
                           p("In the animal foraging literature, dynamic responses to the
                     environment are often assessed with respect to an optimal model
@@ -1452,7 +1452,7 @@ server <- function(input, output, session) {
         see <- sdd / sqrt(141)
         
         progress$inc(0.10, detail = 'Producing plot')
-        
+        print(ms)
         output$itemplot <- renderPlot({
             ggplot(
                 data.frame(ms[5:1]), 
@@ -1461,7 +1461,7 @@ server <- function(input, output, session) {
                 ylab("Similarity") +
                 xlab("Item's position preceding most recent item") +
                 ggtitle("Mean similarity with previous word") +
-                ylim(c(0,0.5)) + 
+                coord_cartesian(ylim=c(min(ms[5:1]-see[5:1])-0.01,max(ms[5:1]+see[5:1])+0.01)) +
                 geom_errorbar(aes(ymin = ms[5:1]-see[5:1], ymax = ms[5:1]+see[5:1],width = .3)) +
                 theme(axis.line = element_line(colour = "black"),
                       panel.grid.major = element_blank(),
@@ -1476,7 +1476,7 @@ server <- function(input, output, session) {
             ylab("Similarity") +
             xlab("Item's position preceding most recent item") +
             ggtitle("Mean similarity with previous word") +
-            ylim(c(0,0.5)) + 
+            coord_cartesian(ylim=c(min(ms[5:1]-see[5:1])-0.01,max(ms[5:1]+see[5:1])+0.01)) + 
             geom_errorbar(aes(ymin = ms[5:1]-see[5:1], ymax = ms[5:1]+see[5:1],width = .3)) +
             theme(axis.line = element_line(colour = "black"),
                   panel.grid.major = element_blank(),
@@ -1490,6 +1490,9 @@ server <- function(input, output, session) {
         rowsim <- rep(0, nrow(db))
         lastid <- 0
         for(i in 1:nrow(db)){
+            
+            progress$inc(0, detail = paste('Computing proximity part 1/2  (', round(i/nrow(db)*100,digits = 0), "%)", sep = ""))
+            
             if (lastid != toString(db$sid[i])){
                 lastid <- db$sid[i]
                 subcos <- ancos
@@ -1510,6 +1513,9 @@ server <- function(input, output, session) {
         hits <- matrix(999, nrow(db), ncol = 8)
         
         for( i in 1:(nrow(db))){
+            
+            progress$inc(0, detail = paste('Computing proximity part 2/2  (', round(i/nrow(db)*100,digits = 0), "%)", sep = ""))
+            
             if(db$fpatchnum[i] > 0){
                 if (db$fpatchitem[i] < 5) hits[i,4+db$fpatchitem[i]] <- db$rowsim[i]
                 if (db$fitemsfromend[i] < 5 && db$fpatchitem[i] != 1) hits[i,5-db$fitemsfromend[i]] <- db$rowsim[i]
@@ -1550,7 +1556,8 @@ server <- function(input, output, session) {
                 aes(seq_along(msss[c(3,4,5,6,7)]),msss[c(3,4,5,6,7)])) +
                 geom_bar(stat = "identity", fill = "turquoise3") +
                 xlab("Order of entry relative to patch switch") +
-                ylab("Residual Proximity") +
+                ylab("Residual Proximity") + 
+                coord_cartesian(ylim=c(min(msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)])-0.01,max(msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)])+0.01)) +
                 ggtitle("Mean residual proximity for words") +
                 geom_errorbar(ymin = msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)], ymax = msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)],width = .3) +
                 theme(axis.line = element_line(colour = "black"),
@@ -1565,6 +1572,7 @@ server <- function(input, output, session) {
             geom_bar(stat = "identity", fill = "turquoise3") +
             xlab("Order of entry relative to patch switch") +
             ylab("Residual Proximity") +
+            coord_cartesian(ylim=c(min(msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)])-0.01,max(msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)])+0.01)) +
             ggtitle("Mean residual proximity for words") +
             geom_errorbar(ymin = msss[c(3,4,5,6,7)]-msse[c(3,4,5,6,7)], ymax = msss[c(3,4,5,6,7)]+msse[c(3,4,5,6,7)],width = .3) +
             theme(axis.line = element_line(colour = "black"),
